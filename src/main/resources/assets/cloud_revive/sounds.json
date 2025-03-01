@@ -1,0 +1,8 @@
+{
+  "ghost_ambient": {
+    "subtitle": "sound.cloud_revive.ghost_ambient",
+    "sounds": [
+      "cloud_revive:ghost_ambient"
+    ]
+  }
+}

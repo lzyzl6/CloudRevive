@@ -1,0 +1,34 @@
+{
+  "modmenu.nameTranslation.cloud_revive" : "Cloud Revive",
+  "modmenu.descriptionTranslation.cloud_revive" : "Adds various death claim mechanisms based on the traditional \"Chi\" concept.",
+
+  "item.cloud_revive.cage" : "Aether Snare Vessel",
+  "item.cloud_revive.pearl" : "Ab initio Pearl",
+  "item.cloud_revive.core_qi" : "Origin Chi of the Beginning",
+  "item.cloud_revive.sky_qi" : "Yang Chi of the Lofty Heaven",
+  "item.cloud_revive.ground_qi" : "Yin Chi of the Abyss",
+  "item.cloud_revive.people_qi" : "Harmony Chi of the Living",
+  "item.cloud_revive.dead_qi" : "Soul Chi of the Dead",
+  "item.cloud_revive.qi_fruit" : "Meta-Fruit",
+
+  "block.cloud_revive.core_qi_block" : "Origin Chi Block",
+  "block.cloud_revive.core_qi_block_core" : "Origin Chi Core",
+
+  "tab.cloud_revive.main_tab" : "Cloud Revive",
+  
+  "entity.cloud_revive.ghost" : "Wandering Spirit",
+
+  "sound.cloud_revive.ghost_ambient" : "Wandering Spirit strays",
+
+  "chat.cloud_revive.genitive_case" : " 's ",
+  "chat.cloud_revive.cage.sky_qi_captured" : "§bCaptured Yang Chi of the Lofty Heaven!",
+  "chat.cloud_revive.cage.ground_qi_captured" : "§6Captured Yin Chi of the Abyss!",
+  "chat.cloud_revive.cage.people_qi_captured" : "§4Captured Harmony Chi of the Living!",
+  "chat.cloud_revive.cage.wandering_spirit_captured" : "§7Captured Soul Chi of the Dead!",
+  "chat.cloud_revive.cage.too_weak" : "§lToo weak now...How about a rest?",
+  "chat.cloud_revive.ghost_summoned" : "§l§oA wandering spirit from your last life that carries your items spawns at the following coordinates: ",
+  "chat.cloud_revive.ghost_summoned_dimension" : "§l§oRegistered name of the dimension：",
+  "chat.cloud_revive.soul_back" : "§oRightful Return! :)",
+  "chat.cloud_revive.cage.wandering_spirit_others" : "§eThis wandering spirit denies you!",
+  "chat.goal.move_to_player.start" : "§l§oYour past-life wandering spirit is sensing you nearby!\nApproaching now..."
+}

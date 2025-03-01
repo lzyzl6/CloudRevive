@@ -1,0 +1,34 @@
+{
+  "modmenu.nameTranslation.cloud_revive" : "云生",
+  "modmenu.descriptionTranslation.cloud_revive" : "人死三气散，凝云归轻都。",
+
+  "item.cloud_revive.cage" : "游元擒气笼",
+  "item.cloud_revive.pearl" : "一始宝珠",
+  "item.cloud_revive.core_qi" : "『一始元气』",
+  "item.cloud_revive.sky_qi" : "『高天阳气』",
+  "item.cloud_revive.ground_qi" : "『玄地阴气』",
+  "item.cloud_revive.people_qi" : "『生人和气』",
+  "item.cloud_revive.dead_qi" : "『亡人魂气』",
+  "item.cloud_revive.qi_fruit" : "元气果",
+
+  "block.cloud_revive.core_qi_block" : "元气块",
+  "block.cloud_revive.core_qi_block_core" : "元气核",
+
+  "tab.cloud_revive.main_tab" : "云生",
+
+  "entity.cloud_revive.ghost" : "游魂",
+
+  "sound.cloud_revive.ghost_ambient" : "游魂 : 迷茫",
+
+  "chat.cloud_revive.genitive_case" : "的",
+  "chat.cloud_revive.cage.sky_qi_captured" : "§b捉到一丝天气！",
+  "chat.cloud_revive.cage.ground_qi_captured" : "§6捉到一缕地气！",
+  "chat.cloud_revive.cage.people_qi_captured" : "§4抽出一股人气！",
+  "chat.cloud_revive.cage.wandering_spirit_captured" : "§c捉到一股魂气！",
+  "chat.cloud_revive.cage.too_weak" : "§l太虚弱了...要不歇会？",
+  "chat.cloud_revive.ghost_summoned" : "§l§o一个承载你物品的往世游魂在以下坐标生成：",
+  "chat.cloud_revive.ghost_summoned_dimension" : "§l§o所在维度注册名：",
+  "chat.cloud_revive.soul_back" : "§o物归原主！ :)",
+  "chat.cloud_revive.cage.wandering_spirit_others" : "§e这个游魂不认你!",
+  "chat.goal.move_to_player.start" : "§l§o你的往世游魂在附近感应到你了！\n正在向你靠近中..."
+}

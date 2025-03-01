@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "com.lzyzl6.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"PlayerDieMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
