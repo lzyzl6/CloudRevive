@@ -12,18 +12,19 @@ import java.util.UUID;
 public class MoveToPlayerGoal extends Goal {
 
     private final WanderingSpirit ghost;
-    private static UUID targetUUID;
+    Player player ;
 
     public MoveToPlayerGoal(WanderingSpirit ghost) {
-        targetUUID = ghost.locateTargetUUID();
         this.ghost = ghost;
-        this.setFlags(EnumSet.of(Flag.MOVE, Flag.TARGET));
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.TARGET, Flag.LOOK));
     }
+
 
     @Override
     public boolean canUse() {
-        if (targetUUID != null) {
-            Player player = ghost.level().getPlayerByUUID(targetUUID);
+        if(ghost.locateTargetUUID() != null) {
+            UUID targetUUID = ghost.locateTargetUUID();
+            player = ghost.level().getPlayerByUUID(targetUUID);
             if (player != null && player.isAlive()) {
                 return ghost.position().distanceTo(player.position()) < 64.0d;
             }
@@ -39,24 +40,22 @@ public class MoveToPlayerGoal extends Goal {
     @Override
     public void tick() {
         if(canContinueToUse()) {
-            Player player = ghost.level().getPlayerByUUID(targetUUID);
-            if (player != null) {
+            if(player != null) {
                 ghost.getWalkTargetValue(player.blockPosition());
                 ghost.getNavigation().moveTo(player, 0.2);
-                ghost.lookAt(player, 1.0f, 1.0f);
+                ghost.getLookControl().setLookAt(player.getX(), player.getEyeY(), player.getZ());
                 // 假设 targetVec3 是目标的 Vec3 坐标
-                Vec3 targetVec3 = player.position();
+                Vec3 targetVec3 = new Vec3(player.position().x + 1.0, player.position().y +1.0, player.position().z +1.0);
                 ghost.moveTo(targetVec3, ghost);
             }
         }
     }
+
     @Override
     public void start() {
         super.start();
-        Player player = ghost.level().getPlayerByUUID(targetUUID);
         if (player != null) {
             player.sendSystemMessage(Component.translatable("chat.goal.move_to_player.start"));
         }
     }
-
 }

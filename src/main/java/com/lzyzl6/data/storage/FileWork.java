@@ -1,7 +1,6 @@
 package com.lzyzl6.data.storage;
 
 import com.lzyzl6.entity.WanderingSpirit;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 
 import java.io.File;
@@ -28,7 +27,21 @@ public class FileWork {
         return dir;
     }
 
-    public static File createMatchFile(WanderingSpirit wanderingSpirit, File parentDir) {
+    public static<T extends Entity > String getLevelName(T entity)  {
+        if(!entity.level().isClientSide()) {
+            String levelRawName = Objects.requireNonNull(entity.level()).toString();
+            int borderIndex;
+            for(borderIndex = 0; borderIndex < levelRawName.length(); borderIndex++) {
+                if(levelRawName.charAt(borderIndex) == '['){
+                    break;
+                }
+            }
+            return levelRawName.substring(borderIndex+1, levelRawName.length()-1);
+        }
+        return "";
+    }
+
+    public static void createMatchFile(WanderingSpirit wanderingSpirit, File parentDir) {
         String matchUUID = wanderingSpirit.getStringUUID();
         File matchFile = new File(parentDir,matchUUID);
         try {
@@ -38,27 +51,12 @@ public class FileWork {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return matchFile.getParentFile();
     }
 
-    public static<T extends Entity > String getLevelName(T entity)  {
-        String levelRawName = Objects.requireNonNull((ServerLevel)entity.level()).toString();
-        int borderIndex;
-        for(borderIndex = 0; borderIndex < levelRawName.length(); borderIndex++) {
-            if(levelRawName.charAt(borderIndex) == '['){
-                break;
-            }
-        }
-        return levelRawName.substring(borderIndex+1, levelRawName.length()-1);
-    }
-
-    public static<T extends Entity> File checkMatchFile(T entity) {
+    public static<T extends Entity> File makeMatch(T entity) {
         String matchUUID = entity.getStringUUID();
         File rootDir = rootDir();
         File levelDir = new File(rootDir, getLevelName(entity));
-        if (!levelDir.exists()) {
-            levelDir.mkdirs();
-        }
         AtomicReference<File> targetPlayerDir = new AtomicReference<>(null);
         Arrays.stream(Objects.requireNonNull(levelDir.list())).toList().forEach(playerUUID -> {
             File playerDir = new File(levelDir, playerUUID);
@@ -66,10 +64,22 @@ public class FileWork {
                    targetPlayerDir.set(playerDir);
            }
         });
-        if(targetPlayerDir.get() != null) {
-            return targetPlayerDir.get();
-        }
-        return null;
+        return targetPlayerDir.get();
+    }
+
+    public static<T extends Entity> void deleteMatchFile(T entity) {
+        String matchUUID = entity.getStringUUID();
+        File rootDir = rootDir();
+        File levelDir = new File(rootDir, getLevelName(entity));
+        Arrays.stream(Objects.requireNonNull(levelDir.list())).toList().forEach(playerUUID -> {
+            File playerDir = new File(levelDir, playerUUID);
+            if(Arrays.asList(Objects.requireNonNull(playerDir.list())).contains(matchUUID)) {
+                File matchFile = new File(playerDir, matchUUID);
+                if(matchFile.isFile()) {
+                    matchFile.delete();
+                }
+            }
+        });
     }
 
     public static void initialize() {

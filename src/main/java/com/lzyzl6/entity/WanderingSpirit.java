@@ -4,6 +4,8 @@ import com.lzyzl6.ai.goal.FlyToAirGoal;
 import com.lzyzl6.ai.goal.MoveToPlayerGoal;
 import com.lzyzl6.registry.ModSoundEvents;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -19,31 +21,23 @@ import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
+import java.io.File;
 import java.util.UUID;
 
-import static com.lzyzl6.data.storage.FileWork.checkMatchFile;
+import static com.lzyzl6.data.storage.FileWork.makeMatch;
 
 public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
     public static final AnimationState idleAnimation = new AnimationState();
-
-    public UUID locateTargetUUID() {
-        this.targetUUID = UUID.fromString(Objects.requireNonNull(checkMatchFile(this)).getName());
-        return this.targetUUID;
-    }
-
-    public UUID targetUUID;
-//    public HolderLookup.Provider provider;
-    int idleAnimationTimeOut = 0;
     private final SimpleContainer inventory;
-//    public ListTag listTag = new ListTag();
-
+    //构造
+    public ListTag listTag = new ListTag();
+    public HolderLookup.Provider provider;
+    int idleAnimationTimeOut = 0;
 
     public WanderingSpirit(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new FlyingMoveControl(this, 20, true);
-        this.inventory = new SimpleContainer(99);
+        this.inventory = new SimpleContainer(256);
     }
 
     //动画
@@ -64,7 +58,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
             this.makeSound(this.getAmbientSound());
         }
     }
-
+    @Override
     public SoundEvent getAmbientSound() {
         return ModSoundEvents.GHOST_AMBIENT;
     }
@@ -72,18 +66,18 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     //AI
     @Override
     public void tick() {
-        super.tick();
-        this.moveControl.tick();
         this.noPhysics = true;
         setInvulnerable(true);
         setUpAnimation();
+        super.tick();
+        this.moveControl.tick();
     }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new MoveToPlayerGoal(this));
         this.goalSelector.addGoal(1, new FlyToAirGoal(this));
-        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
     }
 
@@ -100,7 +94,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
         float yaw = (float) (Math.atan2(deltaZ, deltaX) * (180 / Math.PI)) - 90;
         float pitch = (float) (Math.atan2(deltaY, Math.sqrt(deltaX * deltaX + deltaZ * deltaZ)) * (180 / Math.PI));
 
-        updateWalkAnimation(this.random.nextFloat());
+        updateWalkAnimation(0.2f);
         ghost.moveTo(targetVec3, yaw, pitch);
     }
 
@@ -108,7 +102,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     public static AttributeSupplier.Builder createAttributes() {
         return PathfinderMob.createMobAttributes()
                 .add(Attributes.FLYING_SPEED, 0.2d)
-                .add(Attributes.FOLLOW_RANGE, 32.0d)
+                .add(Attributes.FOLLOW_RANGE, 64.0d)
                 .add(Attributes.MAX_HEALTH, 4.0d)
                 .add(Attributes.BURNING_TIME, 0.0d)
                 .add(Attributes.SCALE, 0.6d)
@@ -127,9 +121,22 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     }
 
     //容器
+
     @Override
     public @NotNull SimpleContainer getInventory() {
         return this.inventory;
     }
-}
 
+    //匹配
+    public UUID locateTargetUUID() {
+        File match = makeMatch(this);
+        if(match != null) {
+            try {
+                return UUID.fromString(match.getName());
+            } catch (IllegalArgumentException e) {
+                // 处理无效UUID格式
+            }
+        }
+        return null;
+    }
+}

@@ -4,12 +4,12 @@ import com.lzyzl6.event.PlayerDieCallback;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.UUID;
 
 import static com.lzyzl6.data.storage.FileWork.*;
 
@@ -20,8 +20,7 @@ public class ModEvents {
         PlayerDieCallback.EVENT.register((player, ghost) -> {
             //生成匹配文件
             //文件路径：/rootDir/levelName/playerUUID/ghostUUID
-            //初设targetUUID
-            ghost.targetUUID = UUID.fromString(createMatchFile(ghost,spiltDirByString(player.getStringUUID(),spiltDirByString(getLevelName(player),rootDir()))).getName());
+            createMatchFile(ghost,spiltDirByString(player.getStringUUID(),spiltDirByString(getLevelName(ghost),rootDir())));
 
             Vec3 vec3 = player.position();
             String dimension = player.level().dimensionTypeRegistration().getRegisteredName();
@@ -37,6 +36,7 @@ public class ModEvents {
             //设置游魂属性
             String name = player.getDisplayName().getString().concat((Component.translatable("chat.cloud_revive.genitive_case")).getString()).concat(Component.translatable("entity.cloud_revive.ghost").getString());
             ghost.setCustomName(Component.nullToEmpty(name));
+            ghost.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20000, 4, false, false, false));
 
             //通知玩家
             player.sendSystemMessage(Component.translatable("chat.cloud_revive.ghost_summoned"));
