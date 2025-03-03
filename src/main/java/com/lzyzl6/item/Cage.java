@@ -3,7 +3,6 @@ package com.lzyzl6.item;
 
 import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.registry.ModItems;
-
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;

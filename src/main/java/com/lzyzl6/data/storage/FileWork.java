@@ -2,7 +2,6 @@ package com.lzyzl6.data.storage;
 
 import com.lzyzl6.entity.WanderingSpirit;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.level.saveddata.SavedData;
 
 import java.io.File;
 import java.io.IOException;
