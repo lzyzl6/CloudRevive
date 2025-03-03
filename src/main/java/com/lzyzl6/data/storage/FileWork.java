@@ -1,11 +1,14 @@
 package com.lzyzl6.data.storage;
 
 import com.lzyzl6.entity.WanderingSpirit;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.world.entity.Entity;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -82,6 +85,16 @@ public class FileWork {
                 }
             }
         });
+    }
+
+    public static boolean isAccessoriesInstalled() {
+        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
+        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("accessories"));
+    }
+
+    public static boolean isTrinketsInstalled() {
+        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
+        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("trinkets"));
     }
 
     public static void initialize() {

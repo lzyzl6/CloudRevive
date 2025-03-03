@@ -31,8 +31,6 @@ import static com.lzyzl6.data.storage.FileWork.makeMatch;
 
 public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
-
-
     //构造
     public WanderingSpirit(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -94,13 +92,13 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource damageSource) {
+    public boolean isInvulnerableTo(@NotNull DamageSource damageSource) {
         return true;
     }
 
 
     @Override
-    public boolean ignoreExplosion(Explosion explosion) {
+    public boolean ignoreExplosion(@NotNull Explosion explosion) {
         return true;
     }
 
@@ -118,7 +116,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     }
 
     //容器
-    private final SimpleContainer inventory  = new SimpleContainer(256);
+    private final SimpleContainer inventory  = new SimpleContainer(512);
     private static final EntityDataAccessor<CompoundTag> DATA_INVENTORY = SynchedEntityData.defineId(WanderingSpirit.class, EntityDataSerializers.COMPOUND_TAG);
 
 
@@ -128,25 +126,25 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_INVENTORY, new CompoundTag()).build();
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         this.writeInventoryToTag(tag, this.level().registryAccess());
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.readInventoryFromTag(tag, this.level().registryAccess());
     }
 
     @Override
-    protected void pickUpItem(ItemEntity itemEntity) {
+    protected void pickUpItem(@NotNull ItemEntity itemEntity) {
         InventoryCarrier.pickUpItem(this, this, itemEntity);
     }
 }

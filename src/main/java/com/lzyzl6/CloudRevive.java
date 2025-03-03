@@ -2,9 +2,7 @@ package com.lzyzl6;
 
 import com.lzyzl6.data.storage.FileWork;
 import com.lzyzl6.registry.*;
-
 import net.fabricmc.api.ModInitializer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +19,7 @@ public class CloudRevive implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-
-		LOGGER.info("Hello Fabric world!");
+		LOGGER.info("云生模组初始化");
 
 		ModItems.initialize();
 
