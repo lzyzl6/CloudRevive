@@ -18,7 +18,6 @@ public interface PlayerDieCallback {
                         return result;
                     }
                 }
-
                 return InteractionResult.PASS;
             });
 

@@ -30,5 +30,7 @@
   "chat.cloud_revive.ghost_summoned_dimension" : "§l§oRegistered name of the dimension：",
   "chat.cloud_revive.soul_back" : "§oRightful Return! :)",
   "chat.cloud_revive.cage.wandering_spirit_others" : "§eThis wandering spirit denies you!",
-  "chat.goal.move_to_player.start" : "§l§oYour past-life wandering spirit is sensing you nearby!\nApproaching now..."
+  "chat.goal.move_to_player.start" : "§l§oYour past-life wandering spirit is sensing you nearby!\nApproaching now...",
+
+  "command.killghost.success" : "All wandering spirits within a 20,000-block radius have been cleared."
 }

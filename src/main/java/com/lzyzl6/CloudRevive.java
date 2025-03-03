@@ -35,6 +35,8 @@ public class CloudRevive implements ModInitializer {
 
 		ModSoundEvents.initialize();
 
+		ModCommands.initialize();
+
 		FileWork.initialize();
 	}
 }

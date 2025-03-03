@@ -30,5 +30,7 @@
   "chat.cloud_revive.ghost_summoned_dimension" : "§l§o所在维度注册名：",
   "chat.cloud_revive.soul_back" : "§o物归原主！ :)",
   "chat.cloud_revive.cage.wandering_spirit_others" : "§e这个游魂不认你!",
-  "chat.goal.move_to_player.start" : "§l§o你的往世游魂在附近感应到你了！\n正在向你靠近中..."
+  "chat.goal.move_to_player.start" : "§l§o你的往世游魂在附近感应到你了！\n正在向你靠近中...",
+
+  "command.killghost.success" : "已清理方圆20000格里的游魂"
 }
