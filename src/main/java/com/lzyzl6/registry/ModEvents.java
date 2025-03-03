@@ -36,6 +36,7 @@ public class ModEvents {
             //设置游魂属性
             String name = player.getDisplayName().getString().concat((Component.translatable("chat.cloud_revive.genitive_case")).getString()).concat(Component.translatable("entity.cloud_revive.ghost").getString());
             ghost.setCustomName(Component.nullToEmpty(name));
+            ghost.setPersistenceRequired();
             ghost.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20000, 4, false, false, false));
 
             //通知玩家
@@ -57,9 +58,6 @@ public class ModEvents {
                 ghost.getInventory().addItem(player.getInventory().removeItem(i, player.getInventory().getItem(i).getCount()));
             }
 
-//          //储存物品至本地
-//          ghost.listTag = ghost.getInventory().createTag(ghost.provider);
-//          ghost.getInventory().fromTag(ghost.listTag, ghost.provider);
             //事件执行成功
             return InteractionResult.SUCCESS;
         });

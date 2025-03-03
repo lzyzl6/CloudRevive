@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class FileWork {
     //文件路径：/rootDir/levelName/playerUUID/ghostUUID
+    //文件操作
     public static File rootDir() {
         File rootDir = new File(System.getProperty("user.dir"),"Cloud_Revive_Data");
         if (!rootDir.exists()) {
@@ -41,6 +42,7 @@ public class FileWork {
         return "";
     }
 
+    //匹配UUID
     public static void createMatchFile(WanderingSpirit wanderingSpirit, File parentDir) {
         String matchUUID = wanderingSpirit.getStringUUID();
         File matchFile = new File(parentDir,matchUUID);

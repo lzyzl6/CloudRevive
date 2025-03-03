@@ -3,7 +3,6 @@ package com.lzyzl6.item;
 
 import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.registry.ModItems;
-
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -71,9 +70,8 @@ public class Cage extends Item {
                 //通知玩家成功
                 player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.wandering_spirit_captured"), true);
                 player.sendSystemMessage(Component.translatable("chat.cloud_revive.soul_back"));
-//                wanderingSpirit.getInventory().fromTag(wanderingSpirit.listTag,wanderingSpirit.provider);
                 //物品转移到玩家
-                if(wanderingSpirit.getInventory().items.size() < player.getInventory().getFreeSlot() - 1 ) {
+                if(wanderingSpirit.getInventory().items.size() <= player.getInventory().getFreeSlot() - 1 ) {
                     for (int i = 0; i < wanderingSpirit.getInventory().items.size(); i++) {
                         player.addItem(wanderingSpirit.getInventory().removeItem(i, wanderingSpirit.getInventory().getItem(i).getCount()));
                     }

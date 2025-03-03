@@ -15,7 +15,7 @@ public class ModEntities {
     public static final EntityType<WanderingSpirit> GHOST = Registry.register(
             BuiltInRegistries.ENTITY_TYPE,
             ResourceLocation.fromNamespaceAndPath(MOD_ID, "ghost"),
-            EntityType.Builder.of(WanderingSpirit::new,MobCategory.CREATURE).sized(0.55f, 1.0f).build("ghost")
+            EntityType.Builder.of((WanderingSpirit::new),MobCategory.CREATURE).sized(0.55f, 1.0f).build("ghost")
     );
 
     public static void initialize() {

@@ -3,22 +3,25 @@ package com.lzyzl6.entity;
 import com.lzyzl6.ai.goal.FlyToAirGoal;
 import com.lzyzl6.ai.goal.MoveToPlayerGoal;
 import com.lzyzl6.registry.ModSoundEvents;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.ListTag;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.entity.npc.InventoryCarrier;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -28,23 +31,22 @@ import static com.lzyzl6.data.storage.FileWork.makeMatch;
 
 public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
-    public static final AnimationState idleAnimation = new AnimationState();
-    private final SimpleContainer inventory;
-    //构造
-    public ListTag listTag = new ListTag();
-    public HolderLookup.Provider provider;
-    int idleAnimationTimeOut = 0;
 
+
+    //构造
     public WanderingSpirit(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
-        this.inventory = new SimpleContainer(256);
+        this.moveControl = new FlyingMoveControl(this, 20, false);
     }
 
     //动画
+    public static final AnimationState idleAnimation = new AnimationState();
+    int idleAnimationTimeOut = 0;
+
     public void setUpAnimation() {
         if (idleAnimationTimeOut <= 0 && !idleAnimation.isStarted()) {
             idleAnimation.start(this.tickCount);
-            idleAnimationTimeOut = this.random.nextInt(30) + 100;
+            idleAnimationTimeOut = this.random.nextInt(30) + 120;
         } else {
             idleAnimationTimeOut--;
         }
@@ -67,7 +69,6 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     @Override
     public void tick() {
         this.noPhysics = true;
-        setInvulnerable(true);
         setUpAnimation();
         super.tick();
         this.moveControl.tick();
@@ -78,24 +79,6 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
         this.goalSelector.addGoal(0, new MoveToPlayerGoal(this));
         this.goalSelector.addGoal(1, new FlyToAirGoal(this));
         this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(3, new RandomLookAroundGoal(this));
-    }
-
-    public void moveTo(BlockPos blockPos) {
-        Vec3 targetVec3 = blockPos.getBottomCenter();
-        moveTo(targetVec3, this);
-    }
-
-    public void moveTo(Vec3 targetVec3, WanderingSpirit ghost) {
-        double deltaX = targetVec3.x - ghost.getX();
-        double deltaY = targetVec3.y - ghost.getY();
-        double deltaZ = targetVec3.z - ghost.getZ();
-
-        float yaw = (float) (Math.atan2(deltaZ, deltaX) * (180 / Math.PI)) - 90;
-        float pitch = (float) (Math.atan2(deltaY, Math.sqrt(deltaX * deltaX + deltaZ * deltaZ)) * (180 / Math.PI));
-
-        updateWalkAnimation(0.2f);
-        ghost.moveTo(targetVec3, yaw, pitch);
     }
 
     //属性
@@ -111,20 +94,14 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     }
 
     @Override
-    public boolean hurt(DamageSource damageSource, float f) {
-        return false;
+    public boolean isInvulnerableTo(DamageSource damageSource) {
+        return true;
     }
+
 
     @Override
     public boolean ignoreExplosion(Explosion explosion) {
         return true;
-    }
-
-    //容器
-
-    @Override
-    public @NotNull SimpleContainer getInventory() {
-        return this.inventory;
     }
 
     //匹配
@@ -139,4 +116,38 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
         }
         return null;
     }
+
+    //容器
+    private final SimpleContainer inventory  = new SimpleContainer(256);
+    private static final EntityDataAccessor<CompoundTag> DATA_INVENTORY = SynchedEntityData.defineId(WanderingSpirit.class, EntityDataSerializers.COMPOUND_TAG);
+
+
+    @Override
+    public @NotNull SimpleContainer getInventory() {
+        return this.inventory;
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(DATA_INVENTORY, new CompoundTag()).build();
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag tag) {
+        super.addAdditionalSaveData(tag);
+        this.writeInventoryToTag(tag, this.level().registryAccess());
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        this.readInventoryFromTag(tag, this.level().registryAccess());
+    }
+
+    @Override
+    protected void pickUpItem(ItemEntity itemEntity) {
+        InventoryCarrier.pickUpItem(this, this, itemEntity);
+    }
 }
+

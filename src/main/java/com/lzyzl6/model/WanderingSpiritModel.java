@@ -4,20 +4,34 @@ import com.lzyzl6.animation.WanderingSpiritAnimation;
 import com.lzyzl6.entity.WanderingSpirit;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.client.renderer.RenderType;
 import org.jetbrains.annotations.NotNull;
 
+@Environment(EnvType.CLIENT)
 public class WanderingSpiritModel extends HierarchicalModel<WanderingSpirit> {
-	private final ModelPart head;
 	private final ModelPart body;
+	private final ModelPart head;
+	private final ModelPart core;
+	private final ModelPart arm;
+	private final ModelPart left;
+	private final ModelPart right;
 
 	public WanderingSpiritModel(ModelPart root) {
+		super(RenderType::entityTranslucent);
 		this.body = root.getChild("body");
+		this.core = body.getChild("core");
 		this.head = body.getChild("head");
+		this.arm = body.getChild("arm");
+		this.left = arm.getChild("left");
+		this.right = arm.getChild("right");
 	}
+
 
 	public static LayerDefinition getTexturedModelData() {
 		MeshDefinition meshDefinition = new MeshDefinition();
@@ -31,26 +45,26 @@ public class WanderingSpiritModel extends HierarchicalModel<WanderingSpirit> {
 		return LayerDefinition.create(meshDefinition, 32, 32);
 	}
 	@Override
-	public void setupAnim(WanderingSpirit entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(WanderingSpirit ghost, float f, float g, float h, float i, float j) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.setHeadAngles(netHeadYaw, headPitch);
+		float n = h * 9.0F * (float) (Math.PI / 180.0);
+		float o = Math.min(g / 0.3F, 1.0F);
+		float p = 1.0F - o;
+		this.head.xRot = j * (float) (Math.PI / 180.0);
+		this.head.yRot = i * (float) (Math.PI / 180.0);
+		this.core.xRot = o * (float) (Math.PI / 4);
+		this.body.y = this.body.y + (float)Math.cos(n) * 0.25F * p;
 		this.animateWalk(WanderingSpiritAnimation.fly,
-				limbSwing,
-				limbSwingAmount * 0.8f,  // 降低幅度避免过度摆动
-				1.6f,  // 降低速度系数匹配动画关键帧
-				0.0f); // 调整腿间距参数
-		// 在空闲动画调用前添加移动状态判断
-		if (limbSwingAmount < 0.05f) { // 当移动量接近0时播放完整空闲动画
+				f,
+				g,
+				0.8f,
+				0.9f);
+		if (g < 0.05f && !ghost.walkAnimation.isMoving()) { // 当移动量接近0时播放完整空闲动画
 			this.animate(WanderingSpirit.idleAnimation,
 					WanderingSpiritAnimation.idle,
-					ageInTicks,
-					0.6f); // 动画混合强度
+					h,
+					0.8f); // 动画混合强度
 		}
-	}
-
-	private void setHeadAngles(float netHeadYaw, float headPitch) {
-		this.head.yRot = netHeadYaw * ((float)Math.PI / 180F);
-		this.head.xRot = headPitch * ((float)Math.PI / 180F);
 	}
 
 	@Override
