@@ -7,7 +7,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.EnumSet;
-import java.util.UUID;
 
 public class MoveToPlayerGoal extends Goal {
 
@@ -16,15 +15,14 @@ public class MoveToPlayerGoal extends Goal {
 
     public MoveToPlayerGoal(WanderingSpirit ghost) {
         this.ghost = ghost;
-        this.setFlags(EnumSet.of(Flag.MOVE, Flag.TARGET, Flag.LOOK));
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
     }
 
 
     @Override
     public boolean canUse() {
         if(ghost.locateTargetUUID() != null) {
-            UUID targetUUID = ghost.locateTargetUUID();
-            player = ghost.level().getPlayerByUUID(targetUUID);
+            player = ghost.level().getPlayerByUUID(ghost.locateTargetUUID());
             if (player != null && player.isAlive()) {
                 return ghost.position().distanceTo(player.position()) < 64.0d;
             }
@@ -37,25 +35,33 @@ public class MoveToPlayerGoal extends Goal {
         return canUse();
     }
 
-    @Override
+    @Override/// e
     public void tick() {
         if(canContinueToUse()) {
+            player = ghost.level().getPlayerByUUID(ghost.locateTargetUUID());
             if(player != null) {
-                ghost.getWalkTargetValue(player.blockPosition());
-                ghost.getNavigation().moveTo(player, 0.2);
-                ghost.getLookControl().setLookAt(player.getX(), player.getEyeY(), player.getZ());
-                // 假设 targetVec3 是目标的 Vec3 坐标
-                Vec3 targetVec3 = new Vec3(player.position().x + 1.0, player.position().y +1.0, player.position().z +1.0);
-                ghost.moveTo(targetVec3, ghost);
+                Vec3 targetVec3 = new Vec3(player.position().x + 1.0d, player.position().y + 1.0d , player.position().z + 1.0d);
+                ghost.getLookControl().setLookAt(this.player, ghost.getMaxHeadYRot() + 20, ghost.getMaxHeadXRot());
+                if(!ghost.getLookControl().isLookingAtTarget()) {
+                    ghost.getLookControl().tick();
+                }
+                ghost.moveTo(targetVec3, ghost.getMaxHeadYRot() + 10, ghost.getMaxHeadXRot());
             }
+
+        }
+    }
+
+
+    @Override
+    public void start() {
+        if (player != null) {
+            player.sendSystemMessage(Component.translatable("chat.goal.move_to_player.start"));
         }
     }
 
     @Override
-    public void start() {
-        super.start();
-        if (player != null) {
-            player.sendSystemMessage(Component.translatable("chat.goal.move_to_player.start"));
-        }
+    public void stop() {
+        this.player = null;
+        ghost.getNavigation().stop();
     }
 }

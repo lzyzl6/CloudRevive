@@ -42,7 +42,7 @@ public class FlyToAirGoal extends Goal {
     @Override
     public void tick() {
         if(canUse()){
-            ghost.moveTo(findNearestAir());
+            ghost.moveTo(findNearestAir(),ghost.getMaxHeadYRot() + 20, ghost.getMaxHeadXRot());
         }
     }
 

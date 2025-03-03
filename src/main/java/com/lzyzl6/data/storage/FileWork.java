@@ -2,6 +2,7 @@ package com.lzyzl6.data.storage;
 
 import com.lzyzl6.entity.WanderingSpirit;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.level.saveddata.SavedData;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class FileWork {
     //文件路径：/rootDir/levelName/playerUUID/ghostUUID
+    //文件操作
     public static File rootDir() {
         File rootDir = new File(System.getProperty("user.dir"),"Cloud_Revive_Data");
         if (!rootDir.exists()) {
@@ -41,6 +43,7 @@ public class FileWork {
         return "";
     }
 
+    //匹配UUID
     public static void createMatchFile(WanderingSpirit wanderingSpirit, File parentDir) {
         String matchUUID = wanderingSpirit.getStringUUID();
         File matchFile = new File(parentDir,matchUUID);
