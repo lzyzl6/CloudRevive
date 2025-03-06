@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "W ",
+    "R "
+  ],
+  "key": {
+    "W": {
+      "item": "cloud_revive:chaos_qi"
+    },
+    "R": {
+      "item": "cloud_revive:pearl"
+    }
+  },
+  "result": {
+    "id": "cloud_revive:chaos_pearl",
+    "count": 1
+  }
+}

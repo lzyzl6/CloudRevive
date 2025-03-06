@@ -2,9 +2,9 @@ package com.lzyzl6.item;
 
 import net.minecraft.world.item.Item;
 
-public class QiFruit extends Item {
+public class SoulPearl extends Item {
 
-    public QiFruit(Properties properties) {
+    public SoulPearl(Properties properties) {
         super(properties);
     }
 }

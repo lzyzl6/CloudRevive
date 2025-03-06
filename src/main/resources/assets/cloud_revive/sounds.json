@@ -4,5 +4,11 @@
     "sounds": [
       "cloud_revive:ghost_ambient"
     ]
+  },
+  "soul_like": {
+    "subtitle": "sound.cloud_revive.soul_like",
+    "sounds": [
+      "cloud_revive:soul_like"
+    ]
   }
 }

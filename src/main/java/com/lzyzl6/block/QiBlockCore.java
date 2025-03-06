@@ -2,9 +2,9 @@ package com.lzyzl6.block;
 
 import net.minecraft.world.level.block.Block;
 
-public class QiFruitTree extends Block {
+public class QiBlockCore extends Block {
 
-    public QiFruitTree(Properties properties) {
+    public QiBlockCore(Properties properties) {
         super(properties);
     }
 }

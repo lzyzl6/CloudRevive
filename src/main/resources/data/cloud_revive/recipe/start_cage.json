@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "W ",
+    "R "
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:lantern"
+    },
+    "W": {
+      "item": "cloud_revive:pearl"
+    }
+  },
+  "result": {
+    "id": "cloud_revive:start_cage",
+    "count": 1
+  }
+}

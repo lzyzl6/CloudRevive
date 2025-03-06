@@ -5,6 +5,8 @@ import com.lzyzl6.entity.WanderingSpirit;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.AABB;
 
 import static net.minecraft.commands.Commands.literal;
@@ -19,10 +21,27 @@ public class ModCommands {
                 .executes(context -> {
                     // 对于 1.19 之前的版本，把“Text.literal”替换为“new LiteralText”。
                     // 对于 1.20 之前的版本，请移除“() ->”。
-                    context.getSource().sendSuccess(() -> Component.translatable("command.killghost.success"), true);
                     context.getSource().getLevel().getEntitiesOfClass(WanderingSpirit.class, AABB.ofSize(context.getSource().getPosition(), 20000, 20000, 20000)).forEach(entity -> entity.remove(Entity.RemovalReason.DISCARDED));
+                    context.getSource().sendSuccess(() -> Component.translatable("command.killghost.success"), true);
 
                     return 1;
                 })));
+
+        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> dispatcher
+                .register(literal("givepearl")
+                        .requires(source -> source.hasPermission(0))
+                        .executes(context -> {
+                            // 对于 1.19 之前的版本，把“Text.literal”替换为“new LiteralText”。
+                            // 对于 1.20 之前的版本，请移除“() ->”。
+                            Player player = context.getSource().getPlayerOrException();
+                            if(player.getInventory().getFreeSlot() < 1) {
+                                player.level().addFreshEntity(new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), ModItems.PEARL.getDefaultInstance()));
+                            } else {
+                                player.addItem(ModItems.PEARL.getDefaultInstance());
+                            }
+                            context.getSource().sendSuccess(() -> Component.translatable("command.givepearl.success"), true);
+
+                            return 1;
+                        })));
     }
 }
