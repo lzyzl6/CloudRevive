@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WAW",
+    "RCD",
+    "EFG"
+  ],
+  "key": {
+    "W": {
+      "item": "cloud_revive:core_qi"
+    },
+    "R": {
+      "item": "cloud_revive:people_qi"
+    },
+    "C": {
+      "item": "cloud_revive:chaos_qi"
+    },
+    "D": {
+      "item": "cloud_revive:dead_qi"
+    },
+    "E": {
+      "item": "cloud_revive:sky_qi"
+    },
+    "F": {
+      "item": "minecraft:beacon"
+    },
+    "G": {
+      "item": "cloud_revive:ground_qi"
+    },
+    "A": {
+      "item": "cloud_revive:soul_pearl"
+    }
+  },
+  "result": {
+    "id": "cloud_revive:birth_beacon",
+    "count": 1
+  }
+}

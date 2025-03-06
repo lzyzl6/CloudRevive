@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "cloud_revive:sky_qi"
+    },
+    {
+      "item": "cloud_revive:ground_qi"
+    },
+    {
+      "item": "cloud_revive:people_qi"
+    },
+    {
+      "item": "minecraft:emerald_block"
+    }
+  ],
+  "result": {
+    "id": "cloud_revive:chaos_qi",
+    "count": 1
+  }
+}

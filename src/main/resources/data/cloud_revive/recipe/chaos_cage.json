@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "W ",
+    "R "
+  ],
+  "key": {
+    "W": {
+      "item": "cloud_revive:chaos_qi"
+    },
+    "R": {
+      "item": "cloud_revive:cage"
+    }
+  },
+  "result": {
+    "id": "cloud_revive:chaos_cage",
+    "count": 1
+  }
+}

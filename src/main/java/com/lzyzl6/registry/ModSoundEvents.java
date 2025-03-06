@@ -13,6 +13,10 @@ public class ModSoundEvents {
             ResourceLocation.fromNamespaceAndPath(MOD_ID, "ghost_ambient"),
             SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "ghost_ambient")));
 
+    public static SoundEvent SOUL_LIKE = Registry.register(BuiltInRegistries.SOUND_EVENT,
+            ResourceLocation.fromNamespaceAndPath(MOD_ID, "soul_like"),
+            SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "soul_like")));
+
     public static void initialize() {
 
     }

@@ -16,14 +16,24 @@ public final class ModTabs {
             .icon(() -> new ItemStack(ModItems.CORE_QI))
             .title(Component.translatable("tab.cloud_revive.main_tab"))
             .displayItems((context, Output) -> {
+                Output.accept(ModItems.START_CAGE);
                 Output.accept(ModItems.CAGE);
-                Output.accept(ModItems.PEARL);
+                Output.accept(ModItems.CHAOS_CAGE);
                 Output.accept(ModItems.CORE_QI);
+                Output.accept(ModItems.CHAOS_QI);
                 Output.accept(ModItems.SKY_QI);
                 Output.accept(ModItems.GROUND_QI);
                 Output.accept(ModItems.PEOPLE_QI);
                 Output.accept(ModItems.DEAD_QI);
+                Output.accept(ModItems.PEARL);
+                Output.accept(ModItems.SOUL_PEARL);
+                Output.accept(ModItems.CHAOS_PEARL);
                 Output.accept(ModItems.QI_FRUIT);
+                Output.accept(ModItems.SOUL_FRUIT);
+                Output.accept(ModBlocks.QI_FRUIT_BUSH.asItem());
+                Output.accept(ModBlocks.QI_BLOCK.asItem());
+                Output.accept(ModBlocks.QI_BLOCK_CORE.asItem());
+                Output.accept(ModBlocks.BIRTH_BEACON.asItem());
             })
             .build());
 

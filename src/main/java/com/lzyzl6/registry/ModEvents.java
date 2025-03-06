@@ -50,10 +50,12 @@ public class ModEvents {
             ghost.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20000, 4, false, false, false));
 
             //通知玩家
+            player.sendSystemMessage(Component.literal("\n--------------------------------------------------"));
             player.sendSystemMessage(Component.translatable("chat.cloud_revive.ghost_summoned"));
-            player.sendSystemMessage(Component.literal("§l§e(" + (int) vec3.x() + "§l§e," + (int) vec3.z() + "§l§e)"));
+            player.sendSystemMessage(Component.literal("§l§e(" + (int) vec3.x() + "§r§e,§l§e" + (int) vec3.y() + "§r§e,§l§e" + (int) vec3.z() + "§l§e)"));
             player.sendSystemMessage(Component.translatable("chat.cloud_revive.ghost_summoned_dimension"));
             player.sendSystemMessage(Component.literal("§l§e" + dimension));
+            player.sendSystemMessage(Component.literal("--------------------------------------------------\n"));
 
             //消失诅咒处理
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
