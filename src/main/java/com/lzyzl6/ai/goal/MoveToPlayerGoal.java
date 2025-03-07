@@ -11,11 +11,11 @@ import java.util.EnumSet;
 public class MoveToPlayerGoal extends Goal {
 
     private final WanderingSpirit ghost;
-    Player player ;
+    private Player player ;
 
     public MoveToPlayerGoal(WanderingSpirit ghost) {
         this.ghost = ghost;
-        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK ,Flag.TARGET));
     }
 
 
@@ -35,7 +35,7 @@ public class MoveToPlayerGoal extends Goal {
         return canUse();
     }
 
-    @Override/// e
+    @Override
     public void tick() {
         if(canContinueToUse()) {
             player = ghost.level().getPlayerByUUID(ghost.locateTargetUUID());
@@ -54,8 +54,9 @@ public class MoveToPlayerGoal extends Goal {
 
     @Override
     public void start() {
-        if (player != null) {
+        if (player != null && ghost.shouldBroadcastMovement) {
             player.sendSystemMessage(Component.translatable("chat.goal.move_to_player.start"));
+            ghost.shouldBroadcastMovement = false;
         }
     }
 

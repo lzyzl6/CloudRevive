@@ -17,10 +17,9 @@ public class SoulLike extends MobEffect {
         super(mobEffectCategory, i); // 显示的颜色
     }
 
-
     @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
-        return duration >= 0;
+        return duration >= 0 && amplifier >= 0;
     }
 
     @Override
@@ -28,15 +27,12 @@ public class SoulLike extends MobEffect {
         if (entity instanceof Player) {
             entity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20, 4, true, false, false));
             entity.invulnerableTime = Objects.requireNonNull(entity.getEffect(ModEffects.SOUL_LIKE)).getDuration();
-            entity.setInvulnerable(entity.invulnerableTime > 0);
-            entity.setInvisible(entity.invulnerableTime > 0);
-            entity.setSilent(entity.invulnerableTime > 0);
             return true;
         }
         return false;
     }
 
-@Override
+    @Override
     public void onEffectStarted(@NotNull LivingEntity livingEntity, int i) {
         if (livingEntity instanceof Player) {
             livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 4, true, false, false));

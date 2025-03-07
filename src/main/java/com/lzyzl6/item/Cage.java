@@ -3,6 +3,7 @@ package com.lzyzl6.item;
 
 import com.lzyzl6.registry.ModItems;
 import net.minecraft.network.chat.Component;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -46,11 +47,13 @@ public class Cage extends Item {
                 player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.sky_qi_captured"), true);
                 player.addItem(new ItemStack(ModItems.SKY_QI));
                 damageItem(player, usedHand, 9);
+                afterUse(player, usedHand);
             }
             else if(height < 0 && player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.CAGE && usedHand == InteractionHand.OFF_HAND) {
                 player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.ground_qi_captured"), true);
                 player.addItem(new ItemStack(ModItems.GROUND_QI));
                 damageItem(player, usedHand, 9);
+                afterUse(player, usedHand);
             }
             else if(player.isShiftKeyDown() && player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.CAGE && usedHand == InteractionHand.OFF_HAND) {
                 if(!(player.getHealth() == player.getMaxHealth()) || player.hasEffect(MobEffects.WEAKNESS)) {
@@ -77,5 +80,11 @@ public class Cage extends Item {
                 itemStack.hurtAndBreak(i, player, EquipmentSlot.OFFHAND);
             }
         }
+    }
+
+    private void afterUse(Player player, InteractionHand interactionHand) {
+        player.getCooldowns().addCooldown(this, 40);
+        player.awardStat(Stats.ITEM_USED.get(this));
+        player.swing(interactionHand, true);
     }
 }

@@ -2,10 +2,10 @@
 	"schemaVersion": 1,
 	"id": "cloud_revive",
 	"version": "${version}",
-	"name": "云生",
-	"description": "人死三气散，魂去归轻都。",
+	"name": "Cloud Revive",
+	"description": "When life ends, three Chi disperse;\nSouls drift to the great §lQingdu§r.",
 	"authors": [
-		"lzyzl6"
+		"LZYZL6"
 	],
 	"contact": {
 		"homepage": "",

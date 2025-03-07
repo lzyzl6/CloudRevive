@@ -17,6 +17,10 @@ public class ModSoundEvents {
             ResourceLocation.fromNamespaceAndPath(MOD_ID, "soul_like"),
             SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "soul_like")));
 
+    public static SoundEvent TALK = Registry.register(BuiltInRegistries.SOUND_EVENT,
+            ResourceLocation.fromNamespaceAndPath(MOD_ID, "talk"),
+            SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "talk")));
+
     public static void initialize() {
 
     }

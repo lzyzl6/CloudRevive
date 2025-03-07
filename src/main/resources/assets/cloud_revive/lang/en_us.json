@@ -37,7 +37,7 @@
   "item.cloud_revive.chaos_pearl.tooltip3" : "§7游魂;§5轻都§r§7;『亡人魂气』;§9往生信标§r§7;§9魂印宝珠§7;",
   "item.cloud_revive.chaos_pearl.tooltip4" : "§9混沌宝珠§r§7;§e魂化§r§7;修理;§9魂气果§r§7;...",
 
-  "item.cloud_revive.soul_fruit.tooltip1" : "§e注意！食用后身体会高频闪烁，§4光敏性癫痫警告§e！！！",
+  "item.cloud_revive.soul_fruit.tooltip1" : "§4杀§e不死我的，只会让我更强大！",
 
   "block.cloud_revive.qi_fruit_bush" : "Withered Chi Bush",
   "block.cloud_revive.qi_block" : "Stagnant Chi Block",
@@ -55,6 +55,7 @@
 
   "sound.cloud_revive.ghost_ambient" : "Wandering Spirit strays",
   "sound.cloud_revive.soul_like" : "Soulshift Activation",
+  "sound.cloud_revive.talk" : "Wandering Spirit whispers",
 
   "tip.pearl.1" : "§7Wandering Spirit§r: Spawns after player death, carrying all items.\nMoves to the nearest air block on Y-axis.\nUse §9Chaos Soul Cage§r to retrieve items.",
   "tip.pearl.2" : "First Goal: Prioritize crafting §9Chaos Soul Cage§r,\nor you'll lose items upon death!\nStart by making §9Primordial Cage§r.",
@@ -78,7 +79,7 @@
   "tip.chaos_pearl.4" : "§9Afterlife Beacon§r: Summons all past-life spirits. Requires §9Chaos Orb§r to activate.",
   "tip.chaos_pearl.5" : "§9Soulbrand Gem§r: Contains player data from §iWandering Spirits§r.\nEssential for §9Afterlife Beacon§r.",
   "tip.chaos_pearl.6" : "§9Chaos Orb§r: Holds advanced knowledge. Activates §9Afterlife Beacon§r.",
-  "tip.chaos_pearl.7" : "§eSoulshift§r: Become ghost-like and untargetable for a duration.",
+  "tip.chaos_pearl.7" : "§eSoulshift§r: Become invulnerable for a duration like a wandering ghost.",
   "tip.chaos_pearl.8" : "Repair: Use 『Primordial Chi』 on anvil for §9Roaming Chi Cage§r,\n『Chaos Core Chi』 for §9Chaos Soul Cage§r.",
   "tip.chaos_pearl.9" : "§9Soul Chi Apple§r: Grants §eSoulshift§r but reduces interaction ability.",
 
@@ -89,13 +90,67 @@
   "chat.cloud_revive.cage.sky_qi_captured" : "§bCaptured a wisp of Celestial Yang Chi!",
   "chat.cloud_revive.cage.ground_qi_captured" : "§6Seized a strand of Abyssal Yin Chi!",
   "chat.cloud_revive.cage.people_qi_captured" : "§4Drawn a surge of Living Harmony Chi!",
-  "chat.cloud_revive.cage.wandering_spirit_captured" : "§cTrapped a flow of Spectral Soul Chi!",
-  "chat.cloud_revive.cage.wandering_spirit_others" : "§eThis spirit doesn't recognize you!",
-
   "chat.cloud_revive.cage.too_weak" : "§lToo weak... Need rest?",
+
+  "chat.cloud_revive.chaos_cage.wandering_spirit_captured" : "§cTrapped a flow of Spectral Soul Chi!",
+  "chat.cloud_revive.chaos_cage.wandering_spirit_others" : "§eThis spirit doesn't recognize you!",
+
   "chat.cloud_revive.ghost_summoned" : "§l§oA Wandering Spirit carrying your items spawned at:",
   "chat.cloud_revive.ghost_summoned_dimension" : "§l§oDimension:",
   "chat.cloud_revive.soul_back" : "§oItems returned! :)",
+
+  "chat.goal.interact_player.no_helpful_stuff1" : "§7游魂：来生！收我的魂拿走我的东西吧！可惜我没有什么收魂的东西。",
+  "chat.goal.interact_player.no_helpful_stuff2" : "§7游魂：我太虚弱了...来生，你要搞到混元纳魂笼啊。",
+  "chat.goal.interact_player.no_helpful_stuff3" : "§7游魂：我身上东西对你有用！可惜没有能做出混元纳魂笼的...",
+  "chat.goal.interact_player.no_helpful_stuff4" : "§7游魂：你是...我的来生！？后生，加油搞到混元纳魂笼把我魂收了。",
+  "chat.goal.interact_player.no_helpful_stuff5" : "§7游魂：身上还有些东西，你要不要收走？不过需要混元纳魂笼。",
+  "chat.goal.interact_player.no_helpful_stuff6" : "§7游魂：你搞到混元纳魂笼了？来把我魂收了吧！",
+  "chat.goal.interact_player.no_helpful_stuff7" : "§7游魂：终于找到你了！来生，你有混元纳魂笼嘛？",
+  "chat.goal.interact_player.no_helpful_stuff8" : "§7游魂：你是...我？用混元纳魂笼把我东西拿走吧。",
+  "chat.goal.interact_player.no_helpful_stuff9" : "§7游魂：你和我生前真是一模一样啊...快来拿我东西走吧！",
+  "chat.goal.interact_player.no_helpful_stuff10" : "§7游魂：阴阳两隔，可惜我可没有什么东西帮你收魂。",
+
+  "chat.goal.interact_player.give_stuff1" : "§7游魂：把我东西拿走吧！来生。我的背包里这些应该能帮到你！",
+  "chat.goal.interact_player.give_stuff2" : "§7游魂：后生，收我的魂拿走我的物品吧。这些应该有点用。",
+  "chat.goal.interact_player.give_stuff3" : "§7游魂：这些东西能帮你把我魂收掉。拿好。",
+  "chat.goal.interact_player.give_stuff4" : "§7游魂：给你这些，收吾魂！令吾安息...",
+  "chat.goal.interact_player.give_stuff5" : "§7游魂：来生！你看这些东西能帮你收我魂吗？",
+  "chat.goal.interact_player.give_stuff6" : "§7游魂：我包里有点东西！后生，你拿好！",
+  "chat.goal.interact_player.give_stuff7" : "§7游魂：你是我还是我是你...？不管了，这些你拿好。",
+  "chat.goal.interact_player.give_stuff8" : "§7游魂：你是...我的下辈子！？你看这些东西有用不？",
+  "chat.goal.interact_player.give_stuff9" : "§7游魂：来生！哪怕魂飞魄散！这些我都要给你！",
+  "chat.goal.interact_player.give_stuff10" : "§7游魂：后生，好好活着。这些东西应该能帮你收魂。",
+
+  "chat.goal.interact_player.hurt1" : "§7游魂：要魂飞魄散了咳...拿不出更多了...你只能自强了。",
+  "chat.goal.interact_player.hurt2" : "§7游魂：嘶...给个东西居然伤及本源了。",
+  "chat.goal.interact_player.hurt3" : "§7游魂：贼老天！我太弱了...给不了你更多了。",
+  "chat.goal.interact_player.hurt4" : "§7游魂：就剩一滴血了我天。没法再给你东西了抱歉哦QWQ",
+  "chat.goal.interact_player.hurt5" : "§7游魂：拿好...诶呦！该死...",
+  "chat.goal.interact_player.hurt6" : "§7游魂：我这个状态给不了你太多。你看我也因此受伤了。",
+  "chat.goal.interact_player.hurt7" : "§7游魂：我用血换来的...来世，你要好好利用啊！",
+  "chat.goal.interact_player.hurt8" : "§7游魂：好好活着！东西给你...我尽力了...",
+  "chat.goal.interact_player.hurt9" : "§7游魂:哈哈咳...！给你这些，我没力气了...",
+  "chat.goal.interact_player.hurt10" : "§7游魂：来生！今我逆天而为，我物你好好利用！",
+
+  "chat.goal.interact_player.player_hurt1" : "§7游魂：你这伤故意的还是不小心的？",
+  "chat.goal.interact_player.player_hurt2" : "§7游魂：掉血了...你身上应该有吃的..吧?",
+  "chat.goal.interact_player.player_hurt3" : "§7游魂：小心啊！莫步我后尘。",
+
+  "chat.goal.interact_player.player_glowing1" : "§7游魂：奇怪，我都死了还能看见光。",
+  "chat.goal.interact_player.player_glowing2" : "§7游魂：你发光起来好像我同类啊。",
+  "chat.goal.interact_player.player_glowing3" : "§7游魂：你现在暴露位置了呀！",
+
+  "chat.goal.interact_player.at_nether1" : "§7游魂：其实我一直想搞个恶魂之泪玩玩。",
+  "chat.goal.interact_player.at_nether2" : "§7游魂：惹谁都行，别惹猪灵蛮兵。",
+  "chat.goal.interact_player.at_nether3" : "§7游魂：这里看起来就热...不过我感受不到了。",
+
+  "chat.goal.interact_player.at_end1" : "§7游魂：末地总是老样子，荒的我心慌。",
+  "chat.goal.interact_player.at_end2" : "§7游魂：你说这里像不像小行星带？",
+  "chat.goal.interact_player.at_end3" : "§7游魂：小心脚下！谨防虚空！",
+
+  "chat.goal.interact_player.player_death_near1" : "§7游魂：想来陪我了？",
+  "chat.goal.interact_player.player_death_near2" : "§7游魂：你不要死啊，来生！",
+  "chat.goal.interact_player.player_death_near3" : "§7游魂：快吃东西回血！",
 
   "chat.goal.move_to_player.start" : "§l§oYour past-life spirit senses you nearby!\nApproaching...",
 

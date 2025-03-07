@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class FileWork {
-    //文件路径：/rootDir/levelName/playerUUID/ghostUUID
+
     //文件操作
     public static File rootDir() {
         File rootDir = new File(System.getProperty("user.dir"),"Cloud_Revive_Data");
@@ -21,6 +21,22 @@ public class FileWork {
             rootDir.mkdirs();
         }
         return rootDir;
+    }
+
+    public static void warnFile()  {
+        File rootDir = rootDir();
+        File warningFileZH = new File(rootDir,"请勿修改此文件夹下的文件！！！会导致进入世界崩溃！！！");
+        File warningFileEN = new File(rootDir,"Don't modify the files under this folder!!! Worlds will crash on launch!!!");
+        try {
+            if (!warningFileZH.createNewFile()) {
+                warningFileZH.mkdirs();
+            }
+            if (!warningFileEN.createNewFile()) {
+                warningFileEN.mkdirs();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static File spiltDirByString(String string, File parentDir) {
@@ -42,10 +58,11 @@ public class FileWork {
             }
             return levelRawName.substring(borderIndex+1, levelRawName.length()-1);
         }
-        return "";
+        return "FAILED TO GET LEVEL NAME";
     }
 
     //匹配UUID
+    //文件路径：/rootDir/levelName/playerUUID/ghostUUID(file)
     public static void createMatchFile(WanderingSpirit wanderingSpirit, File parentDir) {
         String matchUUID = wanderingSpirit.getStringUUID();
         File matchFile = new File(parentDir,matchUUID);
@@ -58,17 +75,19 @@ public class FileWork {
         }
     }
 
-    public static<T extends Entity> File makeMatch(T entity) {
+    public static<T extends Entity> File makeMatch(T entity)  {
         String matchUUID = entity.getStringUUID();
         File rootDir = rootDir();
         File levelDir = new File(rootDir, getLevelName(entity));
         AtomicReference<File> targetPlayerDir = new AtomicReference<>(null);
-        Arrays.stream(Objects.requireNonNull(levelDir.list())).toList().forEach(playerUUID -> {
-            File playerDir = new File(levelDir, playerUUID);
-           if(Arrays.asList(Objects.requireNonNull(playerDir.list())).contains(matchUUID)) {
-                   targetPlayerDir.set(playerDir);
-           }
-        });
+        if(levelDir.list() != null) {
+            Arrays.stream(Objects.requireNonNull(levelDir.list())).toList().forEach(playerUUID -> {
+                File playerDir = new File(levelDir, playerUUID);
+                if(Arrays.asList(Objects.requireNonNull(playerDir.list())).contains(matchUUID)) {
+                    targetPlayerDir.set(playerDir);
+                }
+            });
+        }
         return targetPlayerDir.get();
     }
 
@@ -87,6 +106,42 @@ public class FileWork {
         });
     }
 
+    //确认相遇状态
+    //生成相遇状态文件
+    //文件路径：/rootDir/Ghost_Data/ghostUUID/if_meet(file)
+    public static void createMeetFile(WanderingSpirit wanderingSpirit, File parentDir) {
+        String ghostUUID = wanderingSpirit.getStringUUID();
+        File ghostDir = new File(parentDir,ghostUUID);
+        File meetStatus = new File(ghostDir,"no");
+        try {
+            if (!ghostDir.exists()) {
+                ghostDir.mkdirs();
+            }
+            if (!meetStatus.createNewFile()) {
+                meetStatus.mkdirs();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static<T extends Entity> boolean checkIfMeetAndFix(T entity) {
+        String ghostUUID = entity.getStringUUID();
+        File rootDir = rootDir();
+        String levelNameGD = getLevelName(entity);
+        levelNameGD += "GD";
+        File levelDirGD = new File(rootDir, levelNameGD);
+        File ghostDir = new File(levelDirGD,ghostUUID);
+        File meetStatus = new File(ghostDir,"no");
+        if(meetStatus.isFile()) {
+            meetStatus.delete();
+            ghostDir.delete();
+            return true;
+        }
+        return false;
+    }
+
+    //安装模组检查
     public static boolean isAccessoriesInstalled() {
         Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
         return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("accessories"));
@@ -99,5 +154,6 @@ public class FileWork {
 
     public static void initialize() {
         rootDir();
+        warnFile();
     }
 }

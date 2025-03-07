@@ -40,7 +40,7 @@ public class ModItems {
     );//类末影珍珠
 
     public static final Item CHAOS_PEARL = register(
-            "chaos_pearl.json",
+            "chaos_pearl",
             new ChaosPearl(new Item.Properties().rarity(Rarity.EPIC).stacksTo(1))
     );
 
@@ -81,7 +81,7 @@ public class ModItems {
 
     public static final Item QI_FRUIT = register(
             "qi_fruit",
-            new QiFruit(new Item.Properties().food(new FoodProperties(1, 0.5f, true, 0.9f, Optional.of(ItemStack.EMPTY),List
+            new QiFruit(new Item.Properties().food(new FoodProperties(3, 1.5f, true, 0.95f, Optional.of(ItemStack.EMPTY),List
                     .of(new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.LEVITATION, 200,0, false, false, true), 1.0f),
                             new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 1500,2, false, false, true), 0.13f),
                             new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200,2, false, false, true), 0.13f),
@@ -94,10 +94,11 @@ public class ModItems {
 
     public static final Item SOUL_FRUIT = register(
             "soul_fruit",
-            new SoulFruit(new Item.Properties().fireResistant().rarity(Rarity.UNCOMMON).food(new FoodProperties(1, 0.5f, true, 0.9f, Optional.of(ItemStack.EMPTY),List
-                    .of(new FoodProperties.PossibleEffect(new MobEffectInstance(ModEffects.SOUL_LIKE, 4000,0, false, false, true), 1.0f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 4000,4, false, false, true), 1.0f)))))
-    );
+            new SoulFruit(new Item.Properties().fireResistant().rarity(Rarity.UNCOMMON).food(new FoodProperties(2, 2.5f, true, 0.95f, Optional.of(ItemStack.EMPTY),List
+                    .of(new FoodProperties.PossibleEffect(new MobEffectInstance(ModEffects.SOUL_LIKE, 2400,0, false, false, true), 1.0f),
+                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 2400,4, false, false, true), 1.0f),
+                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.WEAKNESS, 2400, 4, false, false, true), 1.0f)
+                    )))));
 
     public static <T extends Item> T register(String path, T item) {
         return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, path), item);

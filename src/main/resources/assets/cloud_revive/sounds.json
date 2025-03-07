@@ -10,5 +10,11 @@
     "sounds": [
       "cloud_revive:soul_like"
     ]
+  },
+  "talk": {
+    "subtitle": "sound.cloud_revive.talk",
+    "sounds": [
+      "cloud_revive:talk"
+    ]
   }
 }

@@ -1,13 +1,24 @@
 package com.lzyzl6.item;
 
+import com.lzyzl6.registry.ModItems;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 
 import java.util.List;
+import java.util.Random;
 
 public class AbInitioPearl extends Item {
+
+    private boolean shouldRoll = true;
 
     public AbInitioPearl(Properties properties) {
         super(properties);
@@ -21,6 +32,29 @@ public class AbInitioPearl extends Item {
         list.add(Component.translatable("item.cloud_revive.pearl.tooltip4"));
         list.add(Component.translatable("item.cloud_revive.pearl.tooltip5"));
         list.add(Component.translatable("item.cloud_revive.pearl.tooltip6"));
+    }
 
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+        ItemStack itemStack = player.getItemInHand(interactionHand);
+        if (!shouldRoll) {
+            shouldRoll = true;
+        } else if(interactionHand == InteractionHand.OFF_HAND && itemStack.is(ModItems.PEARL)) {
+           String str = "tip.pearl.";
+            int randomNum = new Random().nextInt(15) + 1;
+            str += randomNum;
+            player.startUsingItem(interactionHand);
+            player.sendSystemMessage(Component.translatable(str));
+            player.sendSystemMessage(Component.literal(""));
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 0.7F, 0.7F);
+            afterUse(player, interactionHand);
+            shouldRoll = false;
+        }
+       return super.use(level, player, interactionHand);
+    }
+
+    private void afterUse(Player player, InteractionHand interactionHand) {
+        player.awardStat(Stats.ITEM_USED.get(this));
+        player.swing(interactionHand, true);
     }
 }
