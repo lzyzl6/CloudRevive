@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.EnumSet;
 
 public class FlyToAirGoal extends Goal {
+
     private final WanderingSpirit ghost;
 
     public FlyToAirGoal(WanderingSpirit ghost) {

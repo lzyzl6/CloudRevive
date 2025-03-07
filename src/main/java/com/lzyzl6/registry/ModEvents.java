@@ -30,7 +30,13 @@ public class ModEvents {
 
             //生成匹配文件
             //文件路径：/rootDir/levelName/playerUUID/ghostUUID
-            createMatchFile(ghost, spiltDirByString(player.getStringUUID(), spiltDirByString(getLevelName(ghost), rootDir())));
+            createMatchFile(ghost, spiltDirByString(player.getStringUUID(), spiltDirByString(getLevelName(player), rootDir())));
+
+            //生成相遇状态文件
+            //文件路径：/rootDir/levelNameGD/ghostUUID/if_meet
+            String levelNameGD = getLevelName(player);
+            levelNameGD += "GD";
+            createMeetFile(ghost,spiltDirByString(levelNameGD, rootDir()));
 
             Vec3 vec3 = player.position();
             String dimension = player.level().dimensionTypeRegistration().getRegisteredName();

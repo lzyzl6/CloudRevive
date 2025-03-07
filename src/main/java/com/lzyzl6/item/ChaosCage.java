@@ -4,6 +4,8 @@ import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.registry.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -32,7 +34,7 @@ public class ChaosCage extends Item {
     }
 
     @Override
-    public boolean isValidRepairItem(ItemStack itemStack, ItemStack itemStack2) {
+    public boolean isValidRepairItem(@NotNull ItemStack itemStack, ItemStack itemStack2) {
         return itemStack2.is(ModItems.CHAOS_QI);
     }
 
@@ -56,11 +58,13 @@ public class ChaosCage extends Item {
                 player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.sky_qi_captured"), true);
                 player.addItem(new ItemStack(ModItems.SKY_QI));
                 damageItem(player, usedHand, 9);
+                afterUse(player, usedHand);
             }
             else if(height < 0 && player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.CHAOS_CAGE && usedHand == InteractionHand.OFF_HAND) {
                 player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.ground_qi_captured"), true);
                 player.addItem(new ItemStack(ModItems.GROUND_QI));
                 damageItem(player, usedHand, 9);
+                afterUse(player, usedHand);
             }
             else if(player.isShiftKeyDown() && player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.CHAOS_CAGE && usedHand == InteractionHand.OFF_HAND) {
                 if(!(player.getHealth() == player.getMaxHealth()) || player.hasEffect(MobEffects.WEAKNESS)) {
@@ -85,7 +89,7 @@ public class ChaosCage extends Item {
             UUID targetUUID = wanderingSpirit.locateTargetUUID();
             if( targetUUID != null && Objects.equals(targetUUID,player.getUUID()) && itemStack.getItem() == ModItems.CHAOS_CAGE && interactionHand == InteractionHand.MAIN_HAND) {
                 //通知玩家成功
-                player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.wandering_spirit_captured"), true);
+                player.displayClientMessage(Component.translatable("chat.cloud_revive.chaos_cage.wandering_spirit_captured"), true);
                 player.sendSystemMessage(Component.translatable("chat.cloud_revive.soul_back"));
                 //物品转移到玩家
                 if(wanderingSpirit.getInventory().items.size() <= player.getInventory().getFreeSlot() - 1 ) {
@@ -117,11 +121,14 @@ public class ChaosCage extends Item {
                 damageItem(player, interactionHand, 1);
                 deleteMatchFile(wanderingSpirit);
                 wanderingSpirit.discard();
+                afterUse(player, interactionHand);
+                player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS, 0.7F, 0.7F);
                 return InteractionResult.SUCCESS;
             } else if(targetUUID != null && itemStack.getItem() == ModItems.CHAOS_CAGE && interactionHand == InteractionHand.MAIN_HAND) {
                 //通知玩家失败
-                player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.wandering_spirit_others"), true);
+                player.displayClientMessage(Component.translatable("chat.cloud_revive.chaos_cage.wandering_spirit_others"), true);
                 System.out.println("The player is: " + player.getUUID() + " The wandering spirit want: " + targetUUID);
+                afterUse(player, interactionHand);
             }
             return InteractionResult.PASS;
         }
@@ -139,5 +146,11 @@ public class ChaosCage extends Item {
                 itemStack.hurtAndBreak(i, player, EquipmentSlot.OFFHAND);
             }
         }
+    }
+
+    private void afterUse(Player player, InteractionHand interactionHand) {
+        player.getCooldowns().addCooldown(this, 40);
+        player.awardStat(Stats.ITEM_USED.get(this));
+        player.swing(interactionHand, true);
     }
 }

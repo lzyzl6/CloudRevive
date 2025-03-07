@@ -1,6 +1,7 @@
 package com.lzyzl6.entity;
 
 import com.lzyzl6.ai.goal.FlyToAirGoal;
+import com.lzyzl6.ai.goal.InteractPlayerGoal;
 import com.lzyzl6.ai.goal.MoveToPlayerGoal;
 import com.lzyzl6.registry.ModSoundEvents;
 import net.minecraft.nbt.CompoundTag;
@@ -58,12 +59,15 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
             this.makeSound(this.getAmbientSound());
         }
     }
+
     @Override
     public SoundEvent getAmbientSound() {
         return ModSoundEvents.GHOST_AMBIENT;
     }
 
     //AI
+    public boolean shouldBroadcastMovement = true;
+
     @Override
     public void tick() {
         this.noPhysics = true;
@@ -74,9 +78,10 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new MoveToPlayerGoal(this));
-        this.goalSelector.addGoal(1, new FlyToAirGoal(this));
-        this.goalSelector.addGoal(2, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(0, new InteractPlayerGoal(this));
+        this.goalSelector.addGoal(1, new MoveToPlayerGoal(this));
+        this.goalSelector.addGoal(2, new FlyToAirGoal(this));
+        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
     }
 
     //属性
