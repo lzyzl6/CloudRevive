@@ -31,6 +31,7 @@ public class ChaosPearl extends Item {
         list.add(Component.translatable("item.cloud_revive.chaos_pearl.tooltip2"));
         list.add(Component.translatable("item.cloud_revive.chaos_pearl.tooltip3"));
         list.add(Component.translatable("item.cloud_revive.chaos_pearl.tooltip4"));
+        list.add(Component.translatable("item.cloud_revive.chaos_pearl.tooltip5"));
     }
 
     @Override
@@ -40,7 +41,7 @@ public class ChaosPearl extends Item {
             shouldRoll = true;
         } else if(interactionHand == InteractionHand.OFF_HAND && itemStack.is(ModItems.CHAOS_PEARL)) {
             String str = "tip.chaos_pearl.";
-            int randomNum = new Random().nextInt(9) + 1;
+            int randomNum = new Random().nextInt(10) + 1;
             str += randomNum;
             player.startUsingItem(interactionHand);
             player.sendSystemMessage(Component.translatable(str));

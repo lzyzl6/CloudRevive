@@ -95,7 +95,9 @@ public class InteractPlayerGoal extends Goal {
                 player.sendSystemMessage(Component.translatable(str));
             }
         } else {
-            boolean shouldTalk = new Random().nextDouble(100) <= 0.01d;
+            double randomDouble = new Random().nextDouble(100);
+            boolean shouldTalk = randomDouble <= 0.01d;
+            System.out.println(shouldTalk + " " + randomDouble);
 
             if(shouldTalk) {
                 int randomInt = new Random().nextInt(3) + 1;

@@ -43,7 +43,7 @@ public class ModBlocks {
     public static final Block QI_BLOCK_CORE = registerBlock("qi_block_core", new QiBlockCore(BlockBehaviour.Properties.of().sound(SoundType.DEEPSLATE).strength(1.0F, 1.0F)));
     public static final BlockEntityType<QiBlockCoreEntity> QI_BLOCK_CORE_ENTITY = registerBlockEntity("qi_block_core_entity", BlockEntityType.Builder.of((pos, state) -> new QiBlockCoreEntity(BlockEntityType.STRUCTURE_BLOCK, pos, state),QI_BLOCK_CORE).build());
 
-    public static final Block BIRTH_BEACON = new BirthBeacon(BlockBehaviour.Properties.of().noCollission().sound(SoundType.METAL).strength(1.5F, 6.0F));
+    public static final Block BIRTH_BEACON = new BirthBeacon(BlockBehaviour.Properties.of().sound(SoundType.METAL).strength(1.5F, 6.0F));
     public static final BlockEntityType<BirthBeaconEntity> BIRTH_BEACON_ENTITY = registerBlockEntity("birth_beacon_entity", BlockEntityType.Builder.of((pos, state) -> new BirthBeaconEntity(BlockEntityType.BEACON, pos, state),BIRTH_BEACON).build());
 
     public static void initialize() {

@@ -27,17 +27,17 @@ public class ModItems {
     public static final Item CAGE = register(
             "cage",
             new Cage(new Item.Properties().rarity(Rarity.RARE).durability(81))
-    );//灯笼，紫金
+    );
 
     public static final Item CHAOS_CAGE = register(
             "chaos_cage",
-            new ChaosCage(new Item.Properties().rarity(Rarity.EPIC).durability(256))
+            new ChaosCage(new Item.Properties().rarity(Rarity.EPIC).fireResistant().durability(256))
     );
 
     public static final Item PEARL = register(
             "pearl",
             new AbInitioPearl(new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(1))
-    );//类末影珍珠
+    );
 
     public static final Item CHAOS_PEARL = register(
             "chaos_pearl",
@@ -52,7 +52,7 @@ public class ModItems {
     public static final Item CORE_QI = register(
             "core_qi",
             new CoreQi(new Item.Properties().rarity(Rarity.RARE).fireResistant().stacksTo(16))
-    );//紫金
+    );
 
     public static final Item CHAOS_QI = register(
             "chaos_qi",
@@ -62,22 +62,22 @@ public class ModItems {
     public static final Item SKY_QI = register(
             "sky_qi",
             new SkyQi(new Item.Properties().fireResistant().stacksTo(16))
-    );//白金
+    );
 
     public static final Item GROUND_QI = register(
             "ground_qi",
             new GroundQi(new Item.Properties().fireResistant().stacksTo(16))
-    );//黑赤
+    );
 
     public static final Item PEOPLE_QI = register(
             "people_qi",
             new PeopleQI(new Item.Properties().fireResistant().stacksTo(16))
-    );//青白
+    );
 
     public static final Item DEAD_QI = register(
             "dead_qi",
             new DeadQi(new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant().stacksTo(16))
-    );//灰黑
+    );
 
     public static final Item QI_FRUIT = register(
             "qi_fruit",
