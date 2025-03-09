@@ -18,7 +18,7 @@ import java.io.IOException;
 @Mixin(LivingEntity.class)
 public class PlayerDieMixin {
 	@Inject(method = "dropAllDeathLoot",at = @At(value = "HEAD"))
-	private void onceDied( final CallbackInfo info) throws IOException {
+	private void onceDied(final CallbackInfo info) throws IOException {
 		if((LivingEntity) (Object) this instanceof Player){
 			Player player = (Player) (Object) this;
 			ServerLevel serverLevel = (ServerLevel) player.level();

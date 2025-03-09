@@ -17,6 +17,14 @@
   "item.cloud_revive.qi_fruit" : "元气果",
   "item.cloud_revive.soul_fruit" : "魂气果",
 
+  "item.cloud_revive.strat_cage.tooltip1" : "在§9副手§r上使用:",
+  "item.cloud_revive.strat_cage.tooltip2" : "引来寄托虚空的§5轻都§r碎片，并使其显形",
+  "item.cloud_revive.strat_cage.tooltip3" : "§e警告：必须为牵引来的§5轻都§e碎片提供空间显形！建议在§4空旷的室外§e牵引！",
+  "item.cloud_revive.strat_cage.tooltip4" : "§7§o不知为何，§5轻都§7§o永远只会在东方显形...",
+
+  "item.cloud_revive.strat_cage.success" : "§5你好！轻都！",
+  "item.cloud_revive.strat_cage.cant_generate" : "§7空间不足！牵引失败！",
+
   "item.cloud_revive.cage.tooltip1" : "在§9副手§r上使用:",
   "item.cloud_revive.cage.tooltip2" : "高度在§3128§r格以上时：捕捉§9『高天阳气』§r，消耗较多耐久",
   "item.cloud_revive.cage.tooltip3" : "高度在§30§r格以下时：捕捉§9『玄地阴气』§r，消耗较多耐久",
@@ -33,11 +41,11 @@
   "item.cloud_revive.pearl.tooltip6" : "§7进阶;指令;...",
 
   "item.cloud_revive.chaos_pearl.tooltip1" : "在§9副手§r上使用:",
-  "item.cloud_revive.chaos_pearl.tooltip2" : "给予随机提示，目前共§39§r条，包含如下条目：",
+  "item.cloud_revive.chaos_pearl.tooltip2" : "给予随机提示，目前共§310§r条，包含如下条目：",
   "item.cloud_revive.chaos_pearl.tooltip3" : "§7游魂;§5轻都§r§7;『亡人魂气』;§9往生信标§r§7;§9魂印宝珠§7;",
-  "item.cloud_revive.chaos_pearl.tooltip4" : "§9混沌宝珠§r§7;§e魂化§r§7;修理;§9魂气果§r§7;...",
+  "item.cloud_revive.chaos_pearl.tooltip4" : "§9混沌宝珠§r§7;§e魂化§r§7;修理;§9魂气果§r§7;魂牵;...",
 
-  "item.cloud_revive.soul_fruit.tooltip1" : "§4杀§e不死我的，只会让我更强大！",
+  "item.cloud_revive.soul_fruit.tooltip1" : "§7§o否极泰来!向死而生",
 
   "block.cloud_revive.qi_fruit_bush" : "枯死的元气果丛",
   "block.cloud_revive.qi_block" : "停滞的元气块",
@@ -76,12 +84,13 @@
   "tip.chaos_pearl.1" : "§7游魂§r：玩家死后而生的游魂会帮助来世，主动把物品栏中§9混元纳魂笼§r\n（或者有助其制作的物品）给予玩家，并会跟随玩家，偶尔和玩家交流。",
   "tip.chaos_pearl.2" : "§5轻都§r：原是玩家死后魂气所去之处，大事故后，玩家魂气没有归处，\n只能流窜在人世，一点记忆也保留了下来。",
   "tip.chaos_pearl.3" : "『亡人魂气』：由玩家魂气中捕捉，可以用来制作§9魂印宝珠§r和§9魂气果§r等。",
-  "tip.chaos_pearl.4" : "§9往生信标§r：可以召集传送你往世所有游魂，需要使用§9混沌宝珠§r来激活。",
+  "tip.chaos_pearl.4" : "§9往生信标§r：可以召唤你往世所有游魂，需要使用§9混沌宝珠§r来充能。",
   "tip.chaos_pearl.5" : "§9魂印宝珠§r：从玩家死后所生游魂中捕捉的『亡人魂气』蕴含着玩家信息，\n可以用来定位玩家的往生，是§9往生信标§r的重要部分。",
-  "tip.chaos_pearl.6" : "§9混沌宝珠§r：蕴含着高阶知识，可以用来激活§9往生信标§r。",
+  "tip.chaos_pearl.6" : "§9混沌宝珠§r：蕴含着高阶知识，可以用来给§9往生信标§r充能。",
   "tip.chaos_pearl.7" : "§e魂化§r：一种特殊的状态，使你一定时间内像游魂一样无法被伤害。",
   "tip.chaos_pearl.8" : "修理：用『一始元气』修理§9游元擒气笼§r，用『混沌宝气』修理§9混元纳魂笼§r,\n用§9一始宝珠§r修理§9一始宝灯笼§r。",
   "tip.chaos_pearl.9" : "§9魂气果§r：食用后获取§e魂化§r效果，但会使你像游魂一样难以与外界交互。",
+  "tip.chaos_pearl.10" : "§d魂牵§r：通用物品附魔，拥有该附魔的物品在玩家死后会去往§b来生§r。",
 
   "effect.cloud_revive.soul_like" : "魂化",
 
@@ -127,7 +136,7 @@
   "chat.goal.interact_player.hurt4" : "§7游魂：就剩一滴血了我天。没法再给你东西了抱歉哦QWQ",
   "chat.goal.interact_player.hurt5" : "§7游魂：拿好...诶呦！该死...",
   "chat.goal.interact_player.hurt6" : "§7游魂：我这个状态给不了你太多。你看我也因此受伤了。",
-  "chat.goal.interact_player.hurt7" : "§7游魂：我用血换来的...来世，你要好好利用啊！",
+  "chat.goal.interact_player.hurt7" : "§7游魂：我耗费大半的残命换来的...来世，你要好好利用啊！",
   "chat.goal.interact_player.hurt8" : "§7游魂：好好活着！东西给你...我尽力了...",
   "chat.goal.interact_player.hurt9" : "§7游魂:哈哈咳...！给你这些，我没力气了...",
   "chat.goal.interact_player.hurt10" : "§7游魂：来生！今我逆天而为，我物你好好利用！",
@@ -138,7 +147,7 @@
 
   "chat.goal.interact_player.player_glowing1" : "§7游魂：奇怪，我都死了还能看见光。",
   "chat.goal.interact_player.player_glowing2" : "§7游魂：你发光起来好像我同类啊。",
-  "chat.goal.interact_player.player_glowing3" : "§7游魂：你现在暴露位置了呀！",
+  "chat.goal.interact_player.player_glowing3" : "§7游魂：你知道吗...新游魂产生后会发光一段时间的。",
 
   "chat.goal.interact_player.at_nether1" : "§7游魂：其实我一直想搞个恶魂之泪玩玩。",
   "chat.goal.interact_player.at_nether2" : "§7游魂：惹谁都行，别惹猪灵蛮兵。",

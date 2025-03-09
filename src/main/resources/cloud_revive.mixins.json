@@ -3,7 +3,9 @@
 	"package": "com.lzyzl6.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"PlayerDieMixin"
+		"PlayerDieMixin",
+		"ExplosionResistMixin",
+		"UndeadPlayerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

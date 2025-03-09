@@ -19,23 +19,14 @@ public class SoulLike extends MobEffect {
 
     @Override
     public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
-        return duration >= 0 && amplifier >= 0;
-    }
-
-    @Override
-    public boolean applyEffectTick(@NotNull LivingEntity entity, int amplifier) {
-        if (entity instanceof Player) {
-            entity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 20, 4, true, false, false));
-            entity.invulnerableTime = Objects.requireNonNull(entity.getEffect(ModEffects.SOUL_LIKE)).getDuration();
-            return true;
-        }
-        return false;
+        return duration > 0 && amplifier >= 0;
     }
 
     @Override
     public void onEffectStarted(@NotNull LivingEntity livingEntity, int i) {
         if (livingEntity instanceof Player) {
             livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 4, true, false, false));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Objects.requireNonNull(livingEntity.getEffect(ModEffects.SOUL_LIKE)).getDuration(), 4, true, false, false));
         }
     }
 }

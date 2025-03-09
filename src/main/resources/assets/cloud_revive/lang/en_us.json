@@ -17,6 +17,14 @@
   "item.cloud_revive.qi_fruit" : "Chi Apple",
   "item.cloud_revive.soul_fruit" : "Soul Chi Apple",
 
+  "item.cloud_revive.strat_cage.tooltip1" : "在§9副手§r上使用:",
+  "item.cloud_revive.strat_cage.tooltip2" : "引来寄托虚空的§5轻都§r碎片，并使其显形",
+  "item.cloud_revive.strat_cage.tooltip3" : "§e警告：必须为牵引来的§5轻都§e碎片提供空间显形！建议在§4空旷的室外§e牵引！",
+  "item.cloud_revive.strat_cage.tooltip4" : "§7§o不知为何，§5轻都§7§o永远只会在东方显形...",
+
+  "item.cloud_revive.strat_cage.success" : "§5你好！轻都！",
+  "item.cloud_revive.strat_cage.cant_generate" : "§7空间不足！牵引失败！",
+
   "item.cloud_revive.cage.tooltip1" : "在§9副手§r上使用:",
   "item.cloud_revive.cage.tooltip2" : "高度在§3128§r格以上时：捕捉§9『高天阳气』§r，消耗较多耐久",
   "item.cloud_revive.cage.tooltip3" : "高度在§30§r格以下时：捕捉§9『玄地阴气』§r，消耗较多耐久",
@@ -33,11 +41,11 @@
   "item.cloud_revive.pearl.tooltip6" : "§7Progression;Commands;...",
 
   "item.cloud_revive.chaos_pearl.tooltip1" : "在§9副手§r上使用:",
-  "item.cloud_revive.chaos_pearl.tooltip2" : "给予随机提示，目前共§39§r条，包含如下条目：",
+  "item.cloud_revive.chaos_pearl.tooltip2" : "给予随机提示，目前共§310§r条，包含如下条目：",
   "item.cloud_revive.chaos_pearl.tooltip3" : "§7游魂;§5轻都§r§7;『亡人魂气』;§9往生信标§r§7;§9魂印宝珠§7;",
-  "item.cloud_revive.chaos_pearl.tooltip4" : "§9混沌宝珠§r§7;§e魂化§r§7;修理;§9魂气果§r§7;...",
+  "item.cloud_revive.chaos_pearl.tooltip4" : "§9混沌宝珠§r§7;§e魂化§r§7;修理;§9魂气果§r§7;魂牵;...",
 
-  "item.cloud_revive.soul_fruit.tooltip1" : "§4杀§e不死我的，只会让我更强大！",
+  "item.cloud_revive.soul_fruit.tooltip1" : "§7§o否极泰来!向死而生",
 
   "block.cloud_revive.qi_fruit_bush" : "Withered Chi Bush",
   "block.cloud_revive.qi_block" : "Stagnant Chi Block",
@@ -76,12 +84,13 @@
   "tip.chaos_pearl.1" : "§7Wandering Spirit§r: Helps the next life by delivering §9Chaos Soul Cage§r\n(or related items) from its inventory. Follows and occasionally communicates.",
   "tip.chaos_pearl.2" : "§5§lQingdu§r: Once where souls departed. After the catastrophe,\nsouls wander the world, retaining fragmented memories.",
   "tip.chaos_pearl.3" : "『Spectral Soul Chi』: Extracted from player souls. Used to craft §9Soulbrand Gem§r and §9Soul Chi Apple§r.",
-  "tip.chaos_pearl.4" : "§9Afterlife Beacon§r: Summons all past-life spirits. Requires §9Chaos Orb§r to activate.",
+  "tip.chaos_pearl.4" : "§9Afterlife Beacon§r: Calls all past-life spirits. Requires §9Chaos Orb§r to charge.",
   "tip.chaos_pearl.5" : "§9Soulbrand Gem§r: Contains player data from §iWandering Spirits§r.\nEssential for §9Afterlife Beacon§r.",
-  "tip.chaos_pearl.6" : "§9Chaos Orb§r: Holds advanced knowledge. Activates §9Afterlife Beacon§r.",
+  "tip.chaos_pearl.6" : "§9Chaos Orb§r: Holds advanced knowledge. Powers §9Afterlife Beacon§r.",
   "tip.chaos_pearl.7" : "§eSoulshift§r: Become invulnerable for a duration like a wandering ghost.",
   "tip.chaos_pearl.8" : "Repair: Use 『Primordial Chi』 on anvil for §9Roaming Chi Cage§r,\n『Chaos Core Chi』 for §9Chaos Soul Cage§r.",
   "tip.chaos_pearl.9" : "§9Soul Chi Apple§r: Grants §eSoulshift§r but reduces interaction ability.",
+  "tip.chaos_pearl.10" : "§d魂牵§r：通用物品附魔，拥有该附魔的物品在玩家死后会去往§b来生§r。",
 
   "effect.cloud_revive.soul_like" : "Soulshift",
 

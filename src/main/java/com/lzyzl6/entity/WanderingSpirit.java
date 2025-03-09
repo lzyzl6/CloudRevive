@@ -18,7 +18,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
+import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
@@ -78,10 +79,29 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new InteractPlayerGoal(this));
-        this.goalSelector.addGoal(1, new MoveToPlayerGoal(this));
-        this.goalSelector.addGoal(2, new FlyToAirGoal(this));
-        this.goalSelector.addGoal(3, new LookAtPlayerGoal(this, Player.class, 8.0F));
+        this.goalSelector.addGoal(0, new LookAtPlayerGoal(this, getTargetPlayer(this), 8.0F,1.0F));
+        this.goalSelector.addGoal(1, new InteractPlayerGoal(this));
+        this.goalSelector.addGoal(2, new MoveToPlayerGoal(this));
+        this.goalSelector.addGoal(3, new FlyToAirGoal(this));
+    }
+
+    Class<? extends Player> getTargetPlayer(WanderingSpirit wanderingSpirit) {
+        if(wanderingSpirit.locateTargetUUID() != null) {
+            Player player = wanderingSpirit.level().getPlayerByUUID(wanderingSpirit.locateTargetUUID());
+            if(player != null) {
+                return player.getClass();
+            }
+        }
+        return Player.class;
+    }
+
+    @Override
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
+        FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level);
+        flyingPathNavigation.setCanOpenDoors(false);
+        flyingPathNavigation.setCanFloat(true);
+        flyingPathNavigation.setCanPassDoors(true);
+        return flyingPathNavigation;
     }
 
     //属性
@@ -146,11 +166,6 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.readInventoryFromTag(tag, this.level().registryAccess());
-    }
-
-    @Override
-    protected void pickUpItem(@NotNull ItemEntity itemEntity) {
-        InventoryCarrier.pickUpItem(this, this, itemEntity);
     }
 }
 

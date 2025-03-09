@@ -26,6 +26,7 @@ public class ModEvents {
 
 
     public static void initialize() {
+
         PlayerDieCallback.EVENT.register((player, ghost) -> {
 
             //生成匹配文件

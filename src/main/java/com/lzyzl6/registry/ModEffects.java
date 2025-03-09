@@ -12,9 +12,9 @@ import static com.lzyzl6.CloudRevive.MOD_ID;
 
 public class ModEffects {
 
-    public static final MobEffect SLLIKE = new SoulLike(MobEffectCategory.NEUTRAL, 0xdcdcdc);
+    public static final MobEffect SLLIKE = new SoulLike(MobEffectCategory.BENEFICIAL, 0xdcdcdc);
     public static final Holder<MobEffect> SOUL_LIKE = register(
-            "soul_like", new SoulLike(MobEffectCategory.NEUTRAL, 0xdcdcdc).withSoundOnAdded(ModSoundEvents.SOUL_LIKE)
+            "soul_like", new SoulLike(MobEffectCategory.BENEFICIAL, 0xdcdcdc).withSoundOnAdded(ModSoundEvents.SOUL_LIKE)
     );
 
     private static Holder<MobEffect> register(String string, MobEffect mobEffect) {
