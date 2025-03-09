@@ -122,7 +122,6 @@ public class ChaosCage extends Item {
                 deleteMatchFile(wanderingSpirit);
                 wanderingSpirit.discard();
                 afterUse(player, interactionHand);
-                player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BEACON_ACTIVATE, SoundSource.PLAYERS, 0.7F, 0.7F);
                 return InteractionResult.SUCCESS;
             } else if(targetUUID != null && itemStack.getItem() == ModItems.CHAOS_CAGE && interactionHand == InteractionHand.MAIN_HAND) {
                 //通知玩家失败

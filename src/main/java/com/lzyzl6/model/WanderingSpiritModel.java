@@ -57,13 +57,12 @@ public class WanderingSpiritModel extends HierarchicalModel<WanderingSpirit> {
 		this.animateWalk(WanderingSpiritAnimation.fly,
 				f,
 				g,
-				0.8f,
-				0.9f);
-		if (g < 0.05f && !ghost.walkAnimation.isMoving()) { // 当移动量接近0时播放完整空闲动画
+				1.1f,
+				0.6f);
+		if (g < 0.1f) { // 当移动量接近0时播放完整空闲动画
 			this.animate(WanderingSpirit.idleAnimation,
 					WanderingSpiritAnimation.idle,
-					h,
-					0.8f); // 动画混合强度
+					h);
 		}
 	}
 

@@ -33,7 +33,7 @@ public class InteractPlayerGoal extends Goal {
         if(ghost.locateTargetUUID() != null) {
             player = ghost.level().getPlayerByUUID(ghost.locateTargetUUID());
             if (player != null && player.isAlive()) {
-                return ghost.position().distanceTo(player.position()) < 2.0d;
+                return ghost.position().distanceTo(player.position()) < 2.0d && !ghost.walkAnimation.isMoving();
             }
         }
         return false;
@@ -97,7 +97,6 @@ public class InteractPlayerGoal extends Goal {
         } else {
             double randomDouble = new Random().nextDouble(100);
             boolean shouldTalk = randomDouble <= 0.01d;
-            System.out.println(shouldTalk + " " + randomDouble);
 
             if(shouldTalk) {
                 int randomInt = new Random().nextInt(3) + 1;

@@ -28,12 +28,6 @@ public class BirthBeacon extends BaseEntityBlock {
         registerDefaultState(defaultBlockState().setValue(CHARGED, false));
     }
 
-    @Override
-    public InteractionResult onUse(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
-        player.playSound(SoundEvents.BLOCK_RESPAWN_ANCHOR_CHARGE, 1, 1);
-        level.setBlockState(pos, state.with(CHARGED, true));
-        return InteractionResult.SUCCESS;
-    }
 
     @Override
     public @NotNull MapCodec<BirthBeacon> codec() {
