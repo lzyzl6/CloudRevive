@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "cloud_revive:chaos_qi"
+    },
+    "i": {
+      "item": "minecraft:ghast_tear"
+    }
+  },
+  "pattern": [
+    "bbb",
+    "bib",
+    "bbb"
+  ],
+  "result": {
+    "count": 9,
+    "id": "minecraft:ghast_tear"
+  }
+}

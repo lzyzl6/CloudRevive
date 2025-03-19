@@ -19,6 +19,9 @@
 		"main": [
 			"com.lzyzl6.CloudRevive"
 		],
+		"client": [
+			"com.lzyzl6.CloudReviveClient"
+		],
 		"fabric-datagen": [
 			"com.lzyzl6.data.DataGenerator"
 		]

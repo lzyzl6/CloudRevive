@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "cloud_revive:item/qi_fruit_bush"
+  }
+}

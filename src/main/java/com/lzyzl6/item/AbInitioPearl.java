@@ -41,7 +41,7 @@ public class AbInitioPearl extends Item {
             shouldRoll = true;
         } else if(interactionHand == InteractionHand.OFF_HAND && itemStack.is(ModItems.PEARL)) {
            String str = "tip.pearl.";
-            int randomNum = new Random().nextInt(15) + 1;
+            int randomNum = new Random().nextInt(17) + 1;
             str += randomNum;
             player.startUsingItem(interactionHand);
             player.sendSystemMessage(Component.translatable(str));
@@ -54,6 +54,7 @@ public class AbInitioPearl extends Item {
     }
 
     private void afterUse(Player player, InteractionHand interactionHand) {
+        player.getCooldowns().addCooldown(this, 10);
         player.awardStat(Stats.ITEM_USED.get(this));
         player.swing(interactionHand, true);
     }

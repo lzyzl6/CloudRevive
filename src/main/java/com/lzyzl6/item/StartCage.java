@@ -56,7 +56,7 @@ public class StartCage extends Item {
             }
             //信息显示
             if(shouldRoll && isSuccess) {
-                player.sendSystemMessage(Component.translatable("item.cloud_revive.strat_cage.success"));
+                player.displayClientMessage(Component.translatable("item.cloud_revive.strat_cage.success"), true);
                 shouldRoll = false;
             }else if(shouldRoll){
                 player.sendSystemMessage(Component.translatable("item.cloud_revive.strat_cage.cant_generate"));

@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_chaos_qi": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloud_revive:chaos_qi"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_heavy_core": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:heavy_core"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:heavy_core"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_chaos_qi",
+      "has_heavy_core"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:heavy_core"
+    ]
+  }
+}
