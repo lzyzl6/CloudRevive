@@ -31,10 +31,6 @@ public class CloudRevive implements ModInitializer {
 
 		ModEffects.initialize();
 
-		ModModelLayers.initialize();
-
-		ModRenderers.initialize();
-
 		ModEvents.initialize();
 
 		ModSoundEvents.initialize();
@@ -42,5 +38,6 @@ public class CloudRevive implements ModInitializer {
 		ModCommands.initialize();
 
 		FileWork.initialize();
+
 	}
 }

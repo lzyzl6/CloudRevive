@@ -1,15 +1,21 @@
 package com.lzyzl6.data.storage;
 
+import com.lzyzl6.block.blockentity.BirthBeaconEntity;
 import com.lzyzl6.entity.WanderingSpirit;
+import com.lzyzl6.registry.ModBlocks;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class FileWork {
@@ -48,7 +54,7 @@ public class FileWork {
     }
 
     public static<T extends Entity > String getLevelName(T entity)  {
-        if(!entity.level().isClientSide()) {
+        if(!entity.level().isClientSide) {
             String levelRawName = Objects.requireNonNull(entity.level()).toString();
             int borderIndex;
             for(borderIndex = 0; borderIndex < levelRawName.length(); borderIndex++) {
@@ -59,6 +65,72 @@ public class FileWork {
             return levelRawName.substring(borderIndex+1, levelRawName.length()-1);
         }
         return "FAILED TO GET LEVEL NAME";
+    }
+
+    //往生信标匹配UUID
+    //文件路径：/rootDir/levelName/BeaconMatch/BlockPos/playerUUID(file)
+    public static void createBlockMatch(BlockPos blockPos, BlockState blockState, Player player) {
+        if(blockState.is(ModBlocks.BIRTH_BEACON) && player != null) {
+            File rootDir = rootDir();
+            String levelName = getLevelName(player);
+            File levelDir = new File(rootDir, levelName);
+            File beaconMatchDir = new File(levelDir, "BeaconMatch");
+            File blockPosDir = new File(beaconMatchDir, blockPos.toString());
+            File playerUUID = new File(blockPosDir, player.getStringUUID());
+            try {
+                if (!levelDir.exists()) {
+                    levelDir.mkdirs();
+                }
+                if (!beaconMatchDir.exists()) {
+                    beaconMatchDir.mkdirs();
+                }
+                if (!blockPosDir.exists()) {
+                    blockPosDir.mkdirs();
+                }
+                if (!playerUUID.createNewFile()) {
+                    playerUUID.mkdirs();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static void matchBlockAndFix(BirthBeaconEntity blockEntity) {
+        if(blockEntity.playerUUID == null && blockEntity.getLevel() != null && !blockEntity.getLevel().isClientSide) {
+            File rootDir = rootDir();
+            String levelRawName = Objects.requireNonNull(blockEntity.getLevel()).toString();
+            int borderIndex;
+            for(borderIndex = 0; borderIndex < levelRawName.length(); borderIndex++) {
+                if(levelRawName.charAt(borderIndex) == '['){
+                    break;
+                }
+            }
+            String levelName = levelRawName.substring(borderIndex+1, levelRawName.length()-1);
+            File levelDir = new File(rootDir, levelName);
+            File beaconMatchDir = new File(levelDir, "BeaconMatch");
+            File blockPosDir = new File(beaconMatchDir, blockEntity.getBlockPos().toString());
+            if (!levelDir.exists()) {
+                levelDir.mkdirs();
+            }
+            if (!beaconMatchDir.exists()) {
+                beaconMatchDir.mkdirs();
+            }
+            if (!blockPosDir.exists()) {
+                blockPosDir.mkdirs();
+            }
+            File[] playerUUIDs = blockPosDir.listFiles();
+            if(playerUUIDs != null) {
+                Arrays.stream(playerUUIDs).toList().forEach(playerUUID -> {
+                    String playerUUIDStr = playerUUID.getName();
+                    Player player = blockEntity.getLevel().getPlayerByUUID(UUID.fromString(playerUUIDStr));
+                    if(player != null) {
+                        blockEntity.playerUUID = player.getUUID();
+                    }
+                    playerUUID.delete();
+                });
+            }
+        }
     }
 
     //匹配UUID

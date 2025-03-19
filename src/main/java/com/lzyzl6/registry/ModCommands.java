@@ -19,9 +19,7 @@ public class ModCommands {
                 .register(literal("killghost")
                 .requires(source -> source.hasPermission(2))
                 .executes(context -> {
-                    // 对于 1.19 之前的版本，把“Text.literal”替换为“new LiteralText”。
-                    // 对于 1.20 之前的版本，请移除“() ->”。
-                    context.getSource().getLevel().getEntitiesOfClass(WanderingSpirit.class, AABB.ofSize(context.getSource().getPosition(), 20000, 20000, 20000)).forEach(entity -> entity.remove(Entity.RemovalReason.DISCARDED));
+                    context.getSource().getLevel().getEntitiesOfClass(WanderingSpirit.class, AABB.ofSize(context.getSource().getPosition(), 59999968, 59999968, 59999968)).forEach(entity -> entity.remove(Entity.RemovalReason.DISCARDED));
                     context.getSource().sendSuccess(() -> Component.translatable("command.killghost.success"), true);
 
                     return 1;
@@ -31,8 +29,6 @@ public class ModCommands {
                 .register(literal("givepearl")
                         .requires(source -> source.hasPermission(0))
                         .executes(context -> {
-                            // 对于 1.19 之前的版本，把“Text.literal”替换为“new LiteralText”。
-                            // 对于 1.20 之前的版本，请移除“() ->”。
                             Player player = context.getSource().getPlayerOrException();
                             if(player.getInventory().getFreeSlot() < 1) {
                                 player.level().addFreshEntity(new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), ModItems.PEARL.getDefaultInstance()));

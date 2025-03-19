@@ -42,10 +42,10 @@
 
   "item.cloud_revive.chaos_pearl.tooltip1" : "在§9副手§r上使用:",
   "item.cloud_revive.chaos_pearl.tooltip2" : "给予随机提示，目前共§310§r条，包含如下条目：",
-  "item.cloud_revive.chaos_pearl.tooltip3" : "§7游魂;§5轻都§r§7;『亡人魂气』;§9往生信标§r§7;§9魂印宝珠§7;",
+  "item.cloud_revive.chaos_pearl.tooltip3" : "§7物品复制;§5轻都§r§7;『亡人魂气』;§9往生信标§r§7;§9魂印宝珠§7;",
   "item.cloud_revive.chaos_pearl.tooltip4" : "§9混沌宝珠§r§7;§e魂化§r§7;修理;§9魂气果§r§7;魂牵;...",
 
-  "item.cloud_revive.soul_fruit.tooltip1" : "§7§o否极泰来!向死而生",
+  "item.cloud_revive.soul_fruit.tooltip1" : "§7§o否极泰来！向死而生",
 
   "block.cloud_revive.qi_fruit_bush" : "Withered Chi Bush",
   "block.cloud_revive.qi_block" : "Stagnant Chi Block",
@@ -56,6 +56,9 @@
   "block.cloud_revive.qi_block_entity" : "Stagnant Chi Block",
   "block.cloud_revive.qi_block_core_entity" : "Cracked Chi Core",
   "block.cloud_revive.birth_beacon_entity" : "Afterlife Beacon",
+
+  "block.cloud_revive.call_success" : "§7§l召唤成功！",
+  "block.cloud_revive.call_fail" : "§7§l本维度内未检索到目标！",
 
   "tab.cloud_revive.main_tab" : "Cloud Revive",
 
@@ -80,8 +83,10 @@
   "tip.pearl.13" : "§9Primordial Pearl§r: Grants basic knowledge until §9Chaos Soul Cage§r is made.\nAlso used to craft §9Chaos Orb§r and §9Primordial Cage§r.",
   "tip.pearl.14" : "Progression: After crafting §9Chaos Soul Cage§r,\nuse §9Primordial Pearl§r to make §9Chaos Orb§r for advanced knowledge.",
   "tip.pearl.15" : "Commands: §2/killghost§r clears all spirits within 20000 blocks §4(use carefully)§r.\n§2/givepearl§r grants a §9Primordial Pearl§r.",
+  "tip.pearl.16" : "§7Wandering Spirit§r: Helps the next life by delivering §9Chaos Soul Cage§r\n(or related items) from its inventory. Follows and occasionally communicates.",
+  "tip.pearl.17" : "§7游魂§r：本质是一团气，不能携带玩家经验。不和世间万物产生交互。\n但可以消耗自身强行与外界互动。",
 
-  "tip.chaos_pearl.1" : "§7Wandering Spirit§r: Helps the next life by delivering §9Chaos Soul Cage§r\n(or related items) from its inventory. Follows and occasionally communicates.",
+  "tip.chaos_pearl.1" : "物品复制：可使用一定数量的『混沌宝气』复制珍贵物品，\n如下界之星、下界合金锭、附魔金苹果等等。",
   "tip.chaos_pearl.2" : "§5§lQingdu§r: Once where souls departed. After the catastrophe,\nsouls wander the world, retaining fragmented memories.",
   "tip.chaos_pearl.3" : "『Spectral Soul Chi』: Extracted from player souls. Used to craft §9Soulbrand Gem§r and §9Soul Chi Apple§r.",
   "tip.chaos_pearl.4" : "§9Afterlife Beacon§r: Calls all past-life spirits. Requires §9Chaos Orb§r to charge.",
@@ -136,7 +141,7 @@
   "chat.goal.interact_player.hurt4" : "§7游魂：就剩一滴血了我天。没法再给你东西了抱歉哦QWQ",
   "chat.goal.interact_player.hurt5" : "§7游魂：拿好...诶呦！该死...",
   "chat.goal.interact_player.hurt6" : "§7游魂：我这个状态给不了你太多。你看我也因此受伤了。",
-  "chat.goal.interact_player.hurt7" : "§7游魂：我用血换来的...来世，你要好好利用啊！",
+  "chat.goal.interact_player.hurt7" : "§7游魂：我耗费大半的残命换来的...来世，你要好好利用啊！",
   "chat.goal.interact_player.hurt8" : "§7游魂：好好活着！东西给你...我尽力了...",
   "chat.goal.interact_player.hurt9" : "§7游魂:哈哈咳...！给你这些，我没力气了...",
   "chat.goal.interact_player.hurt10" : "§7游魂：来生！今我逆天而为，我物你好好利用！",
@@ -147,7 +152,7 @@
 
   "chat.goal.interact_player.player_glowing1" : "§7游魂：奇怪，我都死了还能看见光。",
   "chat.goal.interact_player.player_glowing2" : "§7游魂：你发光起来好像我同类啊。",
-  "chat.goal.interact_player.player_glowing3" : "§7游魂：你现在暴露位置了呀！",
+  "chat.goal.interact_player.player_glowing3" : "§7游魂：你知道吗...新游魂产生后会发光一段时间的。",
 
   "chat.goal.interact_player.at_nether1" : "§7游魂：其实我一直想搞个恶魂之泪玩玩。",
   "chat.goal.interact_player.at_nether2" : "§7游魂：惹谁都行，别惹猪灵蛮兵。",
@@ -163,6 +168,6 @@
 
   "chat.goal.move_to_player.start" : "§l§oYour past-life spirit senses you nearby!\nApproaching...",
 
-  "command.killghost.success" : "Cleared all spirits within 20000 blocks",
+  "command.killghost.success" : "Killed all wandering spirits located in this dimension",
   "command.givepearl.success" : "Granted"
 }

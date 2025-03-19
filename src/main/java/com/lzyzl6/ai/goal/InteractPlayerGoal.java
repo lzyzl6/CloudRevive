@@ -89,6 +89,7 @@ public class InteractPlayerGoal extends Goal {
                 str1 += randomInt2;
                 player.sendSystemMessage(Component.translatable(str1));
             } else {
+                ghost.getInventory().addItem(ModItems.DEAD_QI.getDefaultInstance());
                 str += "no_helpful_stuff";
                 str += randomInt1;
                 ghost.playSound(ModSoundEvents.TALK, 1.5f, 1.2f);

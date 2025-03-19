@@ -42,10 +42,10 @@
 
   "item.cloud_revive.chaos_pearl.tooltip1" : "在§9副手§r上使用:",
   "item.cloud_revive.chaos_pearl.tooltip2" : "给予随机提示，目前共§310§r条，包含如下条目：",
-  "item.cloud_revive.chaos_pearl.tooltip3" : "§7游魂;§5轻都§r§7;『亡人魂气』;§9往生信标§r§7;§9魂印宝珠§7;",
+  "item.cloud_revive.chaos_pearl.tooltip3" : "§7物品复制;§5轻都§r§7;『亡人魂气』;§9往生信标§r§7;§9魂印宝珠§7;",
   "item.cloud_revive.chaos_pearl.tooltip4" : "§9混沌宝珠§r§7;§e魂化§r§7;修理;§9魂气果§r§7;魂牵;...",
 
-  "item.cloud_revive.soul_fruit.tooltip1" : "§7§o否极泰来!向死而生",
+  "item.cloud_revive.soul_fruit.tooltip1" : "§7§o否极泰来！向死而生",
 
   "block.cloud_revive.qi_fruit_bush" : "枯死的元气果丛",
   "block.cloud_revive.qi_block" : "停滞的元气块",
@@ -57,13 +57,16 @@
   "block.cloud_revive.qi_block_core_entity" : "破裂的元气核",
   "block.cloud_revive.birth_beacon_entity" : "往生信标",
 
+  "block.cloud_revive.call_success" : "§7§l召唤成功！",
+  "block.cloud_revive.call_fail" : "§7§l本维度内未检索到目标！",
+
   "tab.cloud_revive.main_tab" : "云生",
 
   "entity.cloud_revive.ghost" : "游魂",
 
   "sound.cloud_revive.ghost_ambient" : "游魂 : 徘徊",
   "sound.cloud_revive.soul_like" : "魂态转化",
-  "sound.cloud_revive.talk" : "游魂 : 呜咽",
+  "sound.cloud_revive.talk" : "游魂 : 耳语",
 
   "tip.pearl.1" : "§7游魂§r：玩家死后生成，携带玩家所有物品，生成后会移到Y轴上最近的空气中，\n找到玩家会主动靠近，对其使用§9混元纳魂笼§r收回物品。",
   "tip.pearl.2" : "开始：你需要以尽快做出§9混元纳魂笼§r为目标，不然你死后拿不回物品！\n先努力制作§9一始宝灯笼§r吧！",
@@ -80,8 +83,10 @@
   "tip.pearl.13" : "§9一始宝珠§r：给予玩家最初的知识，可用到做出§9混元纳魂笼§r，\n并可以用来合成§9混沌宝珠§r和§9一始宝灯笼§r。",
   "tip.pearl.14" : "进阶：做出§9混元纳魂笼§r后，请用§9一始宝珠§r合成§9混沌宝珠§r，\n使用它来获取进阶知识！",
   "tip.pearl.15" : "指令：使用§2/killghost§r清理方圆20000格内所有游魂实体§4（慎用）§r，\n使用§2/givepearl§r来获得一个§9一始宝珠§r。",
+  "tip.pearl.16" : "§7游魂§r：玩家死后而生的游魂会帮助来世，主动把物品栏中§9混元纳魂笼§r\n（或者有助其制作的物品）给予玩家，并会跟随玩家，偶尔和玩家交流。",
+  "tip.pearl.17" : "§7游魂§r：本质是一团气，不能携带玩家经验。不和世间万物产生交互。\n但可以消耗自身强行与外界互动。",
 
-  "tip.chaos_pearl.1" : "§7游魂§r：玩家死后而生的游魂会帮助来世，主动把物品栏中§9混元纳魂笼§r\n（或者有助其制作的物品）给予玩家，并会跟随玩家，偶尔和玩家交流。",
+  "tip.chaos_pearl.1" : "物品复制：可使用一定数量的『混沌宝气』复制珍贵物品，\n如下界之星、下界合金锭、附魔金苹果等等。",
   "tip.chaos_pearl.2" : "§5轻都§r：原是玩家死后魂气所去之处，大事故后，玩家魂气没有归处，\n只能流窜在人世，一点记忆也保留了下来。",
   "tip.chaos_pearl.3" : "『亡人魂气』：由玩家魂气中捕捉，可以用来制作§9魂印宝珠§r和§9魂气果§r等。",
   "tip.chaos_pearl.4" : "§9往生信标§r：可以召唤你往世所有游魂，需要使用§9混沌宝珠§r来充能。",
@@ -90,7 +95,7 @@
   "tip.chaos_pearl.7" : "§e魂化§r：一种特殊的状态，使你一定时间内像游魂一样无法被伤害。",
   "tip.chaos_pearl.8" : "修理：用『一始元气』修理§9游元擒气笼§r，用『混沌宝气』修理§9混元纳魂笼§r,\n用§9一始宝珠§r修理§9一始宝灯笼§r。",
   "tip.chaos_pearl.9" : "§9魂气果§r：食用后获取§e魂化§r效果，但会使你像游魂一样难以与外界交互。",
-  "tip.chaos_pearl.10" : "§d魂牵§r：通用物品附魔，拥有该附魔的物品在玩家死后会去往§b来生§r。",
+  "tip.chaos_pearl.10" : "§d魂牵§r：通用物品附魔，拥有该附魔的物品在玩家死后会去往玩家的§b来生§r。",
 
   "effect.cloud_revive.soul_like" : "魂化",
 
@@ -163,6 +168,6 @@
 
   "chat.goal.move_to_player.start" : "§l§o你的往世游魂在附近感应到你了！\n正在向你靠近中...",
 
-  "command.killghost.success" : "已清理方圆20000格内所有游魂实体",
+  "command.killghost.success" : "已清理本维度所有游魂实体",
   "command.givepearl.success" : "已给予"
 }
