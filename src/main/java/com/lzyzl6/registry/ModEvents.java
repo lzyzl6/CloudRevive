@@ -1,5 +1,6 @@
 package com.lzyzl6.registry;
 
+import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.event.PlayerDieCallback;
 import dev.emi.trinkets.api.TrinketInventory;
 import dev.emi.trinkets.api.TrinketsApi;
@@ -10,6 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -64,17 +66,14 @@ public class ModEvents {
             player.sendSystemMessage(Component.literal("§l§e" + dimension));
             player.sendSystemMessage(Component.literal("--------------------------------------------------\n"));
 
-            //消失诅咒处理
-            for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-                ItemStack itemStack = player.getInventory().getItem(i);
-                if (!itemStack.isEmpty() && EnchantmentHelper.has(itemStack, EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP)) {
-                    player.getInventory().removeItemNoUpdate(i);
-                }
-            }
-
             //转移物品
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
-                ghost.getInventory().addItem(player.getInventory().removeItem(i, player.getInventory().getItem(i).getCount()));
+                ItemStack itemStack = player.getInventory().getItem(i);
+                //魂牵与绑定诅咒
+                if (!itemStack.isEmpty() && (EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND) || EnchantmentHelper.has(itemStack, EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP))) {
+                    continue;
+                }
+                ghost.getInventory().addItem(player.getInventory().removeItem(i, itemStack.getCount()));
             }
 
             //Accessories模组处理
@@ -87,18 +86,8 @@ public class ModEvents {
                             for (int i = 0; i < accessoriesContainer.getSize(); i++) {
                                 ExpandedSimpleContainer normalContainer = accessoriesContainer.getAccessories();
                                 ExpandedSimpleContainer cosmicContainer = accessoriesContainer.getCosmeticAccessories();
-                                for (int j = 0; j < cosmicContainer.getContainerSize(); j++) {
-                                    ItemStack cosmicStack = cosmicContainer.removeItem(j, cosmicContainer.getItem(j).getCount());
-                                    if (!cosmicStack.isEmpty()) {
-                                        ghost.getInventory().addItem(cosmicStack);
-                                    }
-                                }
-                                for (int j = 0; j < normalContainer.getContainerSize(); j++) {
-                                    ItemStack itemStack = normalContainer.removeItem(j, normalContainer.getItem(j).getCount());
-                                    if (!itemStack.isEmpty()) {
-                                        ghost.getInventory().addItem(itemStack);
-                                    }
-                                }
+                                itemHandle(player, ghost, cosmicContainer);
+                                itemHandle(player, ghost, normalContainer);
                                 accessoriesContainer.hasChanged();
                                 accessoriesContainer.markChanged();
                                 accessoriesContainer.update();
@@ -124,6 +113,9 @@ public class ModEvents {
                                         TrinketInventory trinketInventory = map.get(key);
                                         for (int i = 0; i < trinketInventory.getContainerSize(); i++) {
                                             ItemStack itemStack = trinketInventory.removeItem(i, trinketInventory.getItem(i).getCount());
+                                            if (!itemStack.isEmpty() && EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND)) {
+                                                player.getInventory().add(itemStack);
+                                            }
                                             if (!itemStack.isEmpty()) {
                                                 ghost.getInventory().addItem(itemStack);
                                             }
@@ -145,5 +137,17 @@ public class ModEvents {
             return InteractionResult.SUCCESS;
 
         });
+    }
+
+    private static void itemHandle(Player player, WanderingSpirit ghost, ExpandedSimpleContainer container) {
+        for (int j = 0; j < container.getContainerSize(); j++) {
+            ItemStack itemStack = container.removeItem(j, container.getItem(j).getCount());
+            if (!itemStack.isEmpty() && EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND)) {
+                player.getInventory().add(itemStack);
+            }
+            if (!itemStack.isEmpty()) {
+                ghost.getInventory().addItem(itemStack);
+            }
+        }
     }
 }

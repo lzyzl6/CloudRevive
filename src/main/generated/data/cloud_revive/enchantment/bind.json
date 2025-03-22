@@ -1,0 +1,29 @@
+{
+  "anvil_cost": 8,
+  "description": {
+    "translate": "enchantment.cloud_revive.bind"
+  },
+  "effects": {
+    "minecraft:location_changed": [
+      {
+        "effect": {
+          "type": "minecraft:bind"
+        }
+      }
+    ],
+    "minecraft:soul_bind": {}
+  },
+  "exclusive_set": "#minecraft:treasure",
+  "max_cost": {
+    "base": 50,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 25,
+    "per_level_above_first": 0
+  },
+  "slots": [],
+  "supported_items": "#minecraft:enchantable/vanishing",
+  "weight": 1
+}

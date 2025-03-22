@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:cloud_revive/soul_bind",
+  "criteria": {
+    "soul_cycle": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloud_revive:birth_beacon"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.soul_cycle.description"
+    },
+    "frame": "challenge",
+    "icon": {
+      "count": 1,
+      "id": "cloud_revive:birth_beacon"
+    },
+    "title": {
+      "translate": "advancement.soul_cycle.title"
+    }
+  },
+  "requirements": [
+    [
+      "soul_cycle"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

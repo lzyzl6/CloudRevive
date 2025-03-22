@@ -33,15 +33,32 @@ import static com.lzyzl6.data.storage.FileWork.makeMatch;
 
 public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
+    //动画
+    public static final AnimationState idleAnimation = new AnimationState();
+    private static final EntityDataAccessor<CompoundTag> DATA_INVENTORY = SynchedEntityData.defineId(WanderingSpirit.class, EntityDataSerializers.COMPOUND_TAG);
+    //容器
+    private final SimpleContainer inventory = new SimpleContainer(512);
+    //AI
+    public boolean shouldBroadcastMovement = true;
+    int idleAnimationTimeOut = 0;
+
     //构造
     public WanderingSpirit(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new FlyingMoveControl(this, 20, false);
     }
 
-    //动画
-    public static final AnimationState idleAnimation = new AnimationState();
-    int idleAnimationTimeOut = 0;
+    //属性
+    public static AttributeSupplier.Builder createAttributes() {
+        return PathfinderMob.createMobAttributes()
+                .add(Attributes.FLYING_SPEED, 0.2d)
+                .add(Attributes.FOLLOW_RANGE, 64.0d)
+                .add(Attributes.MAX_HEALTH, 4.0d)
+                .add(Attributes.BURNING_TIME, 0.0d)
+                .add(Attributes.SCALE, 0.6d)
+                .add(Attributes.GRAVITY, 0.0d)
+                .add(Attributes.MOVEMENT_SPEED, 0.2d);
+    }
 
     public void setUpAnimation() {
         if (idleAnimationTimeOut <= 0 && !idleAnimation.isStarted()) {
@@ -56,7 +73,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     @Override
     public void playAmbientSound() {
         int soundTick = this.random.nextInt(20);
-        if(soundTick > 10) {
+        if (soundTick > 10) {
             this.makeSound(this.getAmbientSound());
         }
     }
@@ -65,9 +82,6 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     public SoundEvent getAmbientSound() {
         return ModSoundEvents.GHOST_AMBIENT;
     }
-
-    //AI
-    public boolean shouldBroadcastMovement = true;
 
     @Override
     public void tick() {
@@ -79,16 +93,16 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new LookAtPlayerGoal(this, getTargetPlayer(this), 8.0F,1.0F));
+        this.goalSelector.addGoal(0, new LookAtPlayerGoal(this, getTargetPlayer(this), 8.0F, 1.0F));
         this.goalSelector.addGoal(1, new InteractPlayerGoal(this));
         this.goalSelector.addGoal(2, new MoveToPlayerGoal(this));
         this.goalSelector.addGoal(3, new FlyToAirGoal(this));
     }
 
     Class<? extends Player> getTargetPlayer(WanderingSpirit wanderingSpirit) {
-        if(wanderingSpirit.locateTargetUUID() != null) {
+        if (wanderingSpirit.locateTargetUUID() != null) {
             Player player = wanderingSpirit.level().getPlayerByUUID(wanderingSpirit.locateTargetUUID());
-            if(player != null) {
+            if (player != null) {
                 return player.getClass();
             }
         }
@@ -104,23 +118,10 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
         return flyingPathNavigation;
     }
 
-    //属性
-    public static AttributeSupplier.Builder createAttributes() {
-        return PathfinderMob.createMobAttributes()
-                .add(Attributes.FLYING_SPEED, 0.2d)
-                .add(Attributes.FOLLOW_RANGE, 64.0d)
-                .add(Attributes.MAX_HEALTH, 4.0d)
-                .add(Attributes.BURNING_TIME, 0.0d)
-                .add(Attributes.SCALE, 0.6d)
-                .add(Attributes.GRAVITY, 0.0d)
-                .add(Attributes.MOVEMENT_SPEED, 0.2d);
-    }
-
     @Override
     public boolean isInvulnerableTo(@NotNull DamageSource damageSource) {
         return true;
     }
-
 
     @Override
     public boolean ignoreExplosion(@NotNull Explosion explosion) {
@@ -130,7 +131,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     //匹配
     public UUID locateTargetUUID() {
         File match = makeMatch(this);
-        if(match != null) {
+        if (match != null) {
             try {
                 return UUID.fromString(match.getName());
             } catch (IllegalArgumentException e) {
@@ -139,11 +140,6 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
         }
         return null;
     }
-
-    //容器
-    private final SimpleContainer inventory  = new SimpleContainer(512);
-    private static final EntityDataAccessor<CompoundTag> DATA_INVENTORY = SynchedEntityData.defineId(WanderingSpirit.class, EntityDataSerializers.COMPOUND_TAG);
-
 
     @Override
     public @NotNull SimpleContainer getInventory() {

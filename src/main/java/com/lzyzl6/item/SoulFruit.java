@@ -18,4 +18,9 @@ public class SoulFruit extends Item {
     public void appendHoverText(@NotNull ItemStack itemStack, Item.@NotNull TooltipContext tooltipContext, List<Component> list, @NotNull TooltipFlag tooltipFlag) {
         list.add(Component.translatable("item.cloud_revive.soul_fruit.tooltip1"));
     }
+
+    @Override
+    public boolean isFoil(@NotNull ItemStack itemStack) {
+        return true;
+    }
 }

@@ -95,9 +95,9 @@ public class ModItems {
     public static final Item SOUL_FRUIT = register(
             "soul_fruit",
             new SoulFruit(new Item.Properties().fireResistant().rarity(Rarity.UNCOMMON).food(new FoodProperties(2, 2.5f, true, 0.95f, Optional.of(ItemStack.EMPTY),List
-                    .of(new FoodProperties.PossibleEffect(new MobEffectInstance(ModEffects.SOUL_LIKE, 2400,0, false, false, true), 1.0f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 2400,4, false, false, true), 1.0f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.WEAKNESS, 2400, 4, false, false, true), 1.0f)
+                    .of(new FoodProperties.PossibleEffect(new MobEffectInstance(ModEffects.SOUL_LIKE, 2800,0, false, false, true), 1.0f),
+                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 2800,4, false, false, true), 1.0f),
+                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.WEAKNESS, 2800, 4, false, false, true), 1.0f)
                     )))));
 
     public static <T extends Item> T register(String path, T item) {

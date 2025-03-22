@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BeaconBeamBlock;
@@ -62,6 +63,7 @@ public class BirthBeaconEntity extends BlockEntity implements BeaconBeamBlock {
                         shouldTell.set(true);
                         spirit.setPos(blockPosEntity.getX() + new Random().nextDouble(-5,5), blockPosEntity.getY() + new Random().nextDouble(5,10), blockPosEntity.getZ() + new Random().nextDouble(-5,5));
                         spirit.playSound(SoundEvents.BELL_BLOCK);
+                        spirit.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
                     }
                 });
                 if(shouldTell.get()) {

@@ -2,6 +2,7 @@ package com.lzyzl6.item;
 
 import com.lzyzl6.registry.ModItems;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -13,6 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -44,9 +46,11 @@ public class AbInitioPearl extends Item {
             int randomNum = new Random().nextInt(17) + 1;
             str += randomNum;
             player.startUsingItem(interactionHand);
-            player.sendSystemMessage(Component.translatable(str));
-            player.sendSystemMessage(Component.literal(""));
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 0.7F, 0.7F);
+            player.sendSystemMessage(Component.literal("--> " + randomNum + " <--"));
+            for (MutableComponent mutableComponent : Arrays.asList(Component.translatable(str), Component.literal(""))) {
+                player.sendSystemMessage(mutableComponent);
+            }
+            level.playSound(player, player.getX(), player.getY() + 0.9D, player.getZ(), SoundEvents.BOOK_PAGE_TURN, SoundSource.AMBIENT, 0.7F, 0.7F);
             afterUse(player, interactionHand);
             shouldRoll = false;
         }

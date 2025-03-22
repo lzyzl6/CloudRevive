@@ -27,6 +27,7 @@ public class SoulLike extends MobEffect {
         if (livingEntity instanceof Player) {
             livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 4, true, false, false));
             livingEntity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Objects.requireNonNull(livingEntity.getEffect(ModEffects.SOUL_LIKE)).getDuration(), 4, true, false, false));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, Objects.requireNonNull(livingEntity.getEffect(ModEffects.SOUL_LIKE)).getDuration(), 4, true, false, false));
         }
     }
 }

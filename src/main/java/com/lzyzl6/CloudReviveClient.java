@@ -8,8 +8,8 @@ public class CloudReviveClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ModModelLayers.initialize();
 
+        ModModelLayers.initialize();
         ModRenderers.initialize();
     }
 }

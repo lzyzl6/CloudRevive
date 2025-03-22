@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:cloud_revive/qingdu",
+  "criteria": {
+    "sky_goods": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloud_revive:sky_qi"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.sky_goods.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "cloud_revive:sky_qi"
+    },
+    "title": {
+      "translate": "advancement.sky_goods.title"
+    }
+  },
+  "requirements": [
+    [
+      "sky_goods"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

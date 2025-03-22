@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:cloud_revive/human_life",
+  "criteria": {
+    "chaos_chi": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloud_revive:chaos_qi"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.chaos_chi.description"
+    },
+    "frame": "goal",
+    "icon": {
+      "count": 1,
+      "id": "cloud_revive:chaos_qi"
+    },
+    "title": {
+      "translate": "advancement.chaos_chi.title"
+    }
+  },
+  "requirements": [
+    [
+      "chaos_chi"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -19,24 +19,18 @@ public class CloudRevive implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-		LOGGER.info("Initializing Cloud Revive");
+		LOGGER.info("Cloud Revive Here!");
 
 		ModBlocks.initialize();
-
 		ModItems.initialize();
-
 		ModTabs.initialize();
-
 		ModEntities.initialize();
-
 		ModEffects.initialize();
-
+		ModEnchantments.initialize();
+		ModEnchantmentEffects.initialize();
 		ModEvents.initialize();
-
 		ModSoundEvents.initialize();
-
 		ModCommands.initialize();
-
 		FileWork.initialize();
 
 	}

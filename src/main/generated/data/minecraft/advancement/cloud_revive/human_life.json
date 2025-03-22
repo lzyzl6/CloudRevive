@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:cloud_revive/qingdu",
+  "criteria": {
+    "human_life": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloud_revive:people_qi"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.human_life.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "cloud_revive:people_qi"
+    },
+    "title": {
+      "translate": "advancement.human_life.title"
+    }
+  },
+  "requirements": [
+    [
+      "human_life"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

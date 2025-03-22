@@ -6,6 +6,7 @@ import com.lzyzl6.registry.ModEntities;
 import com.lzyzl6.registry.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -57,6 +58,7 @@ public class StartCage extends Item {
             //信息显示
             if(shouldRoll && isSuccess) {
                 player.displayClientMessage(Component.translatable("item.cloud_revive.strat_cage.success"), true);
+                player.sendSystemMessage(Component.translatable("item.cloud_revive.strat_cage.success"));
                 shouldRoll = false;
             }else if(shouldRoll){
                 player.sendSystemMessage(Component.translatable("item.cloud_revive.strat_cage.cant_generate"));
@@ -66,8 +68,8 @@ public class StartCage extends Item {
             }
             player.getCooldowns().addCooldown(this, 500);
             damageItem(player, usedHand);
+            player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE,0.6F,2.0F);
         }
-
         afterUse(player, usedHand);
         return super.use(level, player, usedHand);
     }

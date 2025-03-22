@@ -22,17 +22,17 @@ public class FileWork {
 
     //文件操作
     public static File rootDir() {
-        File rootDir = new File(System.getProperty("user.dir"),"Cloud_Revive_Data");
+        File rootDir = new File(System.getProperty("user.dir"), "Cloud_Revive_Data");
         if (!rootDir.exists()) {
             rootDir.mkdirs();
         }
         return rootDir;
     }
 
-    public static void warnFile()  {
+    public static void warnFile() {
         File rootDir = rootDir();
-        File warningFileZH = new File(rootDir,"请勿修改此文件夹下的文件！！！会导致进入世界崩溃！！！");
-        File warningFileEN = new File(rootDir,"Don't modify the files under this folder!!! Worlds will crash on launch!!!");
+        File warningFileZH = new File(rootDir, "请勿修改此文件夹下的文件！！！会导致进入世界崩溃！！！");
+        File warningFileEN = new File(rootDir, "Don't modify the files under this folder!!! Worlds will crash on launch!!!");
         try {
             if (!warningFileZH.createNewFile()) {
                 warningFileZH.mkdirs();
@@ -53,24 +53,24 @@ public class FileWork {
         return dir;
     }
 
-    public static<T extends Entity > String getLevelName(T entity)  {
-        if(!entity.level().isClientSide) {
+    public static <T extends Entity> String getLevelName(T entity) {
+        if (!entity.level().isClientSide) {
             String levelRawName = Objects.requireNonNull(entity.level()).toString();
             int borderIndex;
-            for(borderIndex = 0; borderIndex < levelRawName.length(); borderIndex++) {
-                if(levelRawName.charAt(borderIndex) == '['){
+            for (borderIndex = 0; borderIndex < levelRawName.length(); borderIndex++) {
+                if (levelRawName.charAt(borderIndex) == '[') {
                     break;
                 }
             }
-            return levelRawName.substring(borderIndex+1, levelRawName.length()-1);
+            return levelRawName.substring(borderIndex + 1, levelRawName.length() - 1);
         }
-        return "FAILED TO GET LEVEL NAME";
+        return "FAILED_TO_GET_LEVEL_NAME";
     }
 
     //往生信标匹配UUID
     //文件路径：/rootDir/levelName/BeaconMatch/BlockPos/playerUUID(file)
     public static void createBlockMatch(BlockPos blockPos, BlockState blockState, Player player) {
-        if(blockState.is(ModBlocks.BIRTH_BEACON) && player != null) {
+        if (blockState.is(ModBlocks.BIRTH_BEACON) && player != null && !player.level().isClientSide) {
             File rootDir = rootDir();
             String levelName = getLevelName(player);
             File levelDir = new File(rootDir, levelName);
@@ -97,16 +97,16 @@ public class FileWork {
     }
 
     public static void matchBlockAndFix(BirthBeaconEntity blockEntity) {
-        if(blockEntity.playerUUID == null && blockEntity.getLevel() != null && !blockEntity.getLevel().isClientSide) {
+        if (blockEntity.playerUUID == null && blockEntity.getLevel() != null && !blockEntity.getLevel().isClientSide) {
             File rootDir = rootDir();
             String levelRawName = Objects.requireNonNull(blockEntity.getLevel()).toString();
             int borderIndex;
-            for(borderIndex = 0; borderIndex < levelRawName.length(); borderIndex++) {
-                if(levelRawName.charAt(borderIndex) == '['){
+            for (borderIndex = 0; borderIndex < levelRawName.length(); borderIndex++) {
+                if (levelRawName.charAt(borderIndex) == '[') {
                     break;
                 }
             }
-            String levelName = levelRawName.substring(borderIndex+1, levelRawName.length()-1);
+            String levelName = levelRawName.substring(borderIndex + 1, levelRawName.length() - 1);
             File levelDir = new File(rootDir, levelName);
             File beaconMatchDir = new File(levelDir, "BeaconMatch");
             File blockPosDir = new File(beaconMatchDir, blockEntity.getBlockPos().toString());
@@ -120,15 +120,16 @@ public class FileWork {
                 blockPosDir.mkdirs();
             }
             File[] playerUUIDs = blockPosDir.listFiles();
-            if(playerUUIDs != null) {
+            if (playerUUIDs != null) {
                 Arrays.stream(playerUUIDs).toList().forEach(playerUUID -> {
                     String playerUUIDStr = playerUUID.getName();
                     Player player = blockEntity.getLevel().getPlayerByUUID(UUID.fromString(playerUUIDStr));
-                    if(player != null) {
+                    if (player != null) {
                         blockEntity.playerUUID = player.getUUID();
                     }
                     playerUUID.delete();
                 });
+                blockPosDir.delete();
             }
         }
     }
@@ -137,7 +138,7 @@ public class FileWork {
     //文件路径：/rootDir/levelName/playerUUID/ghostUUID(file)
     public static void createMatchFile(WanderingSpirit wanderingSpirit, File parentDir) {
         String matchUUID = wanderingSpirit.getStringUUID();
-        File matchFile = new File(parentDir,matchUUID);
+        File matchFile = new File(parentDir, matchUUID);
         try {
             if (!matchFile.createNewFile()) {
                 matchFile.mkdirs();
@@ -147,15 +148,15 @@ public class FileWork {
         }
     }
 
-    public static<T extends Entity> File makeMatch(T entity)  {
+    public static <T extends Entity> File makeMatch(T entity) {
         String matchUUID = entity.getStringUUID();
         File rootDir = rootDir();
         File levelDir = new File(rootDir, getLevelName(entity));
         AtomicReference<File> targetPlayerDir = new AtomicReference<>(null);
-        if(levelDir.list() != null) {
+        if (levelDir.list() != null) {
             Arrays.stream(Objects.requireNonNull(levelDir.list())).toList().forEach(playerUUID -> {
                 File playerDir = new File(levelDir, playerUUID);
-                if(Arrays.asList(Objects.requireNonNull(playerDir.list())).contains(matchUUID)) {
+                if (Arrays.asList(Objects.requireNonNull(playerDir.list())).contains(matchUUID)) {
                     targetPlayerDir.set(playerDir);
                 }
             });
@@ -163,15 +164,15 @@ public class FileWork {
         return targetPlayerDir.get();
     }
 
-    public static<T extends Entity> void deleteMatchFile(T entity) {
+    public static <T extends Entity> void deleteMatchFile(T entity) {
         String matchUUID = entity.getStringUUID();
         File rootDir = rootDir();
         File levelDir = new File(rootDir, getLevelName(entity));
         Arrays.stream(Objects.requireNonNull(levelDir.list())).toList().forEach(playerUUID -> {
             File playerDir = new File(levelDir, playerUUID);
-            if(Arrays.asList(Objects.requireNonNull(playerDir.list())).contains(matchUUID)) {
+            if (Arrays.asList(Objects.requireNonNull(playerDir.list())).contains(matchUUID)) {
                 File matchFile = new File(playerDir, matchUUID);
-                if(matchFile.isFile()) {
+                if (matchFile.isFile()) {
                     matchFile.delete();
                 }
             }
@@ -183,8 +184,8 @@ public class FileWork {
     //文件路径：/rootDir/Ghost_Data/ghostUUID/if_meet(file)
     public static void createMeetFile(WanderingSpirit wanderingSpirit, File parentDir) {
         String ghostUUID = wanderingSpirit.getStringUUID();
-        File ghostDir = new File(parentDir,ghostUUID);
-        File meetStatus = new File(ghostDir,"no");
+        File ghostDir = new File(parentDir, ghostUUID);
+        File meetStatus = new File(ghostDir, "no");
         try {
             if (!ghostDir.exists()) {
                 ghostDir.mkdirs();
@@ -197,15 +198,15 @@ public class FileWork {
         }
     }
 
-    public static<T extends Entity> boolean checkIfMeetAndFix(T entity) {
+    public static <T extends Entity> boolean checkIfMeetAndFix(T entity) {
         String ghostUUID = entity.getStringUUID();
         File rootDir = rootDir();
         String levelNameGD = getLevelName(entity);
         levelNameGD += "GD";
         File levelDirGD = new File(rootDir, levelNameGD);
-        File ghostDir = new File(levelDirGD,ghostUUID);
-        File meetStatus = new File(ghostDir,"no");
-        if(meetStatus.isFile()) {
+        File ghostDir = new File(levelDirGD, ghostUUID);
+        File meetStatus = new File(ghostDir, "no");
+        if (meetStatus.isFile()) {
             meetStatus.delete();
             ghostDir.delete();
             return true;

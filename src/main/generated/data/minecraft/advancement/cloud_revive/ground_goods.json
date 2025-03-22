@@ -1,0 +1,33 @@
+{
+  "parent": "minecraft:cloud_revive/qingdu",
+  "criteria": {
+    "ground_goods": {
+      "conditions": {
+        "items": [
+          {
+            "items": "cloud_revive:ground_qi"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.ground_goods.description"
+    },
+    "icon": {
+      "count": 1,
+      "id": "cloud_revive:ground_qi"
+    },
+    "title": {
+      "translate": "advancement.ground_goods.title"
+    }
+  },
+  "requirements": [
+    [
+      "ground_goods"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

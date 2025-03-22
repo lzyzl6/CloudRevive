@@ -3,6 +3,7 @@ package com.lzyzl6.item;
 
 import com.lzyzl6.registry.ModItems;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -31,6 +32,7 @@ public class Cage extends Item {
         list.add(Component.translatable("item.cloud_revive.cage.tooltip2"));
         list.add(Component.translatable("item.cloud_revive.cage.tooltip3"));
         list.add(Component.translatable("item.cloud_revive.cage.tooltip4"));
+        list.add(Component.translatable("item.cloud_revive.cage.tooltip5"));
     }
 
     @Override
@@ -43,19 +45,21 @@ public class Cage extends Item {
         //副手擒气
         if(!level.isClientSide) {
             double height = player.getY();
-            if(height > 128 && player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.CAGE && usedHand == InteractionHand.OFF_HAND) {
+            if(height > 128 && player.getOffhandItem().getItem() == ModItems.CAGE && usedHand == InteractionHand.OFF_HAND) {
                 player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.sky_qi_captured"), true);
                 player.addItem(new ItemStack(ModItems.SKY_QI));
                 damageItem(player, usedHand, 9);
                 afterUse(player, usedHand);
+                    player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
-            else if(height < 0 && player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.CAGE && usedHand == InteractionHand.OFF_HAND) {
+            else if(height < 0 && player.getOffhandItem().getItem() == ModItems.CAGE && usedHand == InteractionHand.OFF_HAND) {
                 player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.ground_qi_captured"), true);
                 player.addItem(new ItemStack(ModItems.GROUND_QI));
                 damageItem(player, usedHand, 9);
                 afterUse(player, usedHand);
+                    player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
-            else if(player.isShiftKeyDown() && player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.CAGE && usedHand == InteractionHand.OFF_HAND) {
+            else if(player.isShiftKeyDown() && player.getOffhandItem().getItem() == ModItems.CAGE && usedHand == InteractionHand.OFF_HAND) {
                 if(!(player.getHealth() == player.getMaxHealth()) || player.hasEffect(MobEffects.WEAKNESS)) {
                     player.sendSystemMessage(Component.translatable("chat.cloud_revive.cage.too_weak"));
                 } else {
@@ -64,6 +68,8 @@ public class Cage extends Item {
                     player.hurt(player.damageSources().mobAttack(player), player.getHealth()/1.25f);
                     player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 400, 4, false, false, true));
                     damageItem(player, usedHand, 1);
+                    afterUse(player, usedHand);
+                        player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP);
                 }
             }
             return InteractionResultHolder.success(player.getItemInHand(usedHand));

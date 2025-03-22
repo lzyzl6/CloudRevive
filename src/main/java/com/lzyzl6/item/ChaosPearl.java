@@ -50,12 +50,13 @@ public class ChaosPearl extends Item {
             shouldRoll = true;
         } else if(interactionHand == InteractionHand.OFF_HAND && itemStack.is(ModItems.CHAOS_PEARL)) {
             String str = "tip.chaos_pearl.";
-            int randomNum = new Random().nextInt(10) + 1;
+            int randomNum = new Random().nextInt(13) + 1;
             str += randomNum;
             player.startUsingItem(interactionHand);
+            player.sendSystemMessage(Component.literal("--> " + randomNum + " <--"));
             player.sendSystemMessage(Component.translatable(str));
             player.sendSystemMessage(Component.literal(""));
-            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.BOOK_PAGE_TURN, SoundSource.PLAYERS, 0.7F, 0.7F);
+            level.playSound(player, player.getX(), player.getY() + 0.9D, player.getZ(), SoundEvents.BOOK_PAGE_TURN, SoundSource.AMBIENT, 0.7F, 0.7F);
             afterUse(player, interactionHand);
             shouldRoll = false;
         }

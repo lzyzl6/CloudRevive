@@ -1,4 +1,4 @@
-package com.lzyzl6.data;
+package com.lzyzl6.data.provider;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
@@ -20,7 +20,7 @@ public class RecipeProvider extends FabricRecipeProvider {
 
     @Override
     public void buildRecipes(RecipeOutput recipeOutput) {
-
+        //混沌宝气物品复制
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NETHER_STAR,3).pattern("bbb").pattern("bib").pattern("bbb")
                 .define('b', CHAOS_QI)
                 .define('i', NETHER_STAR)
@@ -71,7 +71,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 .showNotification(true)
                 .save(recipeOutput);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, GHAST_TEAR,9).pattern("bbb").pattern("bib").pattern("bbb")
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, GHAST_TEAR,17).pattern("bbb").pattern("bib").pattern("bbb")
                 .define('b', CHAOS_QI)
                 .define('i', GHAST_TEAR)
                 .unlockedBy(FabricRecipeProvider.getHasName(CHAOS_QI),
@@ -81,7 +81,7 @@ public class RecipeProvider extends FabricRecipeProvider {
                 .showNotification(true)
                 .save(recipeOutput);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PHANTOM_MEMBRANE,9).pattern("bbb").pattern("bib").pattern("bbb")
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, PHANTOM_MEMBRANE,17).pattern("bbb").pattern("bib").pattern("bbb")
                 .define('b', CHAOS_QI)
                 .define('i', PHANTOM_MEMBRANE)
                 .unlockedBy(FabricRecipeProvider.getHasName(CHAOS_QI),

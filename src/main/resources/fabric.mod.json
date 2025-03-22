@@ -3,7 +3,7 @@
 	"id": "cloud_revive",
 	"version": "${version}",
 	"name": "Cloud Revive",
-	"description": "When life ends, three Chi disperse;\nSouls drift to the great §lQingdu§r.",
+	"description": "添加了独特的死亡物品掉落机制，让死亡资源化。",
 	"authors": [
 		"LZYZL6"
 	],
@@ -12,7 +12,7 @@
 		"sources": "",
 		"issues": ""
 	},
-	"license": "GNU General Public License v3.0",
+	"license": "Apache License 2.0",
 	"icon": "assets/cloud_revive/icon.png",
 	"environment": "*",
 	"entrypoints": {
