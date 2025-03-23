@@ -6,6 +6,8 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.lzyzl6.data.storage.FileWork.isBackpackedInstalled;
+
 public class CloudRevive implements ModInitializer {
 	public static final String MOD_ID = "cloud_revive";
 
@@ -20,7 +22,10 @@ public class CloudRevive implements ModInitializer {
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
 		LOGGER.info("Cloud Revive Here!");
+		if (isBackpackedInstalled())
+			LOGGER.info("Backpacked is installed, switching tags for it.");
 
+		ModTags.initialize();
 		ModBlocks.initialize();
 		ModItems.initialize();
 		ModTabs.initialize();
@@ -30,6 +35,7 @@ public class CloudRevive implements ModInitializer {
 		ModEnchantmentEffects.initialize();
 		ModEvents.initialize();
 		ModSoundEvents.initialize();
+
 		ModCommands.initialize();
 		FileWork.initialize();
 

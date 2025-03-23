@@ -94,26 +94,29 @@ public class ChaosCage extends Item {
                 player.displayClientMessage(Component.translatable("chat.cloud_revive.chaos_cage.wandering_spirit_captured"), true);
                 player.sendSystemMessage(Component.translatable("chat.cloud_revive.soul_back"));
                 //物品转移到玩家
-                if (wanderingSpirit.getInventory().items.size() <= player.getInventory().getFreeSlot() - 1) {
+                if (!(player.getInventory().getFreeSlot() == - 1) && (player.getInventory().items.size() - player.getInventory().getFreeSlot() - 1 - wanderingSpirit.getInventory().items.size()) >= 1 ) {
                     for (int i = 0; i < wanderingSpirit.getInventory().items.size(); i++) {
                         player.addItem(wanderingSpirit.getInventory().removeItem(i, wanderingSpirit.getInventory().getItem(i).getCount()));
                     }
                     player.addItem(new ItemStack(ModItems.DEAD_QI));
-                } else if (player.getInventory().getFreeSlot() == 0) {
+                } else if (player.getInventory().getFreeSlot() == - 1) {
                     for (int j = 0; j < wanderingSpirit.getInventory().items.size(); j++) {
-                        ItemEntity itemEntity = new ItemEntity(player.level(), player.getX(), player.getEyeY(), player.getZ(), wanderingSpirit.getInventory().getItem(j), 0.0f, 0.0f, 0.0f);
+                        ItemEntity itemEntity = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), wanderingSpirit.getInventory().removeItemNoUpdate(j));
                         player.level().addFreshEntity(itemEntity);
                         itemEntity.playSound(SoundEvents.ITEM_PICKUP, 0.3f, 0.5f);
                     }
-                    player.level().addFreshEntity(new ItemEntity(player.level(), player.getX(), player.getEyeY(), player.getZ(), ModItems.DEAD_QI.getDefaultInstance(), 0.0f, 0.0f, 0.0f));
+                    player.level().addFreshEntity(new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), ModItems.DEAD_QI.getDefaultInstance()));
                 } else {
                     player.addItem(new ItemStack(ModItems.DEAD_QI));
                     int i;
-                    for (i = 0; i < player.getInventory().getFreeSlot() - 1; i++) {
-                        player.addItem(wanderingSpirit.getInventory().getItem(i));
+                    for (i = 0; i  < wanderingSpirit.getInventory().items.size(); i++) {
+                        if (player.getInventory().getFreeSlot() == - 1) {
+                            break;
+                        }
+                        player.addItem(wanderingSpirit.getInventory().removeItemNoUpdate(i));
                     }
                     for (int j = i; j < wanderingSpirit.getInventory().items.size(); j++) {
-                        ItemEntity itemEntity = new ItemEntity(player.level(), player.getX(), player.getEyeY(), player.getZ(), wanderingSpirit.getInventory().getItem(j), 0.0f, 0.0f, 0.0f);
+                        ItemEntity itemEntity = new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), wanderingSpirit.getInventory().removeItemNoUpdate(j));
                         player.level().addFreshEntity(itemEntity);
                         itemEntity.playSound(SoundEvents.ITEM_PICKUP, 0.3f, 0.5f);
                     }
@@ -123,7 +126,6 @@ public class ChaosCage extends Item {
                 deleteMatchFile(wanderingSpirit);
                 wanderingSpirit.discard();
                 afterUse(player, interactionHand);
-                player.playSound(SoundEvents.ITEM_FRAME_ADD_ITEM, 0.7f, 0.5f);
                 return InteractionResult.SUCCESS;
             } else if (targetUUID != null && itemStack.getItem() == ModItems.CHAOS_CAGE && interactionHand == InteractionHand.MAIN_HAND) {
                 //通知玩家失败

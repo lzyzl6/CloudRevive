@@ -20,12 +20,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static com.lzyzl6.data.storage.FileWork.isBackpackedInstalled;
 import static com.lzyzl6.registry.ModEnchantments.BIND;
 
 public class SoulPearl extends Item {
 
-    boolean shouldRoll = true;
-
+    private boolean shouldRoll = false;
     public SoulPearl(Properties properties) {
         super(properties);
     }
@@ -41,7 +41,7 @@ public class SoulPearl extends Item {
         ItemStack offHandItem = player.getOffhandItem();
         ItemStack mainHandItem = player.getItemInHand(interactionHand);
         Holder<Enchantment> holder = level.holderLookup(Registries.ENCHANTMENT).getOrThrow(BIND);
-    if(interactionHand == InteractionHand.MAIN_HAND && mainHandItem.is(ModItems.SOUL_PEARL) && !offHandItem.isEmpty()) {
+        if(interactionHand == InteractionHand.MAIN_HAND && mainHandItem.is(ModItems.SOUL_PEARL) && !offHandItem.isEmpty()) {
             //赋予玩家主手物品附魔（如果可以）
             if(EnchantmentHelper.getEnchantmentsForCrafting(offHandItem).keySet().stream().anyMatch(enchantment -> enchantment.is(BIND))) {
                 if(!shouldRoll) {
@@ -51,16 +51,12 @@ public class SoulPearl extends Item {
                     shouldRoll = false;
                 }
             } else if(offHandItem.canBeEnchantedWith(holder, EnchantingContext.ACCEPTABLE)) {
-                offHandItem.enchant(holder, 1);
-                mainHandItem.shrink(1);
-                if(!shouldRoll) {
-                    shouldRoll = true;
-                } else {
-                    player.sendSystemMessage(Component.translatable("chat.soul_pearl.successfully_enchanted"));
-                    shouldRoll = false;
+                    enchantItem(player, offHandItem, mainHandItem, holder);
+            } else if(isBackpackedInstalled()) {
+                if(offHandItem.getItem().getDescriptionId().contains("backpack")) {
+                    enchantItem(player, offHandItem, mainHandItem, holder);
                 }
-                player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP);
-            } else {
+            }else {
                 if(!shouldRoll) {
                     shouldRoll = true;
                 } else {
@@ -72,5 +68,18 @@ public class SoulPearl extends Item {
             player.swing(interactionHand, true);
         }
         return super.use(level, player, interactionHand);
+    }
+
+
+    private void enchantItem(Player player, ItemStack offHandItem, ItemStack mainHandItem, Holder<Enchantment> holder) {
+        offHandItem.enchant(holder, 1);
+        mainHandItem.shrink(1);
+        if(!shouldRoll) {
+            shouldRoll = true;
+        } else {
+            player.sendSystemMessage(Component.translatable("chat.soul_pearl.successfully_enchanted"));
+            shouldRoll = false;
+        }
+        player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP);
     }
 }

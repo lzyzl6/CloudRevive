@@ -4,8 +4,10 @@ import com.lzyzl6.block.blockentity.BirthBeaconEntity;
 import com.lzyzl6.registry.ModBlocks;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.BeaconBeamBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -17,7 +19,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class BirthBeacon extends BaseEntityBlock {
+public class BirthBeacon extends BaseEntityBlock implements BeaconBeamBlock {
 
     public static final MapCodec<BirthBeacon> CODEC = simpleCodec(BirthBeacon::new);
     public static final BooleanProperty CHARGED = BooleanProperty.create("charged");
@@ -42,7 +44,7 @@ public class BirthBeacon extends BaseEntityBlock {
 
     @Override
     public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState blockState) {
-        return new BirthBeaconEntity(ModBlocks.BIRTH_BEACON_ENTITY,blockPos, blockState);
+        return new BirthBeaconEntity(blockPos, blockState);
     }
 
     @Nullable
@@ -54,5 +56,10 @@ public class BirthBeacon extends BaseEntityBlock {
     @Override
     protected @NotNull RenderShape getRenderShape(@NotNull BlockState blockState) {
         return RenderShape.MODEL;
+    }
+
+    @Override
+    public DyeColor getColor() {
+        return DyeColor.PURPLE;
     }
 }

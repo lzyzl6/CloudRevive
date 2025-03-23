@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "cloud_revive:block/qi_fruit_bush"
+  }
+}

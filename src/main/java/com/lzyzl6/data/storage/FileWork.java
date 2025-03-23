@@ -225,6 +225,11 @@ public class FileWork {
         return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("trinkets"));
     }
 
+    public static boolean isBackpackedInstalled() {
+        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
+        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("backpacked"));
+    }
+
     public static void initialize() {
         rootDir();
         warnFile();

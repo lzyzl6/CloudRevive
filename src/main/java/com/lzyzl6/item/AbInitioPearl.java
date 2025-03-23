@@ -20,8 +20,6 @@ import java.util.Random;
 
 public class AbInitioPearl extends Item {
 
-    private boolean shouldRoll = true;
-
     public AbInitioPearl(Properties properties) {
         super(properties);
     }
@@ -38,21 +36,20 @@ public class AbInitioPearl extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        ItemStack itemStack = player.getItemInHand(interactionHand);
-        if (!shouldRoll) {
-            shouldRoll = true;
-        } else if(interactionHand == InteractionHand.OFF_HAND && itemStack.is(ModItems.PEARL)) {
-           String str = "tip.pearl.";
-            int randomNum = new Random().nextInt(17) + 1;
-            str += randomNum;
-            player.startUsingItem(interactionHand);
-            player.sendSystemMessage(Component.literal("--> " + randomNum + " <--"));
-            for (MutableComponent mutableComponent : Arrays.asList(Component.translatable(str), Component.literal(""))) {
-                player.sendSystemMessage(mutableComponent);
+        if(!level.isClientSide()) {
+            ItemStack itemStack = player.getItemInHand(interactionHand);
+            if(interactionHand == InteractionHand.MAIN_HAND && itemStack.is(ModItems.PEARL)) {
+                String str = "tip.pearl.";
+                int randomNum = new Random().nextInt(17) + 1;
+                str += randomNum;
+                player.startUsingItem(interactionHand);
+                player.sendSystemMessage(Component.literal("--> " + randomNum + " <--"));
+                for (MutableComponent mutableComponent : Arrays.asList(Component.translatable(str), Component.literal(""))) {
+                    player.sendSystemMessage(mutableComponent);
+                }
+                level.playSound(player, player.getX(), player.getY() + 0.9D, player.getZ(), SoundEvents.BOOK_PAGE_TURN, SoundSource.AMBIENT, 0.7F, 0.7F);
+                afterUse(player, interactionHand);
             }
-            level.playSound(player, player.getX(), player.getY() + 0.9D, player.getZ(), SoundEvents.BOOK_PAGE_TURN, SoundSource.AMBIENT, 0.7F, 0.7F);
-            afterUse(player, interactionHand);
-            shouldRoll = false;
         }
        return super.use(level, player, interactionHand);
     }

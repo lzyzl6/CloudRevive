@@ -28,8 +28,6 @@ import static net.minecraft.world.level.block.entity.BeaconBlockEntity.playSound
 
 public class ChaosPearl extends Item {
 
-    private boolean shouldRoll = true;
-
     public ChaosPearl(Properties properties) {
         super(properties);
     }
@@ -46,39 +44,40 @@ public class ChaosPearl extends Item {
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
-        if (!shouldRoll) {
-            shouldRoll = true;
-        } else if(interactionHand == InteractionHand.OFF_HAND && itemStack.is(ModItems.CHAOS_PEARL)) {
-            String str = "tip.chaos_pearl.";
-            int randomNum = new Random().nextInt(13) + 1;
-            str += randomNum;
-            player.startUsingItem(interactionHand);
-            player.sendSystemMessage(Component.literal("--> " + randomNum + " <--"));
-            player.sendSystemMessage(Component.translatable(str));
-            player.sendSystemMessage(Component.literal(""));
-            level.playSound(player, player.getX(), player.getY() + 0.9D, player.getZ(), SoundEvents.BOOK_PAGE_TURN, SoundSource.AMBIENT, 0.7F, 0.7F);
-            afterUse(player, interactionHand);
-            shouldRoll = false;
+        if (!level.isClientSide) {
+            if(interactionHand == InteractionHand.MAIN_HAND && itemStack.is(ModItems.CHAOS_PEARL)) {
+                String str = "tip.chaos_pearl.";
+                int randomNum = new Random().nextInt(13) + 1;
+                str += randomNum;
+                player.startUsingItem(interactionHand);
+                player.sendSystemMessage(Component.literal("--> " + randomNum + " <--"));
+                player.sendSystemMessage(Component.translatable(str));
+                player.sendSystemMessage(Component.literal(""));
+                level.playSound(player, player.getX(), player.getY() + 0.9D, player.getZ(), SoundEvents.BOOK_PAGE_TURN, SoundSource.AMBIENT, 0.7F, 0.7F);
+                afterUse(player, interactionHand);
+            }
         }
         return super.use(level, player, interactionHand);
     }
 
     @Override
     public @NotNull InteractionResult useOn(UseOnContext useOnContext) {
-        BlockState blockState = useOnContext.getLevel().getBlockState(useOnContext.getClickedPos());
-        Player player = useOnContext.getPlayer();
-        if(useOnContext.getHand() == InteractionHand.MAIN_HAND && useOnContext.getItemInHand().is(ModItems.CHAOS_PEARL) && blockState.is(ModBlocks.BIRTH_BEACON)) {
-            BirthBeacon block = (BirthBeacon) blockState.getBlock();
-            if(player != null) {
-                block.cooldown = 500;
-                createBlockMatch(useOnContext.getClickedPos(),blockState,player);
-                player.awardStat(Stats.ITEM_USED.get(this));
-                player.swing(useOnContext.getHand(), true);
-                playSound(useOnContext.getLevel(), useOnContext.getClickedPos(), SoundEvents.BEACON_ACTIVATE);
+        if (!useOnContext.getLevel().isClientSide) {
+            BlockState blockState = useOnContext.getLevel().getBlockState(useOnContext.getClickedPos());
+            Player player = useOnContext.getPlayer();
+            if(useOnContext.getHand() == InteractionHand.OFF_HAND && useOnContext.getItemInHand().is(ModItems.CHAOS_PEARL) && blockState.is(ModBlocks.BIRTH_BEACON)) {
+                BirthBeacon block = (BirthBeacon) blockState.getBlock();
+                if(player != null) {
+                    block.cooldown = 500;
+                    createBlockMatch(useOnContext.getClickedPos(),blockState,player);
+                    player.awardStat(Stats.ITEM_USED.get(this));
+                    player.swing(useOnContext.getHand(), true);
+                    playSound(useOnContext.getLevel(), useOnContext.getClickedPos(), SoundEvents.BEACON_ACTIVATE);
+                }
+                useOnContext.getLevel().setBlock(useOnContext.getClickedPos(), blockState.setValue(CHARGED, true), 3);
+                useOnContext.getItemInHand().shrink(1);
+                return InteractionResult.SUCCESS;
             }
-            useOnContext.getLevel().setBlock(useOnContext.getClickedPos(), blockState.setValue(CHARGED, true), 3);
-            useOnContext.getItemInHand().shrink(1);
-            return InteractionResult.SUCCESS;
         }
         return InteractionResult.PASS;
     }

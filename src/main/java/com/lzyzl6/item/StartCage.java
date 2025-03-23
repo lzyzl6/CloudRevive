@@ -42,35 +42,34 @@ public class StartCage extends Item {
         return itemStack2.is(ModItems.PEARL);
     }
 
-    boolean shouldRoll = true;
+
 
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
-    boolean isSuccess;
-        //副手上使用生成结构
-        if(player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.START_CAGE && usedHand == InteractionHand.OFF_HAND) {
-            if(canGenerate(player)){
-                generateStructure(player);
-                isSuccess = true;
-            }else{
-                isSuccess = false;
+        if(!level.isClientSide) {
+            boolean isSuccess;
+            //副手上使用生成结构
+            if(player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.START_CAGE && usedHand == InteractionHand.OFF_HAND) {
+                if(canGenerate(player)){
+                    generateStructure(player);
+                    isSuccess = true;
+                }else{
+                    isSuccess = false;
+                }
+                //信息显示
+                if(isSuccess) {
+                    player.displayClientMessage(Component.translatable("item.cloud_revive.strat_cage.success"), true);
+                    player.sendSystemMessage(Component.translatable("item.cloud_revive.strat_cage.success"));
+
+                } else {
+                    player.sendSystemMessage(Component.translatable("item.cloud_revive.strat_cage.cant_generate"));
+                }
+                player.getCooldowns().addCooldown(this, 500);
+                damageItem(player, usedHand);
+                player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE,0.6F,2.0F);
             }
-            //信息显示
-            if(shouldRoll && isSuccess) {
-                player.displayClientMessage(Component.translatable("item.cloud_revive.strat_cage.success"), true);
-                player.sendSystemMessage(Component.translatable("item.cloud_revive.strat_cage.success"));
-                shouldRoll = false;
-            }else if(shouldRoll){
-                player.sendSystemMessage(Component.translatable("item.cloud_revive.strat_cage.cant_generate"));
-                shouldRoll = false;
-            } else {
-                shouldRoll = true;
-            }
-            player.getCooldowns().addCooldown(this, 500);
-            damageItem(player, usedHand);
-            player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE,0.6F,2.0F);
+            afterUse(player, usedHand);
         }
-        afterUse(player, usedHand);
         return super.use(level, player, usedHand);
     }
 

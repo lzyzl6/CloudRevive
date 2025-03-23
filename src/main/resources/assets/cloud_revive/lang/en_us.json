@@ -39,18 +39,18 @@
   "item.cloud_revive.soul_pearl.tooltip1" : "在§9主手§r上使用:",
   "item.cloud_revive.soul_pearl.tooltip2" : "若§9副手§r物品条件允许，损毁宝珠，向其转移珠内灵魂印记",
 
-  "item.cloud_revive.pearl.tooltip1" : "在§9副手§r上使用:",
+  "item.cloud_revive.pearl.tooltip1" : "在§9主手§r上使用:",
   "item.cloud_revive.pearl.tooltip2" : "给予随机提示，目前共§315§r条，包含如下条目§o(正序)§r：",
   "item.cloud_revive.pearl.tooltip3" : "§7First Goal;Wandering Spirit;§9Primordial Cage§7;§5§lQingdu§r§7;§c§lQingdu§r§7 Fragments§7",
   "item.cloud_revive.pearl.tooltip4" : "§9Roaming Chi Cage§7;§9Chaos Soul Cage§7;『Chaos Core Chi』;§9Cracked Chi Core§7",
   "item.cloud_revive.pearl.tooltip5" : "§9Withered Chi Bush§7;『Primordial Chi』;§9Chi Apple§7;§9Primordial Pearl§7;",
   "item.cloud_revive.pearl.tooltip6" : "§7Progression;Commands;...",
 
-  "item.cloud_revive.chaos_pearl.tooltip1" : "在§9副手§r上使用:",
+  "item.cloud_revive.chaos_pearl.tooltip1" : "在§9主手§r上使用:",
   "item.cloud_revive.chaos_pearl.tooltip2" : "给予随机提示，目前共§310§r条，包含如下条目§o(正序)§r：",
   "item.cloud_revive.chaos_pearl.tooltip3" : "§7物品复制;§5轻都§r§7;『亡人魂气』;§9往生信标§r§7;§9魂印宝珠§7;",
   "item.cloud_revive.chaos_pearl.tooltip4" : "§9混沌宝珠§r§7;§e魂化§r§7;修理;§9魂气果§r§7;魂牵;...",
-  "item.cloud_revive.chaos_pearl.tooltip5" : "§4§l可以作为§9往生信标§r§4§l的燃料",
+  "item.cloud_revive.chaos_pearl.tooltip5" : "§4§l可以作为§9往生信标§r§4§l的燃料(副手互动充能)",
 
   "item.cloud_revive.soul_fruit.tooltip1" : "§7§o否极泰来!向死而生",
 
@@ -78,7 +78,7 @@
   "tip.pearl.1" : "First Goal: Prioritize crafting §9Chaos Soul Cage§r,\nor you'll lose items upon death!\nStart by making §9Primordial Cage§r.",
   "tip.pearl.2" : "§7Wandering Spirit§r: Spawns after player death, carrying all items.\nMoves to the nearest air block on Y-axis.\nUse §9Chaos Soul Cage§r to retrieve items.",
   "tip.pearl.3" : "§7Wandering Spirit§r: Helps the next life by delivering §9Chaos Soul Cage§r\n(or related items) from its inventory. Follows and occasionally communicates.",
-  "tip.pearl.4" : "§7游魂§r：本质是一团气，不能携带玩家经验。不和世间万物产生交互。\n但可以消耗自身强行与外界互动。",
+  "tip.pearl.4" : "§7游魂§r：本质是一团气，不能携带玩家经验。不会受到外界任何伤害，\n不和世间万物产生交互。但可以消耗自身强行与外界互动。",
   "tip.pearl.5" : "§9Primordial Cage§r: Hold in off-hand to capture drifting §5§lQingdu§r fragments,\nmaking them visible near you.",
   "tip.pearl.6" : "§5§lQingdu§r: The realm of Chi. Years ago, it shattered,\nscattering fragments across the world.",
   "tip.pearl.7" : "§5§lQingdu§r§5 Fragments§r: Contain unique resources like 『Primordial Chi』,\nused to craft §9Roaming Chi Cage§r.",
@@ -158,6 +158,8 @@
   "chat.soul_pearl.not_enchantable" : "§c该物品无法附魔",
 
   "chat.bind.bless": "§7隐约感到种往世的牵挂..",
+  "chat.bind.no_respawn_position" : "§c你的重生点丢失，将你超出背包容量的带有魂牵魔咒的物品放置在（0,81,0）处的箱子中",
+  "chat.bind.container_null" : "§c获取箱子容器失败！",
 
   "chat.goal.interact_player.no_helpful_stuff1" : "§7游魂：来生!收我的魂拿走我的东西吧!可惜我没有什么收魂的东西。",
   "chat.goal.interact_player.no_helpful_stuff2" : "§7游魂：我太虚弱了...来生，你要搞到混元纳魂笼啊。",

@@ -1,9 +1,6 @@
 package com.lzyzl6.data;
 
-import com.lzyzl6.data.provider.AdvancementsProvider;
-import com.lzyzl6.data.provider.LootTablesProvider;
-import com.lzyzl6.data.provider.RecipeProvider;
-import com.lzyzl6.data.provider.DynamicProvider;
+import com.lzyzl6.data.provider.*;
 import com.lzyzl6.registry.ModEnchantments;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
@@ -19,6 +16,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(DynamicProvider::new);
         pack.addProvider(LootTablesProvider::new);
         pack.addProvider(AdvancementsProvider::new);
+        pack.addProvider(ItemTagProvider::new);
     }
 
     public void buildRegistry(RegistrySetBuilder registryBuilder) {

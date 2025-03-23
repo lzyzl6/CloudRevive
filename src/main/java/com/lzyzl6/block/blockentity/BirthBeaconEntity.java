@@ -2,21 +2,18 @@ package com.lzyzl6.block.blockentity;
 
 import com.lzyzl6.block.BirthBeacon;
 import com.lzyzl6.entity.WanderingSpirit;
+import com.lzyzl6.registry.ModBlocks;
 import com.lzyzl6.registry.ModEffects;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BeaconBeamBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 import java.util.UUID;
@@ -26,12 +23,12 @@ import static com.lzyzl6.block.BirthBeacon.CHARGED;
 import static com.lzyzl6.data.storage.FileWork.matchBlockAndFix;
 import static net.minecraft.world.level.block.entity.BeaconBlockEntity.playSound;
 
-public class BirthBeaconEntity extends BlockEntity implements BeaconBeamBlock {
+public class BirthBeaconEntity extends BlockEntity {
 
     public UUID playerUUID = null;
 
-    public BirthBeaconEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState) {
-        super(blockEntityType, blockPos, blockState);
+    public BirthBeaconEntity(BlockPos blockPos, BlockState blockState) {
+        super(ModBlocks.BIRTH_BEACON_ENTITY, blockPos, blockState);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState blockState, BirthBeaconEntity birthBeaconEntity) {
@@ -58,7 +55,6 @@ public class BirthBeaconEntity extends BlockEntity implements BeaconBeamBlock {
                 AtomicBoolean shouldTell = new AtomicBoolean(false);
                 level.getEntitiesOfClass(WanderingSpirit.class,AABB.ofSize(Vec3.atCenterOf(birthBeaconEntity.getBlockPos()), 59999968, 59999968, 59999968))
                 .forEach(spirit -> {
-                    System.out.println(spirit.locateTargetUUID());
                     if(spirit.locateTargetUUID() != null && spirit.locateTargetUUID().equals(uuid)) {
                         shouldTell.set(true);
                         spirit.setPos(blockPosEntity.getX() + new Random().nextDouble(-5,5), blockPosEntity.getY() + new Random().nextDouble(5,10), blockPosEntity.getZ() + new Random().nextDouble(-5,5));
@@ -98,8 +94,4 @@ public class BirthBeaconEntity extends BlockEntity implements BeaconBeamBlock {
         super.setRemoved();
     }
 
-    @Override
-    public @NotNull DyeColor getColor() {
-        return DyeColor.PURPLE;
-    }
 }

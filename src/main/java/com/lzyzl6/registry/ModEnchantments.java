@@ -10,7 +10,6 @@ import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.EnchantmentTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.Unit;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -38,7 +37,7 @@ public class ModEnchantments {
                 BIND,
                 Enchantment.enchantment(
                                 Enchantment.definition(
-                                        HOLDER_GETTER_I.getOrThrow(ItemTags.VANISHING_ENCHANTABLE),
+                                        HOLDER_GETTER_I.getOrThrow(ModTags.BIND_ENCHANTABLE),
                                         1, 1, Enchantment.constantCost(25), Enchantment.constantCost(50), 8
                                 )
                         )

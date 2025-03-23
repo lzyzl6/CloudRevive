@@ -24,6 +24,6 @@
     "per_level_above_first": 0
   },
   "slots": [],
-  "supported_items": "#minecraft:enchantable/vanishing",
+  "supported_items": "#cloud_revive:enchantable/bind",
   "weight": 1
 }

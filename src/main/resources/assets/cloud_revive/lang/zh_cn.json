@@ -39,18 +39,18 @@
   "item.cloud_revive.soul_pearl.tooltip1" : "在§9主手§r上使用:",
   "item.cloud_revive.soul_pearl.tooltip2" : "若§9副手§r物品条件允许，损毁宝珠，向其转移珠内灵魂印记",
 
-  "item.cloud_revive.pearl.tooltip1" : "在§9副手§r上使用:",
+  "item.cloud_revive.pearl.tooltip1" : "在§9主手§r上使用:",
   "item.cloud_revive.pearl.tooltip2" : "给予随机提示，目前共§315§r条，包含如下条目§o(正序)§r：",
   "item.cloud_revive.pearl.tooltip3" : "§7开始;游魂;§9一始宝灯笼§7;§5轻都§7;§c轻都碎片§7;",
   "item.cloud_revive.pearl.tooltip4" : "§9游元擒气笼§7;§9混元纳魂笼§7;『混沌宝气』;§9破裂的元气核§7;",
   "item.cloud_revive.pearl.tooltip5" : "§9枯死的元气果丛§7;『一始元气』;§9元气果§7;§9一始宝珠§7;",
   "item.cloud_revive.pearl.tooltip6" : "§7进阶;指令;...",
 
-  "item.cloud_revive.chaos_pearl.tooltip1" : "在§9副手§r上使用:",
+  "item.cloud_revive.chaos_pearl.tooltip1" : "在§9主手§r上使用:",
   "item.cloud_revive.chaos_pearl.tooltip2" : "给予随机提示，目前共§310§r条，包含如下条目§o(正序)§r：",
   "item.cloud_revive.chaos_pearl.tooltip3" : "§7物品复制;§5轻都§r§7;『亡人魂气』;§9往生信标§r§7;§9魂印宝珠§7;",
   "item.cloud_revive.chaos_pearl.tooltip4" : "§9混沌宝珠§r§7;§e魂化§r§7;修理;§9魂气果§r§7;魂牵;...",
-  "item.cloud_revive.chaos_pearl.tooltip5" : "§4§l可以作为§9往生信标§r§4§l的燃料",
+  "item.cloud_revive.chaos_pearl.tooltip5" : "§4§l可以作为§9往生信标§r§4§l的燃料(副手互动充能)",
 
   "item.cloud_revive.soul_fruit.tooltip1" : "§7§o否极泰来!向死而生",
 
@@ -78,7 +78,7 @@
   "tip.pearl.1" : "开始：你需要以尽快做出§9混元纳魂笼§r为目标，不然你死后拿不回物品!\n先努力制作§9一始宝灯笼§r吧!",
   "tip.pearl.2" : "§7游魂§r：玩家死后生成，携带玩家所有物品，生成后会移到Y轴上最近的空气中，\n找到玩家会主动靠近，对其使用§9混元纳魂笼§r收回物品。",
   "tip.pearl.3" : "§7游魂§r：玩家死后而生的游魂会帮助来世，主动把物品栏中§9混元纳魂笼§r\n（或者有助其制作的物品）给予玩家，并会跟随玩家，偶尔和玩家交流。",
-  "tip.pearl.4" : "§7游魂§r：本质是一团气，不能携带玩家经验。不和世间万物产生交互。\n但可以消耗自身强行与外界互动。",
+  "tip.pearl.4" : "§7游魂§r：本质是一团气，不能携带玩家经验。不会受到外界任何伤害，\n不和世间万物产生交互。但可以消耗自身强行与外界互动。",
   "tip.pearl.5" : "§9一始宝灯笼§r：副手使用它可以抓取世界中流窜的§5轻都§r碎片，\n使其显形在你附近。",
   "tip.pearl.6" : "§5轻都§r：万气之乡，数年前不知什么变故，§5轻都§r破裂，\n散落在世界各处，只余废墟。",
   "tip.pearl.7" : "§c轻都碎片§r：往日神圣之地轻都的碎片，其中有独特的资源，\n比如可以用来制作§9游元擒气笼§r的『一始元气』。",
@@ -158,6 +158,8 @@
   "chat.soul_pearl.not_enchantable" : "§c该物品无法附魔",
 
   "chat.bind.bless": "§7隐约感到种往世的牵挂..",
+  "chat.bind.no_respawn_position" : "§c你的重生点丢失，将你超出背包容量的带有魂牵魔咒的物品放置在（0,81,0）处的箱子中",
+  "chat.bind.container_null" : "§c获取箱子容器失败！",
 
   "chat.goal.interact_player.no_helpful_stuff1" : "§7游魂：来生!收我的魂拿走我的东西吧!可惜我没有什么收魂的东西。",
   "chat.goal.interact_player.no_helpful_stuff2" : "§7游魂：我太虚弱了...来生，你要搞到混元纳魂笼啊。",
