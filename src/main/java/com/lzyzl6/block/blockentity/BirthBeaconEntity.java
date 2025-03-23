@@ -5,6 +5,8 @@ import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.registry.ModBlocks;
 import com.lzyzl6.registry.ModEffects;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -14,6 +16,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 import java.util.UUID;
@@ -84,6 +87,11 @@ public class BirthBeaconEntity extends BlockEntity {
                 birthBeaconEntity.playerUUID = null;
             }
         }
+    }
+
+    @Override
+    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
+        return this.saveCustomOnly(provider);
     }
 
     @Override

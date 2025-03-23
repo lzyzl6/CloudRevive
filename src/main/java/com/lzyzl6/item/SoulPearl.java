@@ -52,11 +52,9 @@ public class SoulPearl extends Item {
                 }
             } else if(offHandItem.canBeEnchantedWith(holder, EnchantingContext.ACCEPTABLE)) {
                     enchantItem(player, offHandItem, mainHandItem, holder);
-            } else if(isBackpackedInstalled()) {
-                if(offHandItem.getItem().getDescriptionId().contains("backpack")) {
+            } else if(isBackpackedInstalled() && offHandItem.getItem().getDescriptionId().contains("backpack")) {
                     enchantItem(player, offHandItem, mainHandItem, holder);
-                }
-            }else {
+            } else {
                 if(!shouldRoll) {
                     shouldRoll = true;
                 } else {

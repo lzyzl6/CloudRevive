@@ -1,3 +1,6 @@
 {
-  "parent": "block/qi_fruit_bush"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "cloud_revive:block/qi_fruit_bush"
+  }
 }

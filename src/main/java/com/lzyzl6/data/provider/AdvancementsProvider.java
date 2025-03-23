@@ -64,7 +64,7 @@ public class AdvancementsProvider extends FabricAdvancementProvider {
                 // Give the advancement an id
                 .save(consumer, MOD_ID + "/beginning");
 
-        AdvancementHolder qingdu = createHaveItem(consumer, "qingdu", beginning, AdvancementType.GOAL, ModItems.CORE_QI, ModBlocks.QI_BLOCK_CORE.asItem());
+        AdvancementHolder qingdu = createHaveItem(consumer, "qingdu", beginning, AdvancementType.GOAL, ModItems.CORE_QI, ModBlocks.QI_FRUIT_BUSH.asItem());
 
         AdvancementHolder sky_goods = createHaveItem(consumer,"sky_goods", qingdu, AdvancementType.TASK, ModItems.SKY_QI);
         AdvancementHolder ground_goods = createHaveItem(consumer,"ground_goods", qingdu, AdvancementType.TASK, ModItems.GROUND_QI);

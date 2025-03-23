@@ -137,10 +137,10 @@ public class StartCage extends Item {
                         }
                         if (noBushUnder && height < topHeight - 1) {
                             //在非顶层生成元气块或元气核
-                            //25%的概率生成元气核
-                            //若元气核不生成，45%的概率生成元气块
-                            boolean shouldGenerateCore = new Random().nextDouble(1) < 0.25;
-                            boolean shouldGenerateBlock = new Random().nextDouble(1) < 0.45;
+                            //10%的概率生成元气核
+                            //若元气核不生成，50%的概率生成元气块
+                            boolean shouldGenerateCore = new Random().nextDouble(1) < 0.1;
+                            boolean shouldGenerateBlock = new Random().nextDouble(1) < 0.5;
                             if (shouldGenerateCore) {
                                 level.setBlock(originPos.south(width).east(length).above(height), ModBlocks.QI_BLOCK_CORE.defaultBlockState(), 83);
                             } else if (shouldGenerateBlock) {
@@ -154,8 +154,8 @@ public class StartCage extends Item {
                         if(level.getBlockState(originPos.south(width).east(length).above(height)).isAir()) {
                             //检测元气果丛下方是不是元气块
                             if(level.getBlockState(originPos.south(width).east(length).above(height-1)).getBlock() == ModBlocks.QI_BLOCK) {
-                                //按30%的概率生成元气果丛
-                                boolean shouldGenerateBush = new Random().nextDouble(1) < 0.3;
+                                //按15%的概率生成元气果丛
+                                boolean shouldGenerateBush = new Random().nextDouble(1) < 0.15;
                                 if(shouldGenerateBush) {
                                     //生成元气果丛
                                     level.setBlock(originPos.south(width).east(length).above(height), ModBlocks.QI_FRUIT_BUSH.defaultBlockState(),83);
@@ -163,7 +163,7 @@ public class StartCage extends Item {
                             }
                         }
                     }
-                    //顶层，20%的概率生成游魂
+                    //顶层，5%的概率生成游魂
                     if(height == topHeight - 1) {
                         boolean shouldGenerate = new Random().nextDouble(1) < 0.05;
                         if(shouldGenerate) {

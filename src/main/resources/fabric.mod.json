@@ -3,14 +3,14 @@
 	"id": "cloud_revive",
 	"version": "${version}",
 	"name": "Cloud Revive",
-	"description": "添加了独特的死亡物品掉落机制，让死亡资源化。",
+	"description": "Adds unique death mechanics, turning mortality into a resource.",
 	"authors": [
 		"LZYZL6"
 	],
 	"contact": {
 		"homepage": "",
-		"sources": "",
-		"issues": ""
+		"sources": "https://github.com/lzyzl6/CloudRevive",
+		"issues": "https://github.com/lzyzl6/CloudRevive/issues"
 	},
 	"license": "Apache License 2.0",
 	"icon": "assets/cloud_revive/icon.png",

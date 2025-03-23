@@ -10,7 +10,10 @@ import net.minecraft.client.renderer.blockentity.BeaconRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 import static com.lzyzl6.block.BirthBeacon.CHARGED;
 
@@ -25,15 +28,23 @@ public class BirthBeaconEntityRenderer implements BlockEntityRenderer<BirthBeaco
     @Override
     public void render(BirthBeaconEntity blockEntity, float f, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int light, int overlay) {
         BirthBeacon beacon = (BirthBeacon) blockEntity.getBlockState().getBlock();
+        long l = Objects.requireNonNull(blockEntity.getLevel()).getGameTime();
         if (blockEntity.getBlockState().getValue(CHARGED)) {
             beacon.cooldown--;
-            BeaconRenderer.renderBeaconBeam(poseStack, multiBufferSource, BEAM_LOCATION, f, 0.8f, 2,1, 1024, 0xFF55FF, 0.2F, 0.175F);
+            BeaconRenderer.renderBeaconBeam(poseStack, multiBufferSource, BEAM_LOCATION, f, 0.8f, l,1, 1024, 0xFF55FF, 0.2F, 0.175F);
         }
     }
-    
+
+    public boolean shouldRenderOffScreen(@NotNull BirthBeaconEntity beaconBlockEntity) {
+        return true;
+    }
 
     @Override
     public int getViewDistance() {
         return 256;
+    }
+
+    public boolean shouldRender(BirthBeaconEntity beaconBlockEntity, Vec3 vec3) {
+        return Vec3.atCenterOf(beaconBlockEntity.getBlockPos()).multiply(1.0, 0.0, 1.0).closerThan(vec3.multiply(1.0, 0.0, 1.0), this.getViewDistance());
     }
 }
