@@ -40,7 +40,7 @@ public class FileWork {
             if (!warningFileEN.createNewFile()) {
                 warningFileEN.mkdirs();
             }
-        } catch (IOException e) {
+        } catch (Throwable e) {
             throw new RuntimeException(e);
         }
     }

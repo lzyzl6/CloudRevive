@@ -38,15 +38,14 @@ public final class ModTabs {
                 Output.accept(ModItems.CHAOS_PEARL);
                 Output.accept(ModItems.QI_FRUIT);
                 Output.accept(ModItems.SOUL_FRUIT);
-                context.holders().lookup(Registries.ENCHANTMENT).ifPresent(registryLookup -> {
-                    registryLookup.listElements()
-                            .map(reference -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(reference, (reference.value()).getMaxLevel())))
-                            .forEach(itemStack -> {
-                                if(EnchantmentHelper.getEnchantmentsForCrafting(itemStack).keySet().stream().anyMatch(enchantment -> enchantment.is(ModEnchantments.BIND))) {
-                                    Output.accept(itemStack, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
-                                }
-                            });
-                });
+                context.holders().lookup(Registries.ENCHANTMENT).ifPresent(registryLookup ->
+                        registryLookup.listElements()
+                        .map(reference -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(reference, (reference.value()).getMaxLevel())))
+                        .forEach(itemStack -> {
+                            if(EnchantmentHelper.getEnchantmentsForCrafting(itemStack).keySet().stream().anyMatch(enchantment -> enchantment.is(ModEnchantments.BIND))) {
+                                Output.accept(itemStack, CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+                            }
+                        }));
 
             })
             .build());

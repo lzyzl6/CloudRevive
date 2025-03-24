@@ -19,13 +19,13 @@
 
   "item.cloud_revive.birth_beacon.tooltip1" : "消耗一顆§9混沌寶珠§r，召喚§7當前維度§r下激活者所有存在的前世遊魂",
 
-  "item.cloud_revive.strat_cage.tooltip1" : "在§9副手§r上使用:",
-  "item.cloud_revive.strat_cage.tooltip2" : "引來寄託虛空的§5輕都§r碎片，並使其顯形",
-  "item.cloud_revive.strat_cage.tooltip3" : "§e警告：必須為牽引來的§5輕都§e碎片提供空間顯形!建議在§4空曠的室外§e牽引!",
-  "item.cloud_revive.strat_cage.tooltip4" : "§7§o不知為何，§5輕都§7§o永遠只會在東方顯形...",
+  "item.cloud_revive.start_cage.tooltip1" : "在§9副手§r上使用:",
+  "item.cloud_revive.start_cage.tooltip2" : "引來寄託虛空的§5輕都§r碎片，並使其顯形",
+  "item.cloud_revive.start_cage.tooltip3" : "§e警告：必須為牽引來的§5輕都§e碎片提供空間顯形!建議在§4空曠的室外§e牽引!",
+  "item.cloud_revive.start_cage.tooltip4" : "§7§o不知為何，§5輕都§7§o永遠只會在東方顯形...",
 
-  "item.cloud_revive.strat_cage.success" : "§5你好!輕都!",
-  "item.cloud_revive.strat_cage.cant_generate" : "§7空間不足!牽引失敗!",
+  "item.cloud_revive.start_cage.success" : "§5你好!輕都!",
+  "item.cloud_revive.start_cage.cant_generate" : "§7空間不足!牽引失敗!",
 
   "item.cloud_revive.cage.tooltip1" : "在§9副手§r上使用:",
   "item.cloud_revive.cage.tooltip2" : "高度在§3128§r格以上時：捕捉§9『高天陽氣』§r，消耗較多耐久",

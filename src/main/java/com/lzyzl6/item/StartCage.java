@@ -31,10 +31,10 @@ public class StartCage extends Item {
 
     @Override
     public void appendHoverText(@NotNull ItemStack itemStack, Item.@NotNull TooltipContext tooltipContext, List<Component> list, @NotNull TooltipFlag tooltipFlag) {
-        list.add(Component.translatable("item.cloud_revive.strat_cage.tooltip1"));
-        list.add(Component.translatable("item.cloud_revive.strat_cage.tooltip2"));
-        list.add(Component.translatable("item.cloud_revive.strat_cage.tooltip3"));
-        list.add(Component.translatable("item.cloud_revive.strat_cage.tooltip4"));
+        list.add(Component.translatable("item.cloud_revive.start_cage.tooltip1"));
+        list.add(Component.translatable("item.cloud_revive.start_cage.tooltip2"));
+        list.add(Component.translatable("item.cloud_revive.start_cage.tooltip3"));
+        list.add(Component.translatable("item.cloud_revive.start_cage.tooltip4"));
     }
 
     @Override
@@ -58,11 +58,11 @@ public class StartCage extends Item {
                 }
                 //信息显示
                 if(isSuccess) {
-                    player.displayClientMessage(Component.translatable("item.cloud_revive.strat_cage.success"), true);
-                    player.sendSystemMessage(Component.translatable("item.cloud_revive.strat_cage.success"));
+                    player.displayClientMessage(Component.translatable("item.cloud_revive.start_cage.success"), true);
+                    player.sendSystemMessage(Component.translatable("item.cloud_revive.start_cage.success"));
 
                 } else {
-                    player.sendSystemMessage(Component.translatable("item.cloud_revive.strat_cage.cant_generate"));
+                    player.sendSystemMessage(Component.translatable("item.cloud_revive.start_cage.cant_generate"));
                 }
                 player.getCooldowns().addCooldown(this, 500);
                 damageItem(player, usedHand);

@@ -19,13 +19,13 @@
 
   "item.cloud_revive.birth_beacon.tooltip1" : "Consumes a §9Chaos Orb§r to summon all your past-life §7Wandering Spirits§r in this dimension.",
 
-  "item.cloud_revive.strat_cage.tooltip1" : "Use in §9off-hand§r:",
-  "item.cloud_revive.strat_cage.tooltip2" : "Attracts §5Qingdu§r fragments from the void and reveals them.",
-  "item.cloud_revive.strat_cage.tooltip3" : "§eWarning: Ensure §5Qingdu§e fragments have space to manifest! §4Use outdoors§e!",
-  "item.cloud_revive.strat_cage.tooltip4" : "§7§oFor unknown reasons, §5Qingdu§7§o fragments always manifest in the east...",
+  "item.cloud_revive.start_cage.tooltip1" : "Use in §9off-hand§r:",
+  "item.cloud_revive.start_cage.tooltip2" : "Attracts §5Qingdu§r fragments from the void and reveals them.",
+  "item.cloud_revive.start_cage.tooltip3" : "§eWarning: Ensure §5Qingdu§e fragments have space to manifest! §4Use outdoors§e!",
+  "item.cloud_revive.start_cage.tooltip4" : "§7§oFor unknown reasons, §5Qingdu§7§o fragments always manifest in the east...",
 
-  "item.cloud_revive.strat_cage.success" : "§5Hello, Qingdu!",
-  "item.cloud_revive.strat_cage.cant_generate" : "§7Not enough space! Manifestation failed!",
+  "item.cloud_revive.start_cage.success" : "§5Hello, Qingdu!",
+  "item.cloud_revive.start_cage.cant_generate" : "§7Not enough space! Manifestation failed!",
 
   "item.cloud_revive.cage.tooltip1" : "Use in §9off-hand§r:",
   "item.cloud_revive.cage.tooltip2" : "Above Y=128: Capture §9『Celestial Yang Chi』§r (high durability cost).",
