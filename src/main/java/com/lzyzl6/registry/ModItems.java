@@ -3,8 +3,6 @@ package com.lzyzl6.registry;
 import com.lzyzl6.item.*;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -21,9 +19,6 @@ import static com.lzyzl6.CloudRevive.MOD_ID;
 
 public class ModItems {
 
-    public static ResourceKey<Item> start_cage_key = ResourceKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID, "start_cage"));
-    public static ResourceKey<Item> cage_key = ResourceKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID, "cage"));
-    public static ResourceKey<Item> chaos_cage_key = ResourceKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID, "chaos_cage"));
 
     public static final Item START_CAGE = register(
             "start_cage",
