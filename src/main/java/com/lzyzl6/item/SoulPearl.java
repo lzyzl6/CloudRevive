@@ -1,7 +1,6 @@
 package com.lzyzl6.item;
 
 import com.lzyzl6.registry.ModItems;
-import net.fabricmc.fabric.api.item.v1.EnchantingContext;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -50,7 +49,7 @@ public class SoulPearl extends Item {
                     player.sendSystemMessage(Component.translatable("chat.soul_pearl.already_enchanted"));
                     shouldRoll = false;
                 }
-            } else if(offHandItem.canBeEnchantedWith(holder, EnchantingContext.ACCEPTABLE)) {
+            } else if(offHandItem.supportsEnchantment(holder)) {
                     enchantItem(player, offHandItem, mainHandItem, holder);
             } else if(isBackpackedInstalled() && offHandItem.getItem().getDescriptionId().contains("backpack")) {
                     enchantItem(player, offHandItem, mainHandItem, holder);

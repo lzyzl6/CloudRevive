@@ -57,7 +57,7 @@ public class InteractPlayerGoal extends Goal {
                     ModItems.CHAOS_QI,ModItems.CORE_QI,ModItems.SKY_QI,ModItems.GROUND_QI,ModItems.PEOPLE_QI,
                     Items.EMERALD_BLOCK,Items.LANTERN);
 
-            for (int i = 0; i < ghost.getInventory().items.size(); i++) {
+            for (int i = 0; i < ghost.getInventory().getItems().size(); i++) {
                 if (targetItems.contains(ghost.getInventory().getItem(i).getItem())) {
                     //交换物品
                     if(player.getInventory().getFreeSlot() >= 1) {

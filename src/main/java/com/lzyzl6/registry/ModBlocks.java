@@ -18,7 +18,6 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -40,20 +39,18 @@ public class ModBlocks {
         return Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(MOD_ID, path), blockEntityType);
     }
 
-
-
     public static final Block QI_FRUIT_BUSH = registerBlock("qi_fruit_bush", new QiFruitBush(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).instabreak().noCollission().noOcclusion().sound(SoundType.SWEET_BERRY_BUSH).strength(0.1F, 0.0F).pushReaction(PushReaction.DESTROY)));
-    public static final BlockEntityType<QiFruitBushEntity> QI_FRUIT_BUSH_BLOCK_ENTITY = registerBlockEntity("qi_fruit_bush_block_entity", BlockEntityType.Builder.of(QiFruitBushEntity::new, QI_FRUIT_BUSH).build());
+    public static final BlockEntityType<QiFruitBushEntity> QI_FRUIT_BUSH_BLOCK_ENTITY = registerBlockEntity("qi_fruit_bush_block_entity", BlockEntityType.Builder.of(QiFruitBushEntity::new, QI_FRUIT_BUSH).build(null));
 
     public static final Block QI_BLOCK = registerBlock( "qi_block", new QiBlock(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BELL).sound(SoundType.SPONGE).strength(0.8F, 1.0F)));
-    public static final BlockEntityType<QiBlockEntity> QI_BLOCK_ENTITY = registerBlockEntity("qi_block_entity", BlockEntityType.Builder.of(QiBlockEntity::new, QI_BLOCK).build());
+    public static final BlockEntityType<QiBlockEntity> QI_BLOCK_ENTITY = registerBlockEntity("qi_block_entity", BlockEntityType.Builder.of(QiBlockEntity::new, QI_BLOCK).build(null));
 
     public static final Block QI_BLOCK_CORE = registerBlock("qi_block_core", new QiBlockCore(BlockBehaviour.Properties.of().instrument(NoteBlockInstrument.BASS).sound(SoundType.GILDED_BLACKSTONE).strength(1.0F, 1.0F)));
-    public static final BlockEntityType<QiBlockCoreEntity> QI_BLOCK_CORE_ENTITY = registerBlockEntity("qi_block_core_entity", BlockEntityType.Builder.of(QiBlockCoreEntity::new, QI_BLOCK_CORE).build());
+    public static final BlockEntityType<QiBlockCoreEntity> QI_BLOCK_CORE_ENTITY = registerBlockEntity("qi_block_core_entity", BlockEntityType.Builder.of(QiBlockCoreEntity::new, QI_BLOCK_CORE).build(null));
 
     public static final Block BIRTH_BEACON = new BirthBeacon(BlockBehaviour.Properties.of().mapColor(MapColor.DIAMOND).sound(SoundType.METAL).strength(3.0F, 6.0F).noOcclusion()
-            .instrument(NoteBlockInstrument.BANJO).explosionResistance(1.1f).lightLevel(state -> 15).isRedstoneConductor(Blocks::never));
-    public static final BlockEntityType<BirthBeaconEntity> BIRTH_BEACON_ENTITY = registerBlockEntity("birth_beacon_entity", BlockEntityType.Builder.of(BirthBeaconEntity::new, BIRTH_BEACON).build());
+            .instrument(NoteBlockInstrument.BANJO).lightLevel(state -> 15));
+    public static final BlockEntityType<BirthBeaconEntity> BIRTH_BEACON_ENTITY = registerBlockEntity("birth_beacon_entity", BlockEntityType.Builder.of(BirthBeaconEntity::new, BIRTH_BEACON).build(null));
 
     public static void initialize() {
         Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath(MOD_ID, "birth_beacon"), BIRTH_BEACON);

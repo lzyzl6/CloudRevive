@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +26,7 @@ public class AbInitioPearl extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
+    public void appendHoverText(@NotNull ItemStack itemStack, Item.@NotNull TooltipContext tooltipContext, List<Component> list, @NotNull TooltipFlag tooltipFlag) {
         list.add(Component.translatable("item.cloud_revive.pearl.tooltip1"));
         list.add(Component.translatable("item.cloud_revive.pearl.tooltip2"));
         list.add(Component.translatable("item.cloud_revive.pearl.tooltip3"));
@@ -35,7 +36,7 @@ public class AbInitioPearl extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, @NotNull Player player, @NotNull InteractionHand interactionHand) {
         if(!level.isClientSide()) {
             ItemStack itemStack = player.getItemInHand(interactionHand);
             if(interactionHand == InteractionHand.MAIN_HAND && itemStack.is(ModItems.PEARL)) {

@@ -2,8 +2,6 @@ package com.lzyzl6.registry;
 
 import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.event.PlayerDieCallback;
-import dev.emi.trinkets.api.TrinketInventory;
-import dev.emi.trinkets.api.TrinketsApi;
 import io.wispforest.accessories.api.AccessoriesCapability;
 import io.wispforest.accessories.api.AccessoriesContainer;
 import io.wispforest.accessories.impl.ExpandedSimpleContainer;
@@ -18,7 +16,6 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -94,40 +91,6 @@ public class ModEvents {
                             }
                         }
                     }
-                } catch (Exception e) {
-                    e.fillInStackTrace();
-                }
-            }
-
-            //Trinkets模组处理
-            if (isTrinketsInstalled()) {
-                try {
-                    TrinketsApi.getTrinketComponent(player).ifPresent(trinketComponent -> {
-                        Set<String> keySet = trinketComponent.getInventory().keySet();
-                        if (!keySet.isEmpty()) {
-                            Collection<Map<String, TrinketInventory>> trinketMap = trinketComponent.getInventory().values();
-                            for (Map<String, TrinketInventory> map : trinketMap) {
-                                Set<String> childKeySet = map.keySet();
-                                if (!childKeySet.isEmpty()) {
-                                    for (String key : childKeySet) {
-                                        TrinketInventory trinketInventory = map.get(key);
-                                        for (int i = 0; i < trinketInventory.getContainerSize(); i++) {
-                                            ItemStack itemStack = trinketInventory.removeItem(i, trinketInventory.getItem(i).getCount());
-                                            if (!itemStack.isEmpty() && EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND)) {
-                                                player.getInventory().add(itemStack);
-                                            }
-                                            if (!itemStack.isEmpty()) {
-                                                ghost.getInventory().addItem(itemStack);
-                                            }
-                                            trinketInventory.setChanged();
-                                            trinketInventory.update();
-                                        }
-                                    }
-
-                                }
-                            }
-                        }
-                    });
                 } catch (Exception e) {
                     e.fillInStackTrace();
                 }
