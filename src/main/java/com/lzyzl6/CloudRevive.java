@@ -18,8 +18,6 @@ public class CloudRevive implements ModInitializer {
 	public void onInitialize() {
 
 		LOGGER.info("Cloud Revive Here!");
-		if (isBackpackedInstalled())
-			LOGGER.info("Backpacked is installed, switching tags for it.");
 
 		ModTags.initialize();
 		ModBlocks.initialize();

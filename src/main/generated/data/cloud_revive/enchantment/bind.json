@@ -7,7 +7,7 @@
     "minecraft:location_changed": [
       {
         "effect": {
-          "type": "minecraft:bind"
+          "type": "cloud_revive:bind"
         }
       }
     ],

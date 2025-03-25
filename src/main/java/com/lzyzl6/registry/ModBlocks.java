@@ -58,8 +58,7 @@ public class ModBlocks {
     public static void initialize() {
         Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath(MOD_ID, "birth_beacon"), BIRTH_BEACON);
         Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, "birth_beacon"), new BirthBeaconItem(BIRTH_BEACON,new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).fireResistant()));
-        BlockRenderLayerMap.INSTANCE.putBlock(BIRTH_BEACON, RenderType.cutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(QI_FRUIT_BUSH, RenderType.cutout());
+
 
     }
 }

@@ -17,9 +17,6 @@ public class ModTags {
     }
 
     public static void initialize() {
-        if(isBackpackedInstalled()) {
-            BIND_ENCHANTABLE = bind("enchantable/bind_backpack");
-        }
 
     }
 }
