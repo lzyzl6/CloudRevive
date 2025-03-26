@@ -23,8 +23,8 @@ public class ModEnchantments {
 
     static UnaryOperator<DataComponentType.Builder<Unit>> unaryOperator =builder -> builder.persistent(Unit.CODEC);
 
-    public static DataComponentType<Unit> SOUL_BIND = Registry.<DataComponentType<Unit>>register(
-            BuiltInRegistries.ENCHANTMENT_EFFECT_COMPONENT_TYPE, "soul_bind", ((DataComponentType.Builder)unaryOperator.apply(DataComponentType.builder())).build()
+    public static DataComponentType<Unit> SOUL_BIND = Registry.register(
+            BuiltInRegistries.ENCHANTMENT_EFFECT_COMPONENT_TYPE, ResourceLocation.fromNamespaceAndPath(MOD_ID, "soul_bind"), (unaryOperator.apply(DataComponentType.builder())).build()
     );
 
     public static final ResourceKey<Enchantment> BIND = key("bind");

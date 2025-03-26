@@ -31,10 +31,11 @@ public class BirthBeaconEntityRenderer implements BlockEntityRenderer<BirthBeaco
         long l = Objects.requireNonNull(blockEntity.getLevel()).getGameTime();
         if (blockEntity.getBlockState().getValue(CHARGED)) {
             beacon.cooldown--;
-            BeaconRenderer.renderBeaconBeam(poseStack, multiBufferSource, BEAM_LOCATION, f, 0.8f, l,1, 1024, 0xFF55FF, 0.2F, 0.175F);
+            BeaconRenderer.renderBeaconBeam(poseStack, multiBufferSource, BEAM_LOCATION, f, 0.8f, l,-256, 1024, 0xFF55FF, 0.2F, 0.175F);
         }
     }
 
+    @Override
     public boolean shouldRenderOffScreen(@NotNull BirthBeaconEntity beaconBlockEntity) {
         return true;
     }
@@ -44,6 +45,7 @@ public class BirthBeaconEntityRenderer implements BlockEntityRenderer<BirthBeaco
         return 256;
     }
 
+    @Override
     public boolean shouldRender(BirthBeaconEntity beaconBlockEntity, Vec3 vec3) {
         return Vec3.atCenterOf(beaconBlockEntity.getBlockPos()).multiply(1.0, 0.0, 1.0).closerThan(vec3.multiply(1.0, 0.0, 1.0), this.getViewDistance());
     }

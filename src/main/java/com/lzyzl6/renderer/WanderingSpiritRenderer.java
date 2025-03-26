@@ -19,6 +19,7 @@ public class WanderingSpiritRenderer extends MobRenderer<WanderingSpirit, Wander
         super(context, new WanderingSpiritModel(context.bakeLayer(ModModelLayers.GHOST)), 0.6f);
     }
 
+    @Override
     protected int getBlockLightLevel(WanderingSpirit ghost, BlockPos blockPos) {
         return 15;
     }

@@ -17,6 +17,7 @@ public class ItemTagProvider extends FabricTagProvider.ItemTagProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider wrapperLookup) {
+        this.tag(ItemTags.VANISHING_ENCHANTABLE);
         this.tag(ModTags.BIND_ENCHANTABLE).addTag(ItemTags.VANISHING_ENCHANTABLE).add(ModItems.start_cage_key,ModItems.cage_key,ModItems.chaos_cage_key);
     }
 }

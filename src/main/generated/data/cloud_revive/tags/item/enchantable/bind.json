@@ -1,8 +1,8 @@
 {
   "values": [
     "#minecraft:enchantable/vanishing",
-    "cloud_revive:cage",
     "cloud_revive:start_cage",
+    "cloud_revive:cage",
     "cloud_revive:chaos_cage"
   ]
 }

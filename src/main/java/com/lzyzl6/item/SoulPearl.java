@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static com.lzyzl6.data.storage.FileWork.isBackpackedInstalled;
+import static com.lzyzl6.data.storage.FileWork.*;
 import static com.lzyzl6.registry.ModEnchantments.BIND;
 
 public class SoulPearl extends Item {
@@ -52,8 +52,12 @@ public class SoulPearl extends Item {
                 }
             } else if(offHandItem.canBeEnchantedWith(holder, EnchantingContext.ACCEPTABLE)) {
                     enchantItem(player, offHandItem, mainHandItem, holder);
-            } else if(isBackpackedInstalled() && offHandItem.getItem().getDescriptionId().contains("backpack")) {
+            } else if(isBackpackedInstalled() && offHandItem.getItem().getDescriptionId().contains("backpacked") && !offHandItem.getItem().getDescriptionId().contains("shelf")) {
                     enchantItem(player, offHandItem, mainHandItem, holder);
+            } else if(isSophisticatedBackpacksInstalled() && offHandItem.getItem().getDescriptionId().contains("sophisticatedbackpacks") && !offHandItem.getItem().getDescriptionId().contains("upgrade")) {
+                enchantItem(player, offHandItem, mainHandItem, holder);
+            }else if(isTravelersBackpackInstalled() && offHandItem.getItem().getDescriptionId().contains("travelersbackpack") && !offHandItem.getItem().getDescriptionId().contains("upgrade") && !offHandItem.getItem().getDescriptionId().contains("sleeping") && !offHandItem.getItem().getDescriptionId().contains("tank") && !offHandItem.getItem().getDescriptionId().contains("hose")) {
+                enchantItem(player, offHandItem, mainHandItem, holder);
             } else {
                 if(!shouldRoll) {
                     shouldRoll = true;

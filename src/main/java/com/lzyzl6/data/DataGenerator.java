@@ -16,7 +16,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(DynamicProvider::new);
         pack.addProvider(LootTablesProvider::new);
         pack.addProvider(AdvancementsProvider::new);
-//        pack.addProvider(ItemTagProvider::new);
+        pack.addProvider(ItemTagProvider::new);
     }
 
     public void buildRegistry(RegistrySetBuilder registryBuilder) {
