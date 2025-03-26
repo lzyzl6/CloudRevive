@@ -8,6 +8,6 @@ import net.minecraft.world.level.block.state.BlockState;
 public class QiBlockEntity extends BlockEntity {
 
     public QiBlockEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlocks.QI_BLOCK_ENTITY, blockPos, blockState);
+        super(ModBlocks.QI_BLOCK_ENTITY.get(), blockPos, blockState);
     }
 }

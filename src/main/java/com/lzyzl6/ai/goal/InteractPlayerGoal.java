@@ -53,9 +53,19 @@ public class InteractPlayerGoal extends Goal {
             boolean ifHelpful = false;
             /*检查游魂物品栏中是否有一始宝珠、一始宝灯笼、游元擒气笼、混元纳魂笼、
             混沌宝气、一始元气、高天阳气、玄地阴气、生人和气、绿宝石块、灯笼*/
-            List<Item> targetItems = List.of(ModItems.PEARL, ModItems.START_CAGE,ModItems.CAGE, ModItems.CHAOS_CAGE,
-                    ModItems.CHAOS_QI,ModItems.CORE_QI,ModItems.SKY_QI,ModItems.GROUND_QI,ModItems.PEOPLE_QI,
-                    Items.EMERALD_BLOCK,Items.LANTERN);
+            List<Item> targetItems = List.of(
+                    ModItems.PEARL.get(),
+                    ModItems.START_CAGE.get(),
+                    ModItems.CAGE.get(),
+                    ModItems.CHAOS_CAGE.get(),
+                    ModItems.CHAOS_QI.get(),
+                    ModItems.CORE_QI.get(),
+                    ModItems.SKY_QI.get(),
+                    ModItems.GROUND_QI.get(),
+                    ModItems.PEOPLE_QI.get(),
+                    Items.EMERALD_BLOCK,
+                    Items.LANTERN
+            );
 
             for (int i = 0; i < ghost.getInventory().getItems().size(); i++) {
                 if (targetItems.contains(ghost.getInventory().getItem(i).getItem())) {
@@ -79,7 +89,7 @@ public class InteractPlayerGoal extends Goal {
                 //给予物品交流
                 str += "give_stuff";
                 str += randomInt1;
-                ghost.playSound(ModSoundEvents.TALK, 1.5f, 1.2f);
+                ghost.playSound(ModSoundEvents.TALK.get(), 1.5f, 1.2f);
                 player.sendSystemMessage(Component.literal(""));
                 player.sendSystemMessage(Component.translatable(str));
                 //受伤交流
@@ -89,10 +99,10 @@ public class InteractPlayerGoal extends Goal {
                 str1 += randomInt2;
                 player.sendSystemMessage(Component.translatable(str1));
             } else {
-                ghost.getInventory().addItem(ModItems.DEAD_QI.getDefaultInstance());
+                ghost.getInventory().addItem(ModItems.DEAD_QI.get().getDefaultInstance());
                 str += "no_helpful_stuff";
                 str += randomInt1;
-                ghost.playSound(ModSoundEvents.TALK, 1.5f, 1.2f);
+                ghost.playSound(ModSoundEvents.TALK.get(), 1.5f, 1.2f);
                 player.sendSystemMessage(Component.translatable(str));
             }
         } else {
@@ -106,27 +116,27 @@ public class InteractPlayerGoal extends Goal {
                 if (player.getHealth() < player.getMaxHealth() / 5.0f) { //濒死
                     str += "player_death_near";
                     str += randomInt;
-                    ghost.playSound(ModSoundEvents.TALK, 1.7f, 1.4f);
+                    ghost.playSound(ModSoundEvents.TALK.get(), 1.7f, 1.4f);
                     player.sendSystemMessage(Component.translatable(str));
                 } else if (player.isHurt() && player.getLastHurtByMobTimestamp() < player.tickCount - 10) {//受伤
                     str += "player_hurt";
                     str += randomInt;
-                    ghost.playSound(ModSoundEvents.TALK, 1.6f, 1.3f);
+                    ghost.playSound(ModSoundEvents.TALK.get(), 1.6f, 1.3f);
                     player.sendSystemMessage(Component.translatable(str));
                 } else if (player.isCurrentlyGlowing()) {//发光
                     str += "player_glowing";
                     str += randomInt;
-                    ghost.playSound(ModSoundEvents.TALK, 1.5f, 1.2f);
+                    ghost.playSound(ModSoundEvents.TALK.get(), 1.5f, 1.2f);
                     player.sendSystemMessage(Component.translatable(str));
                 } else if (player.level().dimension() == Level.NETHER) {//在下界
                     str += "at_nether";
                     str += randomInt;
-                    ghost.playSound(ModSoundEvents.TALK, 1.5f, 1.2f);
+                    ghost.playSound(ModSoundEvents.TALK.get(), 1.5f, 1.2f);
                     player.sendSystemMessage(Component.translatable(str));
                 } else if (player.level().dimension() == Level.END) {//在末地
                     str += "at_end";
                     str += randomInt;
-                    ghost.playSound(ModSoundEvents.TALK, 1.5f, 1.2f);
+                    ghost.playSound(ModSoundEvents.TALK.get(), 1.5f, 1.2f);
                     player.sendSystemMessage(Component.translatable(str));
                 }
             }

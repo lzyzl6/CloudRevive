@@ -37,34 +37,35 @@ public class Cage extends Item {
 
     @Override
     public boolean isValidRepairItem(ItemStack itemStack, ItemStack itemStack2) {
-        return itemStack2.is(ModItems.CORE_QI);
+        return itemStack2.is(ModItems.CORE_QI.get());
     }
 
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
         //副手擒气
+        System.out.println("副手擒气");
         if(!level.isClientSide) {
             double height = player.getY();
-            if(height > 128 && player.getOffhandItem().getItem() == ModItems.CAGE && usedHand == InteractionHand.OFF_HAND) {
+            if(height > 128 && player.getOffhandItem().getItem() == ModItems.CAGE.get() && usedHand == InteractionHand.OFF_HAND) {
                 player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.sky_qi_captured"), true);
-                player.addItem(new ItemStack(ModItems.SKY_QI));
+                player.addItem(new ItemStack(ModItems.SKY_QI.get()));
                 damageItem(player, usedHand, 9);
                 afterUse(player, usedHand);
                     player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
-            else if(height < 0 && player.getOffhandItem().getItem() == ModItems.CAGE && usedHand == InteractionHand.OFF_HAND) {
+            else if(height < 0 && player.getOffhandItem().getItem() == ModItems.CAGE.get() && usedHand == InteractionHand.OFF_HAND) {
                 player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.ground_qi_captured"), true);
-                player.addItem(new ItemStack(ModItems.GROUND_QI));
+                player.addItem(new ItemStack(ModItems.GROUND_QI.get()));
                 damageItem(player, usedHand, 9);
                 afterUse(player, usedHand);
                     player.playSound(SoundEvents.EXPERIENCE_ORB_PICKUP);
             }
-            else if(player.isShiftKeyDown() && player.getOffhandItem().getItem() == ModItems.CAGE && usedHand == InteractionHand.OFF_HAND) {
+            else if(player.isShiftKeyDown() && player.getOffhandItem().getItem() == ModItems.CAGE.get() && usedHand == InteractionHand.OFF_HAND) {
                 if(!(player.getHealth() == player.getMaxHealth()) || player.hasEffect(MobEffects.WEAKNESS)) {
                     player.sendSystemMessage(Component.translatable("chat.cloud_revive.cage.too_weak"));
                 } else {
                     player.displayClientMessage(Component.translatable("chat.cloud_revive.cage.people_qi_captured"), true);
-                    player.addItem(new ItemStack(ModItems.PEOPLE_QI));
+                    player.addItem(new ItemStack(ModItems.PEOPLE_QI.get()));
                     player.hurt(player.damageSources().mobAttack(player), player.getHealth()/1.25f);
                     player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 400, 4, false, false, true));
                     damageItem(player, usedHand, 1);

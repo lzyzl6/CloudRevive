@@ -80,7 +80,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
     @Override
     public SoundEvent getAmbientSound() {
-        return ModSoundEvents.GHOST_AMBIENT;
+        return ModSoundEvents.GHOST_AMBIENT.get();
     }
 
     @Override

@@ -5,15 +5,16 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import static com.lzyzl6.registry.ModBlocks.BIRTH_BEACON;
+
 public class BirthBeaconItem extends BlockItem {
 
-    public BirthBeaconItem(Block block, Properties properties) {
-        super(block, properties);
+    public BirthBeaconItem(Properties properties) {
+        super(BIRTH_BEACON.get(), properties);
     }
 
     @Override

@@ -31,7 +31,7 @@ public class BirthBeaconEntity extends BlockEntity {
     public UUID playerUUID = null;
 
     public BirthBeaconEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlocks.BIRTH_BEACON_ENTITY, blockPos, blockState);
+        super(ModBlocks.BIRTH_BEACON_ENTITY.get(), blockPos, blockState);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState blockState, BirthBeaconEntity birthBeaconEntity) {

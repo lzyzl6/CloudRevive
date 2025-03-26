@@ -27,7 +27,7 @@ public class PlayerDieMixin {
 			Player player = (Player) (Object) this;
 			ServerLevel serverLevel = (ServerLevel) player.level();
 			if(!serverLevel.getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) {
-				PlayerDieCallback.EVENT.invoker().summonGhost(player, new WanderingSpirit(ModEntities.GHOST, player.level()));
+				PlayerDieCallback.EVENT.invoker().summonGhost(player, new WanderingSpirit(ModEntities.GHOST.get(), player.level()));
 			}
 		}
 	}

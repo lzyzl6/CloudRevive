@@ -45,7 +45,7 @@ public class ChaosPearl extends Item {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand interactionHand) {
         ItemStack itemStack = player.getItemInHand(interactionHand);
         if (!level.isClientSide) {
-            if(interactionHand == InteractionHand.MAIN_HAND && itemStack.is(ModItems.CHAOS_PEARL)) {
+            if(interactionHand == InteractionHand.MAIN_HAND && itemStack.is(ModItems.CHAOS_PEARL.get())) {
                 String str = "tip.chaos_pearl.";
                 int randomNum = new Random().nextInt(13) + 1;
                 str += randomNum;
@@ -65,7 +65,7 @@ public class ChaosPearl extends Item {
         if (!useOnContext.getLevel().isClientSide) {
             BlockState blockState = useOnContext.getLevel().getBlockState(useOnContext.getClickedPos());
             Player player = useOnContext.getPlayer();
-            if(useOnContext.getHand() == InteractionHand.OFF_HAND && useOnContext.getItemInHand().is(ModItems.CHAOS_PEARL) && blockState.is(ModBlocks.BIRTH_BEACON)) {
+            if(useOnContext.getHand() == InteractionHand.OFF_HAND && useOnContext.getItemInHand().is(ModItems.CHAOS_PEARL.get()) && blockState.is(ModBlocks.BIRTH_BEACON)) {
                 BirthBeacon block = (BirthBeacon) blockState.getBlock();
                 if(player != null) {
                     block.cooldown = 500;

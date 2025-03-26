@@ -50,7 +50,7 @@ public class BirthBeacon extends BaseEntityBlock implements BeaconBeamBlock {
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState blockState, @NotNull BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, ModBlocks.BIRTH_BEACON_ENTITY, BirthBeaconEntity::tick);
+        return createTickerHelper(blockEntityType, ModBlocks.BIRTH_BEACON_ENTITY.get(), BirthBeaconEntity::tick);
     }
 
     @Override

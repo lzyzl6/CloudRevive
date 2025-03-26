@@ -19,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static com.lzyzl6.data.storage.FileWork.isBackpackedInstalled;
+import static com.lzyzl6.data.storage.FileWork.*;
 import static com.lzyzl6.registry.ModEnchantments.BIND;
 
 public class SoulPearl extends Item {
@@ -40,7 +40,7 @@ public class SoulPearl extends Item {
         ItemStack offHandItem = player.getOffhandItem();
         ItemStack mainHandItem = player.getItemInHand(interactionHand);
         Holder<Enchantment> holder = level.holderLookup(Registries.ENCHANTMENT).getOrThrow(BIND);
-        if(interactionHand == InteractionHand.MAIN_HAND && mainHandItem.is(ModItems.SOUL_PEARL) && !offHandItem.isEmpty()) {
+        if(interactionHand == InteractionHand.MAIN_HAND && mainHandItem.is(ModItems.SOUL_PEARL.get()) && !offHandItem.isEmpty()) {
             //赋予玩家主手物品附魔（如果可以）
             if(EnchantmentHelper.getEnchantmentsForCrafting(offHandItem).keySet().stream().anyMatch(enchantment -> enchantment.is(BIND))) {
                 if(!shouldRoll) {
@@ -51,8 +51,12 @@ public class SoulPearl extends Item {
                 }
             } else if(offHandItem.supportsEnchantment(holder)) {
                     enchantItem(player, offHandItem, mainHandItem, holder);
-            } else if(isBackpackedInstalled() && offHandItem.getItem().getDescriptionId().contains("backpack")) {
-                    enchantItem(player, offHandItem, mainHandItem, holder);
+            } else if(isBackpackedInstalled() && offHandItem.getItem().getDescriptionId().contains("backpacked") && !offHandItem.getItem().getDescriptionId().contains("shelf")) {
+                enchantItem(player, offHandItem, mainHandItem, holder);
+            } else if(isSophisticatedBackpacksInstalled() && offHandItem.getItem().getDescriptionId().contains("sophisticatedbackpacks") && !offHandItem.getItem().getDescriptionId().contains("upgrade")) {
+                enchantItem(player, offHandItem, mainHandItem, holder);
+            }else if(isTravelersBackpackInstalled() && offHandItem.getItem().getDescriptionId().contains("travelersbackpack") && !offHandItem.getItem().getDescriptionId().contains("upgrade") && !offHandItem.getItem().getDescriptionId().contains("sleeping") && !offHandItem.getItem().getDescriptionId().contains("tank") && !offHandItem.getItem().getDescriptionId().contains("hose")) {
+                enchantItem(player, offHandItem, mainHandItem, holder);
             } else {
                 if(!shouldRoll) {
                     shouldRoll = true;

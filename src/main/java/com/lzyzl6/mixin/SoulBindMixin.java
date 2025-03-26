@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class SoulBindMixin {
     @ModifyVariable(method = "dropAll", at = @At("STORE"))
     private ItemStack bindDrop(ItemStack itemStack) {
-        if(EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND))
+        if(EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND.get()))
         {
             itemStack = ItemStack.EMPTY;
         }

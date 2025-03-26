@@ -3,8 +3,6 @@ package com.lzyzl6.renderer;
 import com.lzyzl6.block.BirthBeacon;
 import com.lzyzl6.block.blockentity.BirthBeaconEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BeaconRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
@@ -17,7 +15,7 @@ import java.util.Objects;
 
 import static com.lzyzl6.block.BirthBeacon.CHARGED;
 
-@Environment(EnvType.CLIENT)
+
 public class BirthBeaconEntityRenderer implements BlockEntityRenderer<BirthBeaconEntity> {
 
     private static final ResourceLocation BEAM_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/end_gateway_beam.png");
@@ -31,7 +29,7 @@ public class BirthBeaconEntityRenderer implements BlockEntityRenderer<BirthBeaco
         long l = Objects.requireNonNull(blockEntity.getLevel()).getGameTime();
         if (blockEntity.getBlockState().getValue(CHARGED)) {
             beacon.cooldown--;
-            BeaconRenderer.renderBeaconBeam(poseStack, multiBufferSource, BEAM_LOCATION, f, 0.8f, l,1, 1024, 0xFF55FF, 0.2F, 0.175F);
+            BeaconRenderer.renderBeaconBeam(poseStack, multiBufferSource, BEAM_LOCATION, f, 0.8f, l,-256, 1024, 0xFF55FF, 0.2F, 0.175F);
         }
     }
 
@@ -44,6 +42,7 @@ public class BirthBeaconEntityRenderer implements BlockEntityRenderer<BirthBeaco
         return 256;
     }
 
+    @Override
     public boolean shouldRender(BirthBeaconEntity beaconBlockEntity, Vec3 vec3) {
         return Vec3.atCenterOf(beaconBlockEntity.getBlockPos()).multiply(1.0, 0.0, 1.0).closerThan(vec3.multiply(1.0, 0.0, 1.0), this.getViewDistance());
     }

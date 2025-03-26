@@ -14,10 +14,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static com.lzyzl6.data.storage.FileWork.*;
 
@@ -67,7 +70,7 @@ public class ModEvents {
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
                 ItemStack itemStack = player.getInventory().getItem(i);
                 //魂牵与绑定诅咒
-                if (!itemStack.isEmpty() && (EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND) || EnchantmentHelper.has(itemStack, EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP))) {
+                if (!itemStack.isEmpty() && (EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND.get()) || EnchantmentHelper.has(itemStack, EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP))) {
                     continue;
                 }
                 ghost.getInventory().addItem(player.getInventory().removeItem(i, itemStack.getCount()));
@@ -91,8 +94,43 @@ public class ModEvents {
                             }
                         }
                     }
-                } catch (Exception e) {
+                } catch (Throwable e) {
                     e.fillInStackTrace();
+                }
+            }
+
+            //Curios模组处理
+            if (isCuriosInstalled()) {
+                Optional<ICuriosItemHandler> maybeCuriosInventory = CuriosApi.getCuriosInventory(player);
+
+                if (maybeCuriosInventory.isPresent()) {
+                    ICuriosItemHandler curiosInventory = maybeCuriosInventory.get();
+                    //装备槽
+                    IItemHandlerModifiable equippedCurios = curiosInventory.getEquippedCurios();
+                    for (int i = 0; i < equippedCurios.getSlots(); i++) {
+                        ItemStack itemStack = equippedCurios.getStackInSlot(i);
+                        if (!itemStack.isEmpty() && EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND.get())) {
+                            player.getInventory().add(itemStack.copyAndClear());
+                        } else if (!itemStack.isEmpty()) {
+                            ghost.getInventory().addItem(itemStack.copyAndClear());
+                        }
+                    }
+                    //装饰槽
+                    Map<String, ICurioStacksHandler> curios = curiosInventory.getCurios();
+                    curios.forEach((identifier, stacksHandler) -> {
+                        Optional<ICurioStacksHandler> maybeCuriosStacks = curiosInventory.getStacksHandler(identifier);
+                        if (maybeCuriosStacks.isPresent()) {
+                            IDynamicStackHandler cosmeticStacks = maybeCuriosStacks.get().getCosmeticStacks();
+                            for (int i = 0; i < cosmeticStacks.getSlots(); i++) {
+                                ItemStack itemStack = cosmeticStacks.getStackInSlot(i);
+                                if (!itemStack.isEmpty() && EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND.get())) {
+                                    player.getInventory().add(itemStack.copyAndClear());
+                                } else if (!itemStack.isEmpty()) {
+                                    ghost.getInventory().addItem(itemStack.copyAndClear());
+                                }
+                            }
+                        }
+                    });
                 }
             }
 
@@ -105,10 +143,9 @@ public class ModEvents {
     private static void itemHandle(Player player, WanderingSpirit ghost, ExpandedSimpleContainer container) {
         for (int j = 0; j < container.getContainerSize(); j++) {
             ItemStack itemStack = container.removeItem(j, container.getItem(j).getCount());
-            if (!itemStack.isEmpty() && EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND)) {
+            if (!itemStack.isEmpty() && EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND.get())) {
                 player.getInventory().add(itemStack);
-            }
-            if (!itemStack.isEmpty()) {
+            } else if (!itemStack.isEmpty()) {
                 ghost.getInventory().addItem(itemStack);
             }
         }

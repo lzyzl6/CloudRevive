@@ -37,7 +37,7 @@ public class PlayerListMixin {
         itemStacks.clear();
         for(int i = 0; i < serverPlayer.getInventory().getContainerSize(); i++) {
             ItemStack itemStack = serverPlayer.getInventory().getItem(i);
-            if (EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND)) {
+            if (EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND.get())) {
                 itemStacks.add(itemStack);
             }
         }

@@ -4,14 +4,14 @@
     "translate": "enchantment.cloud_revive.bind"
   },
   "effects": {
+    "cloud_revive:soul_bind": {},
     "minecraft:location_changed": [
       {
         "effect": {
-          "type": "minecraft:bind"
+          "type": "cloud_revive:bind"
         }
       }
-    ],
-    "minecraft:soul_bind": {}
+    ]
   },
   "exclusive_set": "#minecraft:treasure",
   "max_cost": {

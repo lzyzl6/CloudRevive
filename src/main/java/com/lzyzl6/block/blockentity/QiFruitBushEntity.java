@@ -8,6 +8,6 @@ import net.minecraft.world.level.block.state.BlockState;
 public class QiFruitBushEntity extends BlockEntity {
 
     public QiFruitBushEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlocks.QI_FRUIT_BUSH_BLOCK_ENTITY, blockPos, blockState);
+        super(ModBlocks.QI_FRUIT_BUSH_BLOCK_ENTITY.get(), blockPos, blockState);
     }
 }

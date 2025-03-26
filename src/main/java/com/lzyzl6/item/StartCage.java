@@ -39,7 +39,7 @@ public class StartCage extends Item {
 
     @Override
     public boolean isValidRepairItem(@NotNull ItemStack itemStack, ItemStack itemStack2) {
-        return itemStack2.is(ModItems.PEARL);
+        return itemStack2.is(ModItems.PEARL.get());
     }
 
 
@@ -49,7 +49,7 @@ public class StartCage extends Item {
         if(!level.isClientSide) {
             boolean isSuccess;
             //副手上使用生成结构
-            if(player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.START_CAGE && usedHand == InteractionHand.OFF_HAND) {
+            if(player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.START_CAGE.get() && usedHand == InteractionHand.OFF_HAND) {
                 if(canGenerate(player)){
                     generateStructure(player);
                     isSuccess = true;
@@ -125,13 +125,13 @@ public class StartCage extends Item {
                     if(height <=borderHeight) {
                         boolean shouldGenerate = new Random().nextDouble(1) < 0.5;
                         if(shouldGenerate) {
-                            level.setBlock(originPos.south(width).east(length).above(height), ModBlocks.QI_BLOCK.defaultBlockState(),83);
+                            level.setBlock(originPos.south(width).east(length).above(height), ModBlocks.QI_BLOCK.get().defaultBlockState(),83);
                         }
                     } else {
                         //防止元气果丛上方有方块生成
                         boolean noBushUnder = true;
                         for (int i = height; i > borderHeight; i--) {
-                            if (level.getBlockState(originPos.south(width).east(length).above(i)).getBlock() == ModBlocks.QI_FRUIT_BUSH) {
+                            if (level.getBlockState(originPos.south(width).east(length).above(i)).getBlock() == ModBlocks.QI_FRUIT_BUSH.get()) {
                                 noBushUnder = false;
                             }
                         }
@@ -142,9 +142,9 @@ public class StartCage extends Item {
                             boolean shouldGenerateCore = new Random().nextDouble(1) < 0.1;
                             boolean shouldGenerateBlock = new Random().nextDouble(1) < 0.5;
                             if (shouldGenerateCore) {
-                                level.setBlock(originPos.south(width).east(length).above(height), ModBlocks.QI_BLOCK_CORE.defaultBlockState(), 83);
+                                level.setBlock(originPos.south(width).east(length).above(height), ModBlocks.QI_BLOCK_CORE.get().defaultBlockState(), 83);
                             } else if (shouldGenerateBlock) {
-                                level.setBlock(originPos.south(width).east(length).above(height), ModBlocks.QI_BLOCK.defaultBlockState(), 83);
+                                level.setBlock(originPos.south(width).east(length).above(height), ModBlocks.QI_BLOCK.get().defaultBlockState(), 83);
                             }
                         }
                     }
@@ -153,12 +153,12 @@ public class StartCage extends Item {
                         //检查本方块是不是空气
                         if(level.getBlockState(originPos.south(width).east(length).above(height)).isAir()) {
                             //检测元气果丛下方是不是元气块
-                            if(level.getBlockState(originPos.south(width).east(length).above(height-1)).getBlock() == ModBlocks.QI_BLOCK) {
+                            if(level.getBlockState(originPos.south(width).east(length).above(height-1)).getBlock() == ModBlocks.QI_BLOCK.get()) {
                                 //按15%的概率生成元气果丛
                                 boolean shouldGenerateBush = new Random().nextDouble(1) < 0.15;
                                 if(shouldGenerateBush) {
                                     //生成元气果丛
-                                    level.setBlock(originPos.south(width).east(length).above(height), ModBlocks.QI_FRUIT_BUSH.defaultBlockState(),83);
+                                    level.setBlock(originPos.south(width).east(length).above(height), ModBlocks.QI_FRUIT_BUSH.get().defaultBlockState(),83);
                                 }
                             }
                         }
@@ -167,7 +167,7 @@ public class StartCage extends Item {
                     if(height == topHeight - 1) {
                         boolean shouldGenerate = new Random().nextDouble(1) < 0.05;
                         if(shouldGenerate) {
-                            WanderingSpirit wanderingSpirit = new WanderingSpirit(ModEntities.GHOST, player.level());
+                            WanderingSpirit wanderingSpirit = new WanderingSpirit(ModEntities.GHOST.get(), player.level());
                             Vec3 ghostPos = Vec3.atCenterOf(originPos.south(width).east(length).above(height));
                             //随机化高度
                             wanderingSpirit.setPos(ghostPos.x, ghostPos.y + new Random().nextDouble(-0.3,0.3), ghostPos.z);

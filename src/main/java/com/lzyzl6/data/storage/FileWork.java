@@ -220,14 +220,24 @@ public class FileWork {
         return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("accessories"));
     }
 
-    public static boolean isTrinketsInstalled() {
+    public static boolean isCuriosInstalled() {
         Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
-        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("trinkets"));
+        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("curios"));
     }
 
     public static boolean isBackpackedInstalled() {
         Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
         return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("backpacked"));
+    }
+
+    public static boolean isSophisticatedBackpacksInstalled() {
+        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
+        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("sophisticatedbackpacks"));
+    }
+
+    public static boolean isTravelersBackpackInstalled() {
+        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
+        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("travelersbackpack"));
     }
 
     public static void initialize() {

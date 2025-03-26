@@ -31,9 +31,9 @@ public class ModCommands {
                         .executes(context -> {
                             Player player = context.getSource().getPlayerOrException();
                             if(player.getInventory().getFreeSlot() < 1) {
-                                player.level().addFreshEntity(new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), ModItems.PEARL.getDefaultInstance()));
+                                player.level().addFreshEntity(new ItemEntity(player.level(), player.getX(), player.getY(), player.getZ(), ModItems.PEARL.get().getDefaultInstance()));
                             } else {
-                                player.addItem(ModItems.PEARL.getDefaultInstance());
+                                player.addItem(ModItems.PEARL.get().getDefaultInstance());
                             }
                             context.getSource().sendSuccess(() -> Component.translatable("command.givepearl.success"), true);
 

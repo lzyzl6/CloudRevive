@@ -26,12 +26,12 @@ public class BindEnchantmentEffect implements EnchantmentLocationBasedEffect {
     public void onChangedBlock(ServerLevel serverLevel, int i, EnchantedItemInUse enchantedItemInUse, Entity entity, Vec3 vec3, boolean bl) {
         if (entity.isAlive() && new Random().nextInt(100) <= 1) {
             if (enchantedItemInUse.owner() != null) {
-                enchantedItemInUse.owner().playSound(ModSoundEvents.TALK, 0.1f, 1.0f);
+                enchantedItemInUse.owner().playSound(ModSoundEvents.TALK.get(), 0.1f, 1.0f);
             }
             if (new Random().nextInt(100) <= 10) {
                 if (enchantedItemInUse.owner() instanceof Player player) {
                     player.addEffect(new MobEffectInstance(ModEffects.SOUL_LIKE, 20, 0, false, true, true));
-                    ItemStack itemStack = new ItemStack(ModItems.DEAD_QI);
+                    ItemStack itemStack = new ItemStack(ModItems.DEAD_QI.get());
                     ItemEntity itemEntity = new ItemEntity(serverLevel, player.getX(), player.getY(), player.getZ(), itemStack);
                     itemEntity.setExtendedLifetime();
                     itemEntity.setGlowingTag(true);

@@ -39,7 +39,7 @@ public class AbInitioPearl extends Item {
     public @NotNull InteractionResultHolder<ItemStack> use(Level level, @NotNull Player player, @NotNull InteractionHand interactionHand) {
         if(!level.isClientSide()) {
             ItemStack itemStack = player.getItemInHand(interactionHand);
-            if(interactionHand == InteractionHand.MAIN_HAND && itemStack.is(ModItems.PEARL)) {
+            if(interactionHand == InteractionHand.MAIN_HAND && itemStack.is(ModItems.PEARL.get())) {
                 String str = "tip.pearl.";
                 int randomNum = new Random().nextInt(17) + 1;
                 str += randomNum;
