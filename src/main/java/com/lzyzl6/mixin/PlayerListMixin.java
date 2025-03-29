@@ -37,11 +37,10 @@ public class PlayerListMixin {
         itemStacks.clear();
         for(int i = 0; i < serverPlayer.getInventory().getContainerSize(); i++) {
             ItemStack itemStack = serverPlayer.getInventory().getItem(i);
-            if (EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND)) {
+            if (EnchantmentHelper.getEnchantments(itemStack).keySet().stream().anyMatch(enchantment -> enchantment == ModEnchantments.SOUL_BIND)) {
                 itemStacks.add(itemStack);
             }
         }
-
     }
 
     @Inject(method = "respawn",at = @At(value = "RETURN"))
@@ -74,14 +73,13 @@ public class PlayerListMixin {
             ChestBlock chest = (ChestBlock) blockState.getBlock();
             Container container = getContainer(chest, blockState, serverPlayer2.level(), blockPos,false);
             int j =0;
-            for (int i = 0; i < itemStacks.size(); i++) {
+            for (ItemStack stack : itemStacks) {
                 if (container != null) {
-                    ItemStack itemStack = itemStacks.get(i);
-                    if(!itemStack.isEmpty()) {
-                        container.setItem(j, itemStack);
+                    if (!stack.isEmpty()) {
+                        container.setItem(j, stack);
                         j++;
                     }
-                } else{
+                } else {
                     serverPlayer2.sendSystemMessage(Component.translatable("chat.bind.container_null"));
                 }
             }

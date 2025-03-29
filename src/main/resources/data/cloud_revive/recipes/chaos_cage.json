@@ -13,7 +13,8 @@
     }
   },
   "result": {
-    "id": "cloud_revive:chaos_cage",
+    "item": "cloud_revive:chaos_cage",
     "count": 1
-  }
+  },
+  "show_notification": true
 }

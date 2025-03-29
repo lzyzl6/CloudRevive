@@ -1,5 +1,6 @@
 package com.lzyzl6.item;
 
+import com.lzyzl6.enchantment.CageItem;
 import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.registry.ModItems;
 import net.minecraft.network.chat.Component;
@@ -19,6 +20,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,7 +28,7 @@ import java.util.UUID;
 
 import static com.lzyzl6.data.storage.FileWork.deleteMatchFile;
 
-public class ChaosCage extends Item {
+public class ChaosCage extends Item implements CageItem {
 
     public ChaosCage(Properties properties) {
         super(properties);
@@ -38,7 +40,7 @@ public class ChaosCage extends Item {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, Item.@NotNull TooltipContext tooltipContext, List<Component> list, @NotNull TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
         list.add(Component.translatable("item.cloud_revive.chaos_cage.tooltip1"));
         list.add(Component.translatable("item.cloud_revive.chaos_cage.tooltip2"));
         list.add(Component.literal(" "));
@@ -141,12 +143,8 @@ public class ChaosCage extends Item {
 
     private void damageItem(Player player, InteractionHand usedHand, int i) {
         ItemStack itemStack = player.getItemInHand(usedHand);
-        if (!itemStack.isEmpty()) {
-            if (usedHand == InteractionHand.MAIN_HAND) {
-                itemStack.hurtAndBreak(i, player, EquipmentSlot.MAINHAND);
-            } else {
-                itemStack.hurtAndBreak(i, player, EquipmentSlot.OFFHAND);
-            }
+        if(!itemStack.isEmpty()) {
+            itemStack.hurtAndBreak(i, player, player1 -> player1.broadcastBreakEvent(usedHand));
         }
     }
 

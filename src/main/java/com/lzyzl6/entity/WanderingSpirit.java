@@ -8,10 +8,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -22,7 +24,7 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Explosion;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,8 +37,8 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
     //动画
     public static final AnimationState idleAnimation = new AnimationState();
-    private static final EntityDataAccessor<CompoundTag> DATA_INVENTORY = SynchedEntityData.defineId(WanderingSpirit.class, EntityDataSerializers.COMPOUND_TAG);
     //容器
+    private static final EntityDataAccessor<CompoundTag> DATA_INVENTORY = SynchedEntityData.defineId(WanderingSpirit.class, EntityDataSerializers.COMPOUND_TAG);
     private final SimpleContainer inventory = new SimpleContainer(512);
     //AI
     public boolean shouldBroadcastMovement = true;
@@ -54,11 +56,19 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
                 .add(Attributes.FLYING_SPEED, 0.2d)
                 .add(Attributes.FOLLOW_RANGE, 64.0d)
                 .add(Attributes.MAX_HEALTH, 4.0d)
-                .add(Attributes.BURNING_TIME, 0.0d)
-                .add(Attributes.SCALE, 0.6d)
-                .add(Attributes.GRAVITY, 0.0d)
                 .add(Attributes.MOVEMENT_SPEED, 0.2d);
     }
+
+    @Override
+    public boolean isNoGravity() {
+        return true;
+    }
+
+    @Override
+    public boolean fireImmune() {
+        return true;
+    }
+
 
     public void setUpAnimation() {
         if (idleAnimationTimeOut <= 0 && !idleAnimation.isStarted()) {
@@ -73,8 +83,9 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     @Override
     public void playAmbientSound() {
         int soundTick = this.random.nextInt(20);
-        if (soundTick > 10) {
-            this.makeSound(this.getAmbientSound());
+        SoundEvent sound = this.getAmbientSound();
+        if (soundTick > 10 &&  sound!= null) {
+            this.playSound(sound);
         }
     }
 
@@ -85,10 +96,33 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
     @Override
     public void tick() {
+        if (!this.level().isClientSide) {
+            ChunkPos chunkPos = this.chunkPosition();
+            ServerLevel serverLevel = (ServerLevel) this.level();
+            serverLevel.setChunkForced(chunkPos.x, chunkPos.z, this.isAlive());
+        }
         this.noPhysics = true;
+        setViewScale(0.6d);
         setUpAnimation();
         super.tick();
         this.moveControl.tick();
+    }
+
+    public void remove(Entity.@NotNull RemovalReason removalReason) {
+        if (removalReason == RemovalReason.UNLOADED_TO_CHUNK || removalReason == RemovalReason.UNLOADED_WITH_PLAYER) {
+            if (!this.level().isClientSide) {
+                ChunkPos chunkPos = this.chunkPosition();
+                ServerLevel serverLevel = (ServerLevel) this.level();
+                serverLevel.setChunkForced(chunkPos.x, chunkPos.z, true);
+            }
+        } else if (!this.level().isClientSide) {
+            ChunkPos chunkPos = this.chunkPosition();
+            ServerLevel serverLevel = (ServerLevel) this.level();
+            if (serverLevel.setChunkForced(chunkPos.x, chunkPos.z, true)) {
+                serverLevel.setChunkForced(chunkPos.x, chunkPos.z, false);
+            }
+        }
+        super.setRemoved(removalReason);
     }
 
     @Override
@@ -124,7 +158,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     }
 
     @Override
-    public boolean ignoreExplosion(@NotNull Explosion explosion) {
+    public boolean ignoreExplosion() {
         return true;
     }
 
@@ -147,21 +181,21 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(DATA_INVENTORY, new CompoundTag()).build();
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_INVENTORY, new CompoundTag());
     }
 
     @Override
     public void addAdditionalSaveData(@NotNull CompoundTag tag) {
         super.addAdditionalSaveData(tag);
-        this.writeInventoryToTag(tag, this.level().registryAccess());
+        this.writeInventoryToTag(tag);
     }
 
     @Override
     public void readAdditionalSaveData(@NotNull CompoundTag tag) {
         super.readAdditionalSaveData(tag);
-        this.readInventoryFromTag(tag, this.level().registryAccess());
+        this.readInventoryFromTag(tag);
     }
 }
 

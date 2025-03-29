@@ -20,7 +20,7 @@ import static com.lzyzl6.block.BirthBeacon.CHARGED;
 @Environment(EnvType.CLIENT)
 public class BirthBeaconEntityRenderer implements BlockEntityRenderer<BirthBeaconEntity> {
 
-    private static final ResourceLocation BEAM_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/end_gateway_beam.png");
+    private static final ResourceLocation BEAM_LOCATION = new ResourceLocation("textures/entity/end_gateway_beam.png");
 
     public BirthBeaconEntityRenderer(BlockEntityRendererProvider.Context context) {
     }
@@ -29,9 +29,10 @@ public class BirthBeaconEntityRenderer implements BlockEntityRenderer<BirthBeaco
     public void render(BirthBeaconEntity blockEntity, float f, @NotNull PoseStack poseStack, @NotNull MultiBufferSource multiBufferSource, int light, int overlay) {
         BirthBeacon beacon = (BirthBeacon) blockEntity.getBlockState().getBlock();
         long l = Objects.requireNonNull(blockEntity.getLevel()).getGameTime();
+        float[] colors = beacon.getColor().getTextureDiffuseColors();
         if (blockEntity.getBlockState().getValue(CHARGED)) {
             beacon.cooldown--;
-            BeaconRenderer.renderBeaconBeam(poseStack, multiBufferSource, BEAM_LOCATION, f, 0.8f, l,-256, 1024, 0xFF55FF, 0.2F, 0.175F);
+            BeaconRenderer.renderBeaconBeam(poseStack, multiBufferSource, BEAM_LOCATION, f, 0.8f, l,-256, 1024, colors, 0.2F, 0.175F);
         }
     }
 

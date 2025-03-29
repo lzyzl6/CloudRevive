@@ -47,7 +47,7 @@ public class MoveToPlayerGoal extends Goal {
                 Vec3 targetVec3 = new Vec3(player.position().x + ranX, player.getEyeY() + ranY , player.position().z + ranZ);
                 ghost.getWalkTargetValue(BlockPos.containing(targetVec3));
                 ghost.getMoveControl().setWantedPosition(targetVec3.x, targetVec3.y, targetVec3.z, 1.0d);
-                ghost.moveTo(targetVec3, ghost.getMaxHeadYRot() + 20, ghost.getMaxHeadXRot());
+                ghost.moveTo(BlockPos.containing(targetVec3), ghost.getMaxHeadYRot() + 20, ghost.getMaxHeadXRot());
             }
         }
     }

@@ -19,7 +19,7 @@ public class ModCommands {
                 .register(literal("killghost")
                 .requires(source -> source.hasPermission(2))
                 .executes(context -> {
-                    context.getSource().getLevel().getEntitiesOfClass(WanderingSpirit.class, AABB.ofSize(context.getSource().getPosition(), 59999968, 59999968, 59999968)).forEach(entity -> entity.remove(Entity.RemovalReason.DISCARDED));
+                    context.getSource().getLevel().getEntitiesOfClass(WanderingSpirit.class, AABB.ofSize(context.getSource().getPosition(), context.getSource().getLevel().getWorldBorder().getAbsoluteMaxSize() * 2, 8388608, context.getSource().getLevel().getWorldBorder().getAbsoluteMaxSize() * 2)).forEach(entity -> entity.remove(Entity.RemovalReason.DISCARDED));
                     context.getSource().sendSuccess(() -> Component.translatable("command.killghost.success"), true);
 
                     return 1;

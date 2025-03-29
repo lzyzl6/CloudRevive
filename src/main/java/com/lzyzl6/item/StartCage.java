@@ -1,5 +1,6 @@
 package com.lzyzl6.item;
 
+import com.lzyzl6.enchantment.CageItem;
 import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.registry.ModBlocks;
 import com.lzyzl6.registry.ModEntities;
@@ -11,7 +12,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -19,18 +19,19 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
 
-public class StartCage extends Item {
+public class StartCage extends Item implements CageItem {
 
     public StartCage(Properties properties) {
         super(properties);
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, Item.@NotNull TooltipContext tooltipContext, List<Component> list, @NotNull TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
         list.add(Component.translatable("item.cloud_revive.start_cage.tooltip1"));
         list.add(Component.translatable("item.cloud_revive.start_cage.tooltip2"));
         list.add(Component.translatable("item.cloud_revive.start_cage.tooltip3"));
@@ -80,12 +81,9 @@ public class StartCage extends Item {
 
     private void damageItem(Player player, InteractionHand usedHand) {
         ItemStack itemStack = player.getItemInHand(usedHand);
+        int i = 1;
         if(!itemStack.isEmpty()) {
-            if (usedHand == InteractionHand.MAIN_HAND) {
-                itemStack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
-            } else {
-                itemStack.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
-            }
+            itemStack.hurtAndBreak(i, player, player1 -> player1.broadcastBreakEvent(usedHand));
         }
     }
 
@@ -181,7 +179,7 @@ public class StartCage extends Item {
 
 
     @Override
-    public int getUseDuration(@NotNull ItemStack itemStack, @NotNull LivingEntity livingEntity) {
+    public int getUseDuration(ItemStack itemStack) {
         return 1000;
     }
 }

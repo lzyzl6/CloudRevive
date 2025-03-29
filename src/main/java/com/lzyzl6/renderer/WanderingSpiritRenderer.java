@@ -13,7 +13,7 @@ import static com.lzyzl6.CloudRevive.MOD_ID;
 
 public class WanderingSpiritRenderer extends MobRenderer<WanderingSpirit, WanderingSpiritModel>   {
 
-    public static final ResourceLocation GHOST_TEXTURE = ResourceLocation.fromNamespaceAndPath(MOD_ID,"textures/entity/wandering_spirit/wandering_spirit.png");
+    public static final ResourceLocation GHOST_TEXTURE = new ResourceLocation(MOD_ID,"textures/entity/wandering_spirit/wandering_spirit.png");
 
     public WanderingSpiritRenderer(EntityRendererProvider.Context context) {
         super(context, new WanderingSpiritModel(context.bakeLayer(ModModelLayers.GHOST)), 0.6f);
@@ -28,4 +28,5 @@ public class WanderingSpiritRenderer extends MobRenderer<WanderingSpirit, Wander
     public @NotNull ResourceLocation getTextureLocation(WanderingSpirit entity) {
         return GHOST_TEXTURE;
     }
+
 }

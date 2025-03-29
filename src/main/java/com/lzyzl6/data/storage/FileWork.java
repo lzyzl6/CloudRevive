@@ -75,7 +75,17 @@ public class FileWork {
             String levelName = getLevelName(player);
             File levelDir = new File(rootDir, levelName);
             File beaconMatchDir = new File(levelDir, "BeaconMatch");
-            File blockPosDir = new File(beaconMatchDir, blockPos.toString());
+
+            String blockPosName = blockPos.toString();
+            int borderIndex;
+            for (borderIndex = 0; borderIndex < blockPosName.length(); borderIndex++) {
+                if (blockPosName.charAt(borderIndex) == '{') {
+                    break;
+                }
+            }
+            blockPosName = blockPosName.substring(borderIndex);
+
+            File blockPosDir = new File(beaconMatchDir, blockPosName);
             File playerUUID = new File(blockPosDir, player.getStringUUID());
             try {
                 if (!levelDir.exists()) {
@@ -93,12 +103,14 @@ public class FileWork {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            System.out.println("创造 "+blockPosDir.getAbsolutePath());
         }
     }
 
     public static void matchBlockAndFix(BirthBeaconEntity blockEntity) {
         if (blockEntity.playerUUID == null && blockEntity.getLevel() != null && !blockEntity.getLevel().isClientSide) {
             File rootDir = rootDir();
+
             String levelRawName = Objects.requireNonNull(blockEntity.getLevel()).toString();
             int borderIndex;
             for (borderIndex = 0; borderIndex < levelRawName.length(); borderIndex++) {
@@ -109,7 +121,18 @@ public class FileWork {
             String levelName = levelRawName.substring(borderIndex + 1, levelRawName.length() - 1);
             File levelDir = new File(rootDir, levelName);
             File beaconMatchDir = new File(levelDir, "BeaconMatch");
-            File blockPosDir = new File(beaconMatchDir, blockEntity.getBlockPos().toString());
+
+            String blockPosName = blockEntity.getBlockPos().toString();
+            for (borderIndex = 0; borderIndex < blockPosName.length(); borderIndex++) {
+                if (blockPosName.charAt(borderIndex) == '{') {
+                    break;
+                }
+            }
+            blockPosName = blockPosName.substring(borderIndex);
+
+            File blockPosDir = new File(beaconMatchDir, blockPosName);
+
+
             if (!levelDir.exists()) {
                 levelDir.mkdirs();
             }
@@ -119,13 +142,18 @@ public class FileWork {
             if (!blockPosDir.exists()) {
                 blockPosDir.mkdirs();
             }
+
+            System.out.println("匹配 " + blockPosDir.getAbsolutePath());
+
             File[] playerUUIDs = blockPosDir.listFiles();
             if (playerUUIDs != null) {
                 Arrays.stream(playerUUIDs).toList().forEach(playerUUID -> {
                     String playerUUIDStr = playerUUID.getName();
                     Player player = blockEntity.getLevel().getPlayerByUUID(UUID.fromString(playerUUIDStr));
+                    System.out.println(playerUUIDStr + " 是目标！ ");
                     if (player != null) {
                         blockEntity.playerUUID = player.getUUID();
+                        System.out.println(player.getName().getString() + " 匹配成功！");
                     }
                     playerUUID.delete();
                 });

@@ -7,14 +7,15 @@
   ],
   "key": {
     "R": {
-      "item": "cloud_revive:qi_fruit"
+      "item": "cloud_revive:pearl"
     },
     "W": {
       "item": "cloud_revive:dead_qi"
     }
   },
   "result": {
-    "id": "cloud_revive:soul_fruit",
+    "item": "cloud_revive:soul_pearl",
     "count": 1
-  }
+  },
+  "show_notification": true
 }

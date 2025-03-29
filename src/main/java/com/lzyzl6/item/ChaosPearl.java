@@ -18,6 +18,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
@@ -33,7 +34,7 @@ public class ChaosPearl extends Item {
     }
 
     @Override
-    public void appendHoverText(@NotNull ItemStack itemStack, Item.@NotNull TooltipContext tooltipContext, List<Component> list, @NotNull TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
         list.add(Component.translatable("item.cloud_revive.chaos_pearl.tooltip1"));
         list.add(Component.translatable("item.cloud_revive.chaos_pearl.tooltip2"));
         list.add(Component.translatable("item.cloud_revive.chaos_pearl.tooltip3"));

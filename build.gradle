@@ -42,8 +42,11 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	modImplementation("io.wispforest:accessories-fabric:${project.accessories_version}")
-	modImplementation "dev.emi:trinkets:${trinkets_version}"
+
+	modImplementation "io.wispforest:accessories-fabric:${project.accessories_version}"
+
+	modImplementation "dev.emi:trinkets:${project.trinkets_version}"
+
 }
 
 processResources {
@@ -55,7 +58,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-	it.options.release = 21
+	it.options.release = 17
 }
 
 java {
@@ -64,8 +67,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
-	sourceCompatibility = JavaVersion.VERSION_21
-	targetCompatibility = JavaVersion.VERSION_21
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {

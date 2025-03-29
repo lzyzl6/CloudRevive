@@ -2,24 +2,23 @@ package com.lzyzl6.data.provider;
 
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 import static com.lzyzl6.registry.ModItems.CHAOS_QI;
 import static net.minecraft.world.item.Items.*;
 
 public class RecipeProvider extends FabricRecipeProvider {
 
-    public RecipeProvider(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> registriesFuture) {
-        super(output, registriesFuture);
+    public RecipeProvider(FabricDataOutput output) {
+        super(output);
     }
 
     @Override
-    public void buildRecipes(RecipeOutput recipeOutput) {
+    public void buildRecipes(Consumer<FinishedRecipe> recipeOutput) {
         //混沌宝气物品复制
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, NETHER_STAR,3).pattern("bbb").pattern("bib").pattern("bbb")
                 .define('b', CHAOS_QI)
@@ -38,16 +37,6 @@ public class RecipeProvider extends FabricRecipeProvider {
                         FabricRecipeProvider.has(CHAOS_QI))
                 .unlockedBy(FabricRecipeProvider.getHasName(NETHERITE_INGOT),
                         FabricRecipeProvider.has(NETHERITE_INGOT))
-                .showNotification(true)
-                .save(recipeOutput);
-
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, HEAVY_CORE,3).pattern("bbb").pattern("bib").pattern("bbb")
-                .define('b', CHAOS_QI)
-                .define('i', HEAVY_CORE)
-                .unlockedBy(FabricRecipeProvider.getHasName(CHAOS_QI),
-                        FabricRecipeProvider.has(CHAOS_QI))
-                .unlockedBy(FabricRecipeProvider.getHasName(HEAVY_CORE),
-                        FabricRecipeProvider.has(HEAVY_CORE))
                 .showNotification(true)
                 .save(recipeOutput);
 

@@ -1,6 +1,7 @@
 package com.lzyzl6.item;
 
 
+import com.lzyzl6.enchantment.CageItem;
 import com.lzyzl6.registry.ModItems;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
@@ -9,25 +10,25 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 
-public class Cage extends Item {
+public class Cage extends Item implements CageItem {
 
     public Cage(Properties properties) {
         super(properties);
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> list, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
         list.add(Component.translatable("item.cloud_revive.cage.tooltip1"));
         list.add(Component.translatable("item.cloud_revive.cage.tooltip2"));
         list.add(Component.translatable("item.cloud_revive.cage.tooltip3"));
@@ -80,11 +81,7 @@ public class Cage extends Item {
     private void damageItem(Player player, InteractionHand usedHand, int i) {
         ItemStack itemStack = player.getItemInHand(usedHand);
         if(!itemStack.isEmpty()) {
-            if (usedHand == InteractionHand.MAIN_HAND) {
-                itemStack.hurtAndBreak(i, player, EquipmentSlot.MAINHAND);
-            } else {
-                itemStack.hurtAndBreak(i, player, EquipmentSlot.OFFHAND);
-            }
+            itemStack.hurtAndBreak(i, player, player1 -> player1.broadcastBreakEvent(usedHand));
         }
     }
 

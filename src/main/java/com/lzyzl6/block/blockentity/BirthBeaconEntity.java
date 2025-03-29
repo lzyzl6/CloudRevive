@@ -5,12 +5,13 @@ import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.registry.ModBlocks;
 import com.lzyzl6.registry.ModEffects;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,7 +42,7 @@ public class BirthBeaconEntity extends BlockEntity {
             if (beacon.cooldown < 0) {
                 birthBeaconEntity.setChanged();
                 if (birthBeaconEntity.level != null) {
-                    birthBeaconEntity.level.setBlock(blockPos, birthBeaconEntity.getBlockState().setValue(CHARGED, false), 3);
+                    birthBeaconEntity.level.setBlock(blockPos, birthBeaconEntity.getBlockState().setValue(CHARGED, false), 83);
                 }
             } else if(beacon.cooldown > 478) {
                 playSound(level, blockPos, SoundEvents.BEACON_ACTIVATE);
@@ -56,11 +57,16 @@ public class BirthBeaconEntity extends BlockEntity {
             UUID uuid = birthBeaconEntity.playerUUID;
             if (uuid != null) {
                 AtomicBoolean shouldTell = new AtomicBoolean(false);
-                level.getEntitiesOfClass(WanderingSpirit.class,AABB.ofSize(Vec3.atCenterOf(birthBeaconEntity.getBlockPos()), 59999968, 59999968, 59999968))
+                level.getEntitiesOfClass(WanderingSpirit.class,AABB.ofSize(Vec3.atCenterOf(birthBeaconEntity.getBlockPos()), level.getWorldBorder().getAbsoluteMaxSize() * 2,  8388608, level.getWorldBorder().getAbsoluteMaxSize() * 2))
                 .forEach(spirit -> {
                     if(spirit.locateTargetUUID() != null && spirit.locateTargetUUID().equals(uuid)) {
                         shouldTell.set(true);
+                        ChunkPos chunkPos = spirit.chunkPosition();
                         spirit.setPos(blockPosEntity.getX() + new Random().nextDouble(-5,5), blockPosEntity.getY() + new Random().nextDouble(5,10), blockPosEntity.getZ() + new Random().nextDouble(-5,5));
+                        if(!spirit.level().isClientSide) {
+                            ServerLevel serverLevel = (ServerLevel) spirit.level();
+                            serverLevel.setChunkForced(chunkPos.x, chunkPos.z, false);
+                        }
                         spirit.playSound(SoundEvents.BELL_BLOCK);
                         spirit.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
                     }
@@ -90,8 +96,8 @@ public class BirthBeaconEntity extends BlockEntity {
     }
 
     @Override
-    public @NotNull CompoundTag getUpdateTag(HolderLookup.@NotNull Provider provider) {
-        return this.saveCustomOnly(provider);
+    public @NotNull CompoundTag getUpdateTag() {
+        return this.saveWithoutMetadata();
     }
 
     @Override

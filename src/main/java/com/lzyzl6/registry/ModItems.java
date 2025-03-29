@@ -10,20 +10,16 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-
-import java.util.List;
-import java.util.Optional;
 
 import static com.lzyzl6.CloudRevive.MOD_ID;
 
 
 public class ModItems {
 
-    public static ResourceKey<Item> start_cage_key = ResourceKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID, "start_cage"));
-    public static ResourceKey<Item> cage_key = ResourceKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID, "cage"));
-    public static ResourceKey<Item> chaos_cage_key = ResourceKey.create(Registries.ITEM,ResourceLocation.fromNamespaceAndPath(MOD_ID, "chaos_cage"));
+    public static ResourceKey<Item> start_cage_key = ResourceKey.create(Registries.ITEM,new ResourceLocation(MOD_ID, "start_cage"));
+    public static ResourceKey<Item> cage_key = ResourceKey.create(Registries.ITEM,new ResourceLocation(MOD_ID, "cage"));
+    public static ResourceKey<Item> chaos_cage_key = ResourceKey.create(Registries.ITEM,new ResourceLocation(MOD_ID, "chaos_cage"));
 
     public static final Item START_CAGE = register(
             "start_cage",
@@ -87,27 +83,34 @@ public class ModItems {
 
     public static final Item QI_FRUIT = register(
             "qi_fruit",
-            new QiFruit(new Item.Properties().food(new FoodProperties(3, 1.5f, true, 0.95f, Optional.of(ItemStack.EMPTY),List
-                    .of(new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.LEVITATION, 200,0, false, false, true), 1.0f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 1500,2, false, false, true), 0.13f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200,2, false, false, true), 0.13f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 2000,2, false, false, true), 0.12f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 1600,1, false, false, true), 0.11f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.LUCK, 3000,2, false, false, true), 0.05f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200,0, false, false, true), 0.15f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.ABSORPTION, 1000,2, false, false, true), 0.08f))))
-    ));
+            new QiFruit(new Item.Properties().food((new FoodProperties.Builder())
+                     .nutrition(3).saturationMod(1.5f).alwaysEat().fast()
+                    .effect(new MobEffectInstance(MobEffects.LEVITATION, 200,0, false, false, true), 1.0f)
+                    .effect(new MobEffectInstance(MobEffects.NIGHT_VISION, 1500,2, false, false, true), 0.13f)
+                    .effect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 1200,2, false, false, true), 0.13f)
+                    .effect(new MobEffectInstance(MobEffects.DIG_SPEED, 2000,2, false, false, true), 0.12f)
+                    .effect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 1600,1, false, false, true), 0.11f)
+                    .effect(new MobEffectInstance(MobEffects.LUCK, 3000,2, false, false, true), 0.05f)
+                    .effect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 1200,0, false, false, true), 0.15f)
+                    .effect(new MobEffectInstance(MobEffects.ABSORPTION, 1000,2, false, false, true), 0.08f)
+                    .build()
+            ))
+    );
 
     public static final Item SOUL_FRUIT = register(
             "soul_fruit",
-            new SoulFruit(new Item.Properties().fireResistant().rarity(Rarity.UNCOMMON).food(new FoodProperties(2, 2.5f, true, 0.95f, Optional.of(ItemStack.EMPTY),List
-                    .of(new FoodProperties.PossibleEffect(new MobEffectInstance(ModEffects.SOUL_LIKE, 2800,0, false, false, true), 1.0f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 2800,4, false, false, true), 1.0f),
-                            new FoodProperties.PossibleEffect(new MobEffectInstance(MobEffects.WEAKNESS, 2800, 4, false, false, true), 1.0f)
-                    )))));
+            new SoulFruit(new Item.Properties().fireResistant().rarity(Rarity.UNCOMMON).food((new FoodProperties.Builder())
+                            .nutrition(2).saturationMod(2.5f).alwaysEat().fast()
+                            .effect(new MobEffectInstance(ModEffects.SOUL_LIKE, 2800,0, false, false, true), 1.0f)
+                            .effect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 2800,4, false, false, true), 1.0f)
+                            .effect(new MobEffectInstance(MobEffects.WEAKNESS, 2800, 4, false, false, true), 1.0f)
+                            .build()
+                    )
+            )
+    );
 
     public static <T extends Item> T register(String path, T item) {
-        return Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(MOD_ID, path), item);
+        return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(MOD_ID, path), item);
     }
 
 

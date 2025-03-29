@@ -13,8 +13,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Collection;
@@ -42,7 +42,7 @@ public class ModEvents {
             createMeetFile(ghost,spiltDirByString(levelNameGD, rootDir()));
 
             Vec3 vec3 = player.position();
-            String dimension = player.level().dimensionTypeRegistration().getRegisteredName();
+            String dimension = player.level().dimensionTypeRegistration().unwrapKey().map((resourceKey) -> resourceKey.location().toString()).orElse("[unregistered]");
 
             //生成游魂
             if (vec3.y() < 0) {
@@ -70,7 +70,7 @@ public class ModEvents {
             for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
                 ItemStack itemStack = player.getInventory().getItem(i);
                 //魂牵与绑定诅咒
-                if (!itemStack.isEmpty() && (EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND) || EnchantmentHelper.has(itemStack, EnchantmentEffectComponents.PREVENT_EQUIPMENT_DROP))) {
+                if (!itemStack.isEmpty() && (EnchantmentHelper.getEnchantments(itemStack).keySet().stream().anyMatch(enchantment -> enchantment == ModEnchantments.SOUL_BIND || enchantment == Enchantments.BINDING_CURSE))) {
                     continue;
                 }
                 ghost.getInventory().addItem(player.getInventory().removeItem(i, itemStack.getCount()));
@@ -113,7 +113,7 @@ public class ModEvents {
                                         TrinketInventory trinketInventory = map.get(key);
                                         for (int i = 0; i < trinketInventory.getContainerSize(); i++) {
                                             ItemStack itemStack = trinketInventory.removeItem(i, trinketInventory.getItem(i).getCount());
-                                            if (!itemStack.isEmpty() && EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND)) {
+                                            if (!itemStack.isEmpty() && EnchantmentHelper.getEnchantments(itemStack).keySet().stream().anyMatch(enchantment -> enchantment == ModEnchantments.SOUL_BIND)) {
                                                 player.getInventory().add(itemStack);
                                             }
                                             if (!itemStack.isEmpty()) {
@@ -142,7 +142,7 @@ public class ModEvents {
     private static void itemHandle(Player player, WanderingSpirit ghost, ExpandedSimpleContainer container) {
         for (int j = 0; j < container.getContainerSize(); j++) {
             ItemStack itemStack = container.removeItem(j, container.getItem(j).getCount());
-            if (!itemStack.isEmpty() && EnchantmentHelper.has(itemStack, ModEnchantments.SOUL_BIND)) {
+            if (!itemStack.isEmpty() && EnchantmentHelper.getEnchantments(itemStack).keySet().stream().anyMatch(enchantment -> enchantment == ModEnchantments.SOUL_BIND)) {
                 player.getInventory().add(itemStack);
             }
             if (!itemStack.isEmpty()) {

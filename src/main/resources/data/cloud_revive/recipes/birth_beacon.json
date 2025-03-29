@@ -32,7 +32,8 @@
     }
   },
   "result": {
-    "id": "cloud_revive:birth_beacon",
+    "item": "cloud_revive:birth_beacon",
     "count": 1
-  }
+  },
+  "show_notification": true
 }

@@ -10,16 +10,16 @@ import static com.lzyzl6.CloudRevive.MOD_ID;
 public class ModSoundEvents {
 
     public static SoundEvent GHOST_AMBIENT = Registry.register(BuiltInRegistries.SOUND_EVENT,
-            ResourceLocation.fromNamespaceAndPath(MOD_ID, "ghost_ambient"),
-            SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "ghost_ambient")));
+            new ResourceLocation(MOD_ID, "ghost_ambient"),
+            SoundEvent.createVariableRangeEvent(new ResourceLocation(MOD_ID, "ghost_ambient")));
 
     public static SoundEvent SOUL_LIKE = Registry.register(BuiltInRegistries.SOUND_EVENT,
-            ResourceLocation.fromNamespaceAndPath(MOD_ID, "soul_like"),
-            SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "soul_like")));
+            new ResourceLocation(MOD_ID, "soul_like"),
+            SoundEvent.createVariableRangeEvent(new ResourceLocation(MOD_ID, "soul_like")));
 
     public static SoundEvent TALK = Registry.register(BuiltInRegistries.SOUND_EVENT,
-            ResourceLocation.fromNamespaceAndPath(MOD_ID, "talk"),
-            SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "talk")));
+            new ResourceLocation(MOD_ID, "talk"),
+            SoundEvent.createVariableRangeEvent(new ResourceLocation(MOD_ID, "talk")));
 
     public static void initialize() {
 

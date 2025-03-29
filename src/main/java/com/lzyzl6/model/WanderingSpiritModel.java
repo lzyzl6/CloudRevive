@@ -67,8 +67,8 @@ public class WanderingSpiritModel extends HierarchicalModel<WanderingSpirit> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-		body.render(poseStack, vertexConsumer, light, overlay, color);
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int light, int overlay, float f, float g, float h, float k) {
+		this.root().render(poseStack, vertexConsumer, light, overlay, f, g, h, k);
 	}
 
 	@Override

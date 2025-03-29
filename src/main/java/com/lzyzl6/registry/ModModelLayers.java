@@ -12,8 +12,7 @@ import static com.lzyzl6.CloudRevive.MOD_ID;
 @Environment(EnvType.CLIENT)
 public class ModModelLayers {
 
-    public static final ModelLayerLocation GHOST = new ModelLayerLocation(ResourceLocation
-            .fromNamespaceAndPath(MOD_ID, "ghost"),
+    public static final ModelLayerLocation GHOST = new ModelLayerLocation(new ResourceLocation(MOD_ID, "ghost"),
             "main");
 
     public static void initialize() {

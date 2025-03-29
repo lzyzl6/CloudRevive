@@ -2,7 +2,6 @@ package com.lzyzl6.block;
 
 import com.lzyzl6.block.blockentity.BirthBeaconEntity;
 import com.lzyzl6.registry.ModBlocks;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
@@ -21,7 +20,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class BirthBeacon extends BaseEntityBlock implements BeaconBeamBlock {
 
-    public static final MapCodec<BirthBeacon> CODEC = simpleCodec(BirthBeacon::new);
     public static final BooleanProperty CHARGED = BooleanProperty.create("charged");
 
     public int cooldown = 100;
@@ -30,12 +28,6 @@ public class BirthBeacon extends BaseEntityBlock implements BeaconBeamBlock {
         super(properties);
         registerDefaultState(defaultBlockState().setValue(CHARGED, false));
     }
-
-    @Override
-    public @NotNull MapCodec<BirthBeacon> codec() {
-        return CODEC;
-    }
-
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
@@ -54,12 +46,12 @@ public class BirthBeacon extends BaseEntityBlock implements BeaconBeamBlock {
     }
 
     @Override
-    protected @NotNull RenderShape getRenderShape(@NotNull BlockState blockState) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState blockState) {
         return RenderShape.MODEL;
     }
 
     @Override
-    public DyeColor getColor() {
+    public @NotNull DyeColor getColor() {
         return DyeColor.PURPLE;
     }
 }

@@ -1,19 +1,21 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "W ",
-    "R "
+    "WWW",
+    "WRW",
+    "WWW"
   ],
   "key": {
     "R": {
       "item": "minecraft:lantern"
     },
     "W": {
-      "item": "cloud_revive:pearl"
+      "item": "cloud_revive:core_qi"
     }
   },
   "result": {
-    "id": "cloud_revive:start_cage",
+    "item": "cloud_revive:cage",
     "count": 1
-  }
+  },
+  "show_notification": true
 }

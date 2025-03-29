@@ -15,7 +15,8 @@
     }
   ],
   "result": {
-    "id": "cloud_revive:chaos_qi",
+    "item": "cloud_revive:chaos_qi",
     "count": 1
-  }
+  },
+  "show_notification": true
 }

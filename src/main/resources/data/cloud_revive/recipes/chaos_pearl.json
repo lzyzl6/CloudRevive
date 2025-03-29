@@ -1,20 +1,20 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "WWW",
-    "WRW",
-    "WWW"
+    "W ",
+    "R "
   ],
   "key": {
+    "W": {
+      "item": "cloud_revive:chaos_qi"
+    },
     "R": {
       "item": "cloud_revive:pearl"
-    },
-    "W": {
-      "item": "cloud_revive:dead_qi"
     }
   },
   "result": {
-    "id": "cloud_revive:soul_pearl",
+    "item": "cloud_revive:chaos_pearl",
     "count": 1
-  }
+  },
+  "show_notification": true
 }
