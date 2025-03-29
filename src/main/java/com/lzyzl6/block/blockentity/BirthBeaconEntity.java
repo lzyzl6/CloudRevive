@@ -8,9 +8,11 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -60,7 +62,12 @@ public class BirthBeaconEntity extends BlockEntity {
                 .forEach(spirit -> {
                     if(spirit.locateTargetUUID() != null && spirit.locateTargetUUID().equals(uuid)) {
                         shouldTell.set(true);
+                        ChunkPos chunkPos = spirit.chunkPosition();
                         spirit.setPos(blockPosEntity.getX() + new Random().nextDouble(-5,5), blockPosEntity.getY() + new Random().nextDouble(5,10), blockPosEntity.getZ() + new Random().nextDouble(-5,5));
+                        if(!spirit.level().isClientSide) {
+                            ServerLevel serverLevel = (ServerLevel) spirit.level();
+                            serverLevel.setChunkForced(chunkPos.x, chunkPos.z, false);
+                        }
                         spirit.playSound(SoundEvents.BELL_BLOCK);
                         spirit.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
                     }
