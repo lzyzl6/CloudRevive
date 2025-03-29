@@ -8,10 +8,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AnimationState;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -22,6 +24,7 @@ import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
@@ -85,11 +88,35 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
     @Override
     public void tick() {
+        if (!this.level().isClientSide) {
+            ChunkPos chunkPos = this.chunkPosition();
+            ServerLevel serverLevel = (ServerLevel) this.level();
+            serverLevel.setChunkForced(chunkPos.x, chunkPos.z, this.isAlive());
+        }
         this.noPhysics = true;
+        setViewScale(0.6d);
         setUpAnimation();
         super.tick();
         this.moveControl.tick();
     }
+
+    public void remove(Entity.@NotNull RemovalReason removalReason) {
+        if (removalReason == RemovalReason.UNLOADED_TO_CHUNK || removalReason == RemovalReason.UNLOADED_WITH_PLAYER) {
+            if (!this.level().isClientSide) {
+                ChunkPos chunkPos = this.chunkPosition();
+                ServerLevel serverLevel = (ServerLevel) this.level();
+                serverLevel.setChunkForced(chunkPos.x, chunkPos.z, true);
+            }
+        } else if (!this.level().isClientSide) {
+            ChunkPos chunkPos = this.chunkPosition();
+            ServerLevel serverLevel = (ServerLevel) this.level();
+            if (serverLevel.setChunkForced(chunkPos.x, chunkPos.z, true)) {
+                serverLevel.setChunkForced(chunkPos.x, chunkPos.z, false);
+            }
+        }
+        super.setRemoved(removalReason);
+    }
+
 
     @Override
     protected void registerGoals() {
