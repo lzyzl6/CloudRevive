@@ -33,6 +33,7 @@ public class BirthBeaconEntityRenderer implements BlockEntityRenderer<BirthBeaco
         }
     }
 
+    @Override
     public boolean shouldRenderOffScreen(@NotNull BirthBeaconEntity beaconBlockEntity) {
         return true;
     }
