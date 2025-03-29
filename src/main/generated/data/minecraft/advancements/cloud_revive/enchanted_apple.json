@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:cloud_revive/soul_rest",
+  "criteria": {
+    "enchanted_apple": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "cloud_revive:soul_fruit"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.enchanted_apple.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "cloud_revive:soul_fruit"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.enchanted_apple.title"
+    }
+  },
+  "requirements": [
+    [
+      "enchanted_apple"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

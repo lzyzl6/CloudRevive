@@ -1,0 +1,39 @@
+{
+  "parent": "minecraft:cloud_revive/chaos_chi",
+  "criteria": {
+    "soul_rest": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "cloud_revive:dead_qi"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.soul_rest.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "cloud_revive:chaos_cage",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.soul_rest.title"
+    }
+  },
+  "requirements": [
+    [
+      "soul_rest"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

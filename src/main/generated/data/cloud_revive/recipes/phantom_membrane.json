@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "cloud_revive:chaos_qi"
+    },
+    "i": {
+      "item": "minecraft:phantom_membrane"
+    }
+  },
+  "pattern": [
+    "bbb",
+    "bib",
+    "bbb"
+  ],
+  "result": {
+    "count": 17,
+    "item": "minecraft:phantom_membrane"
+  },
+  "show_notification": true
+}

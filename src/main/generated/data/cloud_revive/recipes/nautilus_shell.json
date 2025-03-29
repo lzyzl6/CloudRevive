@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "cloud_revive:chaos_qi"
+    },
+    "i": {
+      "item": "minecraft:nautilus_shell"
+    }
+  },
+  "pattern": [
+    "bbb",
+    "bib",
+    "bbb"
+  ],
+  "result": {
+    "count": 5,
+    "item": "minecraft:nautilus_shell"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:cloud_revive/chaos_chi",
+  "criteria": {
+    "advance": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "cloud_revive:chaos_pearl"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.advance.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "cloud_revive:chaos_pearl"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.advance.title"
+    }
+  },
+  "requirements": [
+    [
+      "advance"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

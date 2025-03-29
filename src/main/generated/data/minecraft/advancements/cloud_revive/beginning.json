@@ -1,0 +1,38 @@
+{
+  "criteria": {
+    "beginning": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "cloud_revive:pearl"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "cloud_revive:textures/gui/advancements/backgrounds/chi_block.png",
+    "description": {
+      "translate": "advancement.beginning.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "cloud_revive:pearl"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.beginning.title"
+    }
+  },
+  "requirements": [
+    [
+      "beginning"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

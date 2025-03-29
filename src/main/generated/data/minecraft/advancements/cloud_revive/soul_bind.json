@@ -1,0 +1,38 @@
+{
+  "parent": "minecraft:cloud_revive/soul_rest",
+  "criteria": {
+    "soul_bind": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "cloud_revive:soul_pearl"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.soul_bind.description"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "cloud_revive:soul_pearl"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.soul_bind.title"
+    }
+  },
+  "requirements": [
+    [
+      "soul_bind"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

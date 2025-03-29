@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "b": {
+      "item": "cloud_revive:chaos_qi"
+    },
+    "i": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    "bbb",
+    "bib",
+    "bbb"
+  ],
+  "result": {
+    "count": 3,
+    "item": "minecraft:nether_star"
+  },
+  "show_notification": true
+}
