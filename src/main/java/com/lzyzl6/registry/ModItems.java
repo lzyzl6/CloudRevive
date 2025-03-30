@@ -27,7 +27,7 @@ public class ModItems {
 
     public static final Item START_CAGE = register(
             "start_cage",
-            new StartCage(new Item.Properties().rarity(Rarity.UNCOMMON).durability(3))
+            new StartCage(new Item.Properties().rarity(Rarity.UNCOMMON).durability(31))
     );
 
     public static final Item CAGE = register(

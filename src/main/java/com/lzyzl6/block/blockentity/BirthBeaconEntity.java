@@ -64,12 +64,12 @@ public class BirthBeaconEntity extends BlockEntity {
                         shouldTell.set(true);
                         ChunkPos chunkPos = spirit.chunkPosition();
                         spirit.setPos(blockPosEntity.getX() + new Random().nextDouble(-5,5), blockPosEntity.getY() + new Random().nextDouble(5,10), blockPosEntity.getZ() + new Random().nextDouble(-5,5));
+                        spirit.playSound(SoundEvents.BELL_BLOCK);
+                        spirit.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
                         if(!spirit.level().isClientSide) {
                             ServerLevel serverLevel = (ServerLevel) spirit.level();
                             serverLevel.setChunkForced(chunkPos.x, chunkPos.z, false);
                         }
-                        spirit.playSound(SoundEvents.BELL_BLOCK);
-                        spirit.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
                     }
                 });
                 if(shouldTell.get()) {
