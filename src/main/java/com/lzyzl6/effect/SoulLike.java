@@ -26,9 +26,9 @@ public class SoulLike extends MobEffect {
     @Override
     public void applyEffectTick(@NotNull LivingEntity livingEntity, int i) {
         if (livingEntity instanceof Player) {
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Objects.requireNonNull(livingEntity.getEffect(ModEffects.SOUL_LIKE)).getDuration(), 4, true, false, false));
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, Objects.requireNonNull(livingEntity.getEffect(ModEffects.SOUL_LIKE)).getDuration(), 4, true, false, false));
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING,  Objects.requireNonNull(livingEntity.getEffect(ModEffects.SOUL_LIKE)).getDuration(), 4, true, false, false));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, Objects.requireNonNull(livingEntity.getEffect(ModEffects.SOUL_LIKE.get())).getDuration(), 4, true, false, false));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, Objects.requireNonNull(livingEntity.getEffect(ModEffects.SOUL_LIKE.get())).getDuration(), 4, true, false, false));
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.GLOWING,  Objects.requireNonNull(livingEntity.getEffect(ModEffects.SOUL_LIKE.get())).getDuration(), 4, true, false, false));
         }
     }
 }

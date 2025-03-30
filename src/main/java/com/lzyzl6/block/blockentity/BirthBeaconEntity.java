@@ -32,7 +32,7 @@ public class BirthBeaconEntity extends BlockEntity {
     public UUID playerUUID = null;
 
     public BirthBeaconEntity(BlockPos blockPos, BlockState blockState) {
-        super(ModBlocks.BIRTH_BEACON_ENTITY, blockPos, blockState);
+        super(ModBlocks.BIRTH_BEACON_ENTITY.get(), blockPos, blockState);
     }
 
     public static void tick(Level level, BlockPos blockPos, BlockState blockState, BirthBeaconEntity birthBeaconEntity) {
@@ -42,13 +42,13 @@ public class BirthBeaconEntity extends BlockEntity {
             if (beacon.cooldown < 0) {
                 birthBeaconEntity.setChanged();
                 if (birthBeaconEntity.level != null) {
-                    birthBeaconEntity.level.setBlock(blockPos, birthBeaconEntity.getBlockState().setValue(CHARGED, false), 83);
+                    birthBeaconEntity.level.setBlock(blockPos, birthBeaconEntity.getBlockState().setValue(CHARGED, false), 3);
                 }
             } else if(beacon.cooldown > 478) {
                 playSound(level, blockPos, SoundEvents.BEACON_ACTIVATE);
                 level.players().forEach(player -> {
                     if(player.position().closerThan(new Vec3(blockPosEntity.getX(), blockPosEntity.getY(), blockPosEntity.getZ()), 16d)) {
-                        player.addEffect(new MobEffectInstance(ModEffects.SOUL_LIKE, 200, 0, true, true, true));
+                        player.addEffect(new MobEffectInstance(ModEffects.SOUL_LIKE.get(), 200, 0, true, true, true));
                     }
                 });
             }
@@ -57,7 +57,7 @@ public class BirthBeaconEntity extends BlockEntity {
             UUID uuid = birthBeaconEntity.playerUUID;
             if (uuid != null) {
                 AtomicBoolean shouldTell = new AtomicBoolean(false);
-                level.getEntitiesOfClass(WanderingSpirit.class,AABB.ofSize(Vec3.atCenterOf(birthBeaconEntity.getBlockPos()), level.getWorldBorder().getAbsoluteMaxSize() * 2,  8388608, level.getWorldBorder().getAbsoluteMaxSize() * 2))
+                level.getEntitiesOfClass(WanderingSpirit.class,AABB.ofSize(Vec3.atCenterOf(birthBeaconEntity.getBlockPos()), 59999968, 59999968, 59999968))
                 .forEach(spirit -> {
                     if(spirit.locateTargetUUID() != null && spirit.locateTargetUUID().equals(uuid)) {
                         shouldTell.set(true);
@@ -67,7 +67,9 @@ public class BirthBeaconEntity extends BlockEntity {
                         spirit.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
                         if(!spirit.level().isClientSide) {
                             ServerLevel serverLevel = (ServerLevel) spirit.level();
-                            serverLevel.setChunkForced(chunkPos.x, chunkPos.z, false);
+                            if(serverLevel.getForcedChunks().contains(chunkPos.toLong())) {
+                                serverLevel.setChunkForced(chunkPos.x, chunkPos.z, false);
+                            }
                         }
                     }
                 });

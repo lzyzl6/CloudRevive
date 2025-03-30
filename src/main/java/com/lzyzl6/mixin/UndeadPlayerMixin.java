@@ -12,7 +12,7 @@ public class UndeadPlayerMixin {
     @Inject(method = "isInvulnerableTo",at = @At(value = "HEAD"), cancellable = true)
     private void hurtResist(final CallbackInfoReturnable<Boolean> info) {
         Player player = (Player) (Object) this;
-        if(player.hasEffect(ModEffects.SOUL_LIKE)) {
+        if(player.hasEffect(ModEffects.SOUL_LIKE.get())) {
             info.setReturnValue(true);
         }
     }

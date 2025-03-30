@@ -5,6 +5,7 @@ import net.minecraft.client.animation.AnimationDefinition;
 import net.minecraft.client.animation.Keyframe;
 import net.minecraft.client.animation.KeyframeAnimations;
 
+
 public class WanderingSpiritAnimation {
         public static final AnimationDefinition idle = AnimationDefinition.Builder.withLength(4.0F).looping()
                 .addAnimation("head", new AnimationChannel(AnimationChannel.Targets.POSITION,

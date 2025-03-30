@@ -51,12 +51,13 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     }
 
     //属性
-    public static AttributeSupplier.Builder createAttributes() {
+    public static AttributeSupplier createAttributes() {
         return PathfinderMob.createMobAttributes()
                 .add(Attributes.FLYING_SPEED, 0.2d)
                 .add(Attributes.FOLLOW_RANGE, 64.0d)
                 .add(Attributes.MAX_HEALTH, 4.0d)
-                .add(Attributes.MOVEMENT_SPEED, 0.2d);
+                .add(Attributes.MOVEMENT_SPEED, 0.2d)
+                .build();
     }
 
     @Override
@@ -91,7 +92,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
     @Override
     public SoundEvent getAmbientSound() {
-        return ModSoundEvents.GHOST_AMBIENT;
+        return ModSoundEvents.GHOST_AMBIENT.get();
     }
 
     @Override

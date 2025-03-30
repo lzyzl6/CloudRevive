@@ -38,24 +38,24 @@ public class SoulPearl extends Item {
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, Player player, @NotNull InteractionHand interactionHand) {
         ItemStack offHandItem = player.getOffhandItem();
         ItemStack mainHandItem = player.getItemInHand(interactionHand);
-        Enchantment bind = ModEnchantments.SOUL_BIND;
-        if(interactionHand == InteractionHand.MAIN_HAND && mainHandItem.is(ModItems.SOUL_PEARL) && !offHandItem.isEmpty()) {
+        Enchantment enchantment = ModEnchantments.SOUL_BIND.get();
+        if(interactionHand == InteractionHand.MAIN_HAND && mainHandItem.is(ModItems.SOUL_PEARL.get()) && !offHandItem.isEmpty()) {
             //赋予玩家主手物品附魔（如果可以）
-            if(EnchantmentHelper.getEnchantments(mainHandItem).keySet().stream().anyMatch(enchantment -> enchantment == ModEnchantments.SOUL_BIND)) {
+            if(EnchantmentHelper.getEnchantments(mainHandItem).keySet().stream().anyMatch(Ienchantment -> Ienchantment == enchantment)) {
                 if(!shouldRoll) {
                     shouldRoll = true;
                 } else {
                     player.sendSystemMessage(Component.translatable("chat.soul_pearl.already_enchanted"));
                     shouldRoll = false;
                 }
-            } else if(ModEnchantments.SOUL_BIND.canEnchant(offHandItem)) {
-                    enchantItem(player, offHandItem, mainHandItem, bind);
+            } else if(enchantment.canEnchant(offHandItem)) {
+                    enchantItem(player, offHandItem, mainHandItem, enchantment);
             } else if(isBackpackedInstalled() && offHandItem.getItem().getDescriptionId().contains("backpacked") && !offHandItem.getItem().getDescriptionId().contains("shelf")) {
-                    enchantItem(player, offHandItem, mainHandItem, bind);
+                enchantItem(player, offHandItem, mainHandItem, enchantment);
             } else if(isSophisticatedBackpacksInstalled() && offHandItem.getItem().getDescriptionId().contains("sophisticatedbackpacks") && !offHandItem.getItem().getDescriptionId().contains("upgrade")) {
-                enchantItem(player, offHandItem, mainHandItem, bind);
+                enchantItem(player, offHandItem, mainHandItem, enchantment);
             }else if(isTravelersBackpackInstalled() && offHandItem.getItem().getDescriptionId().contains("travelersbackpack") && !offHandItem.getItem().getDescriptionId().contains("upgrade") && !offHandItem.getItem().getDescriptionId().contains("sleeping") && !offHandItem.getItem().getDescriptionId().contains("tank") && !offHandItem.getItem().getDescriptionId().contains("hose")) {
-                enchantItem(player, offHandItem, mainHandItem, bind);
+                enchantItem(player, offHandItem, mainHandItem, enchantment);
             } else {
                 if(!shouldRoll) {
                     shouldRoll = true;

@@ -3,17 +3,15 @@ package com.lzyzl6.data.storage;
 import com.lzyzl6.block.blockentity.BirthBeaconEntity;
 import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.registry.ModBlocks;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fml.ModList;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
@@ -70,7 +68,7 @@ public class FileWork {
     //往生信标匹配UUID
     //文件路径：/rootDir/levelName/BeaconMatch/BlockPos/playerUUID(file)
     public static void createBlockMatch(BlockPos blockPos, BlockState blockState, Player player) {
-        if (blockState.is(ModBlocks.BIRTH_BEACON) && player != null && !player.level().isClientSide) {
+        if (blockState.is(ModBlocks.BIRTH_BEACON.get()) && player != null && !player.level().isClientSide) {
             File rootDir = rootDir();
             String levelName = getLevelName(player);
             File levelDir = new File(rootDir, levelName);
@@ -109,7 +107,6 @@ public class FileWork {
     public static void matchBlockAndFix(BirthBeaconEntity blockEntity) {
         if (blockEntity.playerUUID == null && blockEntity.getLevel() != null && !blockEntity.getLevel().isClientSide) {
             File rootDir = rootDir();
-
             String levelRawName = Objects.requireNonNull(blockEntity.getLevel()).toString();
             int borderIndex;
             for (borderIndex = 0; borderIndex < levelRawName.length(); borderIndex++) {
@@ -236,28 +233,28 @@ public class FileWork {
 
     //安装模组检查
     public static boolean isAccessoriesInstalled() {
-        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
-        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("accessories"));
+        ModList modList = ModList.get();
+        return modList.getModFiles().stream().anyMatch(mod -> mod.moduleName().equals("accessories"));
     }
 
-    public static boolean isTrinketsInstalled() {
-        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
-        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("trinkets"));
+    public static boolean isCuriosInstalled() {
+        ModList modList = ModList.get();
+        return modList.getModFiles().stream().anyMatch(mod -> mod.moduleName().equals("curios"));
     }
 
     public static boolean isBackpackedInstalled() {
-        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
-        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("backpacked"));
+        ModList modList = ModList.get();
+        return modList.getModFiles().stream().anyMatch(mod -> mod.moduleName().equals("backpacked"));
     }
 
     public static boolean isSophisticatedBackpacksInstalled() {
-        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
-        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("sophisticatedbackpacks"));
+        ModList modList = ModList.get();
+        return modList.getModFiles().stream().anyMatch(mod -> mod.moduleName().equals("sophisticatedbackpacks"));
     }
 
     public static boolean isTravelersBackpackInstalled() {
-        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
-        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("travelersbackpack"));
+        ModList modList = ModList.get();
+        return modList.getModFiles().stream().anyMatch(mod -> mod.moduleName().equals("travelersbackpack"));
     }
 
     public static void initialize() {

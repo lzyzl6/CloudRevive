@@ -2,33 +2,163 @@ package com.lzyzl6.mixin;
 
 
 import com.lzyzl6.entity.WanderingSpirit;
-import com.lzyzl6.event.PlayerDieCallback;
+import com.lzyzl6.registry.ModEnchantments;
 import com.lzyzl6.registry.ModEntities;
+import io.wispforest.accessories.api.AccessoriesCapability;
+import io.wispforest.accessories.api.AccessoriesContainer;
+import io.wispforest.accessories.impl.ExpandedSimpleContainer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.GameRules;
+import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.items.IItemHandlerModifiable;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import top.theillusivec4.curios.api.CuriosApi;
+import top.theillusivec4.curios.api.type.capability.ICuriosItemHandler;
+import top.theillusivec4.curios.api.type.inventory.ICurioStacksHandler;
+import top.theillusivec4.curios.api.type.inventory.IDynamicStackHandler;
 
-import java.io.IOException;
-import java.util.Vector;
+import java.util.*;
+
+import static com.lzyzl6.data.storage.FileWork.*;
 
 @Mixin(LivingEntity.class)
 public class PlayerDieMixin {
-	public Vector<ItemStack> itemStacks = new Vector<>();
 
 	@Inject(method = "dropAllDeathLoot",at = @At(value = "HEAD"))
-	private void onceDied(final CallbackInfo info) throws IOException {
+	private void onceDied(final CallbackInfo info)  {
 		if((LivingEntity) (Object) this instanceof Player){
 			Player player = (Player) (Object) this;
 			ServerLevel serverLevel = (ServerLevel) player.level();
 			if(!serverLevel.getGameRules().getBoolean(GameRules.RULE_KEEPINVENTORY)) {
-				PlayerDieCallback.EVENT.invoker().summonGhost(player, new WanderingSpirit(ModEntities.GHOST, player.level()));
+
+				WanderingSpirit ghost = new WanderingSpirit(ModEntities.GHOST.get(), player.level());
+
+				//生成匹配文件
+				//文件路径：/rootDir/levelName/playerUUID/ghostUUID
+				createMatchFile(ghost, spiltDirByString(player.getStringUUID(), spiltDirByString(getLevelName(player), rootDir())));
+
+				//生成相遇状态文件
+				//文件路径：/rootDir/levelNameGD/ghostUUID/if_meet
+				String levelNameGD = getLevelName(player);
+				levelNameGD += "GD";
+				createMeetFile(ghost,spiltDirByString(levelNameGD, rootDir()));
+
+				Vec3 vec3 = player.position();
+				String dimension = player.level().dimensionTypeRegistration().unwrapKey().map((resourceKey) -> resourceKey.location().toString()).orElse("[unregistered]");
+
+				//生成游魂
+				if (vec3.y() < 0) {
+					ghost.setPos(vec3.x(), 64, vec3.z());
+				} else {
+					ghost.setPos(vec3);
+				}
+				player.level().addFreshEntity(ghost);
+
+				//设置游魂属性
+				String name = player.getDisplayName().getString().concat((Component.translatable("chat.cloud_revive.genitive_case")).getString()).concat(Component.translatable("entity.cloud_revive.ghost").getString());
+				ghost.setCustomName(Component.nullToEmpty(name));
+				ghost.setPersistenceRequired();
+				ghost.addEffect(new MobEffectInstance(MobEffects.GLOWING, 20000, 4, false, false, false));
+
+				//通知玩家
+				player.sendSystemMessage(Component.literal("\n--------------------------------------------------"));
+				player.sendSystemMessage(Component.translatable("chat.cloud_revive.ghost_summoned"));
+				player.sendSystemMessage(Component.literal("§l§e(" + (int) vec3.x() + "§r§e,§l§e" + (int) vec3.y() + "§r§e,§l§e" + (int) vec3.z() + "§l§e)"));
+				player.sendSystemMessage(Component.translatable("chat.cloud_revive.ghost_summoned_dimension"));
+				player.sendSystemMessage(Component.literal("§l§e" + dimension));
+				player.sendSystemMessage(Component.literal("--------------------------------------------------\n"));
+
+				//转移物品
+				for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+					ItemStack itemStack = player.getInventory().getItem(i);
+					//魂牵与绑定诅咒
+					if (!itemStack.isEmpty() && EnchantmentHelper.getEnchantments(itemStack).keySet().stream().anyMatch(enchantment -> enchantment == ModEnchantments.SOUL_BIND.get() || enchantment == Enchantments.BINDING_CURSE)) {
+						continue;
+					}
+					ghost.getInventory().addItem(player.getInventory().removeItem(i, itemStack.getCount()));
+				}
+
+				//Accessories模组处理
+				if (isAccessoriesInstalled()) {
+					try {
+						Set<String> keySet = Objects.requireNonNull(AccessoriesCapability.get(player)).getContainers().keySet();
+						if (!keySet.isEmpty()) {
+							Collection<AccessoriesContainer> container = Objects.requireNonNull(AccessoriesCapability.get(player)).getContainers().values();
+							for (AccessoriesContainer accessoriesContainer : container) {
+								for (int i = 0; i < accessoriesContainer.getSize(); i++) {
+									ExpandedSimpleContainer normalContainer = accessoriesContainer.getAccessories();
+									ExpandedSimpleContainer cosmicContainer = accessoriesContainer.getCosmeticAccessories();
+									cloud_revive_forge_1_20_1$itemHandle(player, ghost, cosmicContainer);
+									cloud_revive_forge_1_20_1$itemHandle(player, ghost, normalContainer);
+									accessoriesContainer.hasChanged();
+									accessoriesContainer.markChanged();
+									accessoriesContainer.update();
+								}
+							}
+						}
+					} catch (Throwable e) {
+						e.fillInStackTrace();
+					}
+				}
+
+				//Curios模组处理
+				if (isCuriosInstalled()) {
+					Optional<ICuriosItemHandler> maybeCuriosInventory = CuriosApi.getCuriosInventory(player).resolve();
+
+					if (maybeCuriosInventory.isPresent()) {
+						ICuriosItemHandler curiosInventory = maybeCuriosInventory.get();
+						//装备槽
+						IItemHandlerModifiable equippedCurios = curiosInventory.getEquippedCurios();
+						cloud_revive_forge_1_20_1$curiosHandle(player, ghost, equippedCurios);
+						//装饰槽
+						Map<String, ICurioStacksHandler> curios = curiosInventory.getCurios();
+						curios.forEach((identifier, stacksHandler) -> {
+							Optional<ICurioStacksHandler> maybeCuriosStacks = curiosInventory.getStacksHandler(identifier);
+							if (maybeCuriosStacks.isPresent()) {
+								IDynamicStackHandler cosmeticStacks = maybeCuriosStacks.get().getCosmeticStacks();
+								cloud_revive_forge_1_20_1$curiosHandle(player, ghost, cosmeticStacks);
+							}
+						});
+					}
+				}
 			}
 		}
 	}
+
+	@Unique
+	private void cloud_revive_forge_1_20_1$curiosHandle(Player player, WanderingSpirit ghost, IItemHandlerModifiable equippedCurios) {
+		for (int i = 0; i < equippedCurios.getSlots(); i++) {
+			ItemStack itemStack = equippedCurios.getStackInSlot(i);
+			if (!itemStack.isEmpty() && EnchantmentHelper.getEnchantments(itemStack).keySet().stream().anyMatch(enchantment -> enchantment == ModEnchantments.SOUL_BIND.get())) {
+				player.getInventory().add(itemStack.copyAndClear());
+			} else if (!itemStack.isEmpty()) {
+				ghost.getInventory().addItem(itemStack.copyAndClear());
+			}
+		}
+	}
+
+	@Unique
+	private static void cloud_revive_forge_1_20_1$itemHandle(Player player, WanderingSpirit ghost, ExpandedSimpleContainer container) {
+		for (int j = 0; j < container.getContainerSize(); j++) {
+			ItemStack itemStack = container.removeItem(j, container.getItem(j).getCount());
+			if (!itemStack.isEmpty() && EnchantmentHelper.getEnchantments(itemStack).keySet().stream().anyMatch(enchantment -> enchantment == ModEnchantments.SOUL_BIND.get())) {
+				player.getInventory().add(itemStack);
+			} else if (!itemStack.isEmpty()) {
+				ghost.getInventory().addItem(itemStack);
+			}
+		}
+	}
+
 }

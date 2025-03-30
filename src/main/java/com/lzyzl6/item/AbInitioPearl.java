@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
@@ -36,10 +37,10 @@ public class AbInitioPearl extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+    public @NotNull InteractionResultHolder<ItemStack> use(Level level, @NotNull Player player, @NotNull InteractionHand interactionHand) {
         if(!level.isClientSide()) {
             ItemStack itemStack = player.getItemInHand(interactionHand);
-            if(interactionHand == InteractionHand.MAIN_HAND && itemStack.is(ModItems.PEARL)) {
+            if(interactionHand == InteractionHand.MAIN_HAND && itemStack.is(ModItems.PEARL.get())) {
                 String str = "tip.pearl.";
                 int randomNum = new Random().nextInt(17) + 1;
                 str += randomNum;

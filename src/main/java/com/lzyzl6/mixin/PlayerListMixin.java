@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -29,18 +30,20 @@ import static net.minecraft.world.level.block.ChestBlock.getContainer;
 @Mixin(PlayerList.class)
 public class PlayerListMixin {
 
-    private final Vector<ItemStack> itemStacks = new Vector<>();
+    @Unique
+    private final Vector<ItemStack> cloud_revive_forge_1_20_1$itemStacks = new Vector<>();
 
 
     @Inject(method = "respawn",at = @At(value = "HEAD"))
-    public void getItems(final CallbackInfoReturnable<ServerPlayer> info , @Local ServerPlayer serverPlayer) {
-        itemStacks.clear();
+    public void getItems(final CallbackInfoReturnable<ServerPlayer> info , @Local(argsOnly = true) ServerPlayer serverPlayer) {
+        cloud_revive_forge_1_20_1$itemStacks.clear();
         for(int i = 0; i < serverPlayer.getInventory().getContainerSize(); i++) {
             ItemStack itemStack = serverPlayer.getInventory().getItem(i);
-            if (EnchantmentHelper.getEnchantments(itemStack).keySet().stream().anyMatch(enchantment -> enchantment == ModEnchantments.SOUL_BIND)) {
-                itemStacks.add(itemStack);
+            if (EnchantmentHelper.getEnchantments(itemStack).keySet().stream().anyMatch(enchantment -> enchantment == ModEnchantments.SOUL_BIND.get())) {
+                cloud_revive_forge_1_20_1$itemStacks.add(itemStack);
             }
         }
+
     }
 
     @Inject(method = "respawn",at = @At(value = "RETURN"))
@@ -48,7 +51,7 @@ public class PlayerListMixin {
         boolean shouldMove = false;
         BlockPos blockPos =  BlockPos.ZERO.above(81);
         BlockState blockState = serverPlayer2.level().getBlockState(blockPos);
-        for (ItemStack itemStack : itemStacks) {
+        for (ItemStack itemStack : cloud_revive_forge_1_20_1$itemStacks) {
             if(serverPlayer2.getInventory().getFreeSlot() == -1) {
                 if(serverPlayer2.getRespawnPosition() != null) {
                     Vec3 vec3 = serverPlayer2.getRespawnPosition().getCenter().add(0, 1, 0);
@@ -73,10 +76,10 @@ public class PlayerListMixin {
             ChestBlock chest = (ChestBlock) blockState.getBlock();
             Container container = getContainer(chest, blockState, serverPlayer2.level(), blockPos,false);
             int j =0;
-            for (ItemStack stack : itemStacks) {
+            for (ItemStack cloudReviveForge1201$itemStack : cloud_revive_forge_1_20_1$itemStacks) {
                 if (container != null) {
-                    if (!stack.isEmpty()) {
-                        container.setItem(j, stack);
+                    if (!cloudReviveForge1201$itemStack.isEmpty()) {
+                        container.setItem(j, cloudReviveForge1201$itemStack);
                         j++;
                     }
                 } else {
@@ -87,7 +90,7 @@ public class PlayerListMixin {
     }
 
     @Inject(method = "placeNewPlayer",at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;initInventoryMenu()V", shift = At.Shift.AFTER))
-    public void infoNew(final CallbackInfo info ,@Local ServerPlayer serverPlayer) {
+    public void infoNew(final CallbackInfo info ,@Local(argsOnly = true) ServerPlayer serverPlayer) {
         serverPlayer.sendSystemMessage(Component.literal(""));
         serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect1"));
         serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect2"));

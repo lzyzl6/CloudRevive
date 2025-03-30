@@ -13,7 +13,7 @@ public class ExplosionResistMixin {
     @Inject(method = "ignoreExplosion",at = @At(value = "HEAD"), cancellable = true)
     private void handleExplosionResist(final CallbackInfoReturnable<Boolean> info) {
         if((Entity)(Object) this instanceof LivingEntity entity) {
-            if(entity.hasEffect(ModEffects.SOUL_LIKE)) {
+            if(entity.hasEffect(ModEffects.SOUL_LIKE.get())) {
                 info.setReturnValue(true);
             }
         }
