@@ -57,6 +57,5 @@ public class ModBlocks {
         Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(MOD_ID, "birth_beacon"), BIRTH_BEACON);
         Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(MOD_ID, "birth_beacon"), new BirthBeaconItem(BIRTH_BEACON,new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).fireResistant()));
 
-
     }
 }

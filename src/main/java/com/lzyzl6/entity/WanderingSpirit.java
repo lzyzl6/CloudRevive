@@ -96,10 +96,12 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
     @Override
     public void tick() {
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide && this.locateTargetUUID() != null) {
             ChunkPos chunkPos = this.chunkPosition();
             ServerLevel serverLevel = (ServerLevel) this.level();
-            serverLevel.setChunkForced(chunkPos.x, chunkPos.z, this.isAlive());
+            if(!serverLevel.getForcedChunks().contains(chunkPos.toLong())) {
+                serverLevel.setChunkForced(chunkPos.x, chunkPos.z, this.isAlive());
+            }
         }
         this.noPhysics = true;
         setViewScale(0.6d);
@@ -110,7 +112,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
     public void remove(Entity.@NotNull RemovalReason removalReason) {
         if (removalReason == RemovalReason.UNLOADED_TO_CHUNK || removalReason == RemovalReason.UNLOADED_WITH_PLAYER) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide && this.locateTargetUUID() != null) {
                 ChunkPos chunkPos = this.chunkPosition();
                 ServerLevel serverLevel = (ServerLevel) this.level();
                 serverLevel.setChunkForced(chunkPos.x, chunkPos.z, true);
@@ -118,7 +120,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
         } else if (!this.level().isClientSide) {
             ChunkPos chunkPos = this.chunkPosition();
             ServerLevel serverLevel = (ServerLevel) this.level();
-            if (serverLevel.setChunkForced(chunkPos.x, chunkPos.z, true)) {
+            if (serverLevel.getForcedChunks().contains(chunkPos.toLong())) {
                 serverLevel.setChunkForced(chunkPos.x, chunkPos.z, false);
             }
         }

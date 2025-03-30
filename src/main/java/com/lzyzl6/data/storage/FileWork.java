@@ -103,7 +103,6 @@ public class FileWork {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("创造 "+blockPosDir.getAbsolutePath());
         }
     }
 
@@ -131,8 +130,6 @@ public class FileWork {
             blockPosName = blockPosName.substring(borderIndex);
 
             File blockPosDir = new File(beaconMatchDir, blockPosName);
-
-
             if (!levelDir.exists()) {
                 levelDir.mkdirs();
             }
@@ -142,18 +139,13 @@ public class FileWork {
             if (!blockPosDir.exists()) {
                 blockPosDir.mkdirs();
             }
-
-            System.out.println("匹配 " + blockPosDir.getAbsolutePath());
-
             File[] playerUUIDs = blockPosDir.listFiles();
             if (playerUUIDs != null) {
                 Arrays.stream(playerUUIDs).toList().forEach(playerUUID -> {
                     String playerUUIDStr = playerUUID.getName();
                     Player player = blockEntity.getLevel().getPlayerByUUID(UUID.fromString(playerUUIDStr));
-                    System.out.println(playerUUIDStr + " 是目标！ ");
                     if (player != null) {
                         blockEntity.playerUUID = player.getUUID();
-                        System.out.println(player.getName().getString() + " 匹配成功！");
                     }
                     playerUUID.delete();
                 });

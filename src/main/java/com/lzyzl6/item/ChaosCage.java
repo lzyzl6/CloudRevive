@@ -4,6 +4,7 @@ import com.lzyzl6.enchantment.CageItem;
 import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.registry.ModItems;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -92,6 +94,8 @@ public class ChaosCage extends Item implements CageItem {
             //主手收魂
             UUID targetUUID = wanderingSpirit.locateTargetUUID();
             if (targetUUID != null && Objects.equals(targetUUID, player.getUUID()) && itemStack.getItem() == ModItems.CHAOS_CAGE && interactionHand == InteractionHand.MAIN_HAND) {
+
+                ChunkPos chunkPos = wanderingSpirit.chunkPosition();
                 //通知玩家成功
                 player.displayClientMessage(Component.translatable("chat.cloud_revive.chaos_cage.wandering_spirit_captured"), true);
                 player.sendSystemMessage(Component.translatable("chat.cloud_revive.soul_back"));
@@ -128,6 +132,10 @@ public class ChaosCage extends Item implements CageItem {
                 deleteMatchFile(wanderingSpirit);
                 wanderingSpirit.discard();
                 afterUse(player, interactionHand);
+                if(!player.level().isClientSide()) {
+                    ServerLevel serverLevel = (ServerLevel) player.level();
+                    serverLevel.setChunkForced(chunkPos.x, chunkPos.z, false);
+                }
                 return InteractionResult.SUCCESS;
             } else if (targetUUID != null && itemStack.getItem() == ModItems.CHAOS_CAGE && interactionHand == InteractionHand.MAIN_HAND) {
                 //通知玩家失败

@@ -17,8 +17,6 @@ public class SoulLike extends MobEffect {
         super(mobEffectCategory, i);
     }
 
-    boolean onStart = true;
-
     @Override
     public boolean isDurationEffectTick(int duration, int amplifier) {
         return duration > 0 && amplifier >= 0;
