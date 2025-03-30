@@ -42,33 +42,36 @@ public class StartCage extends Item {
         return itemStack2.is(ModItems.PEARL.get());
     }
 
-
+    boolean shouldRoll = false;
 
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level level, @NotNull Player player, @NotNull InteractionHand usedHand) {
-        if(!level.isClientSide) {
-            boolean isSuccess;
-            //副手上使用生成结构
-            if(player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.START_CAGE.get() && usedHand == InteractionHand.OFF_HAND) {
-                if(canGenerate(player)){
-                    generateStructure(player);
-                    isSuccess = true;
-                }else{
-                    isSuccess = false;
-                }
-                //信息显示
-                if(isSuccess) {
-                    player.displayClientMessage(Component.translatable("item.cloud_revive.start_cage.success"), true);
-                    player.sendSystemMessage(Component.translatable("item.cloud_revive.start_cage.success"));
+        boolean isSuccess = false;
 
-                } else {
-                    player.sendSystemMessage(Component.translatable("item.cloud_revive.start_cage.cant_generate"));
-                }
-                player.getCooldowns().addCooldown(this, 500);
-                damageItem(player, usedHand);
-                player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE,0.6F,2.0F);
+        //副手上使用生成结构
+        if(player.getItemBySlot(EquipmentSlot.OFFHAND).getItem() == ModItems.START_CAGE.get() && usedHand == InteractionHand.OFF_HAND) {
+            if(canGenerate(player)){
+                generateStructure(player);
+                isSuccess = true;
+
             }
-            afterUse(player, usedHand);
+            //信息显示
+            if(!shouldRoll){
+                shouldRoll = true;
+            } else if(isSuccess) {
+                player.displayClientMessage(Component.translatable("item.cloud_revive.start_cage.success"), true);
+                player.sendSystemMessage(Component.translatable("item.cloud_revive.start_cage.success"));
+                shouldRoll = false;
+            } else {
+                player.sendSystemMessage(Component.translatable("item.cloud_revive.start_cage.cant_generate"));
+                shouldRoll = false;
+            }
+            player.getCooldowns().addCooldown(this, 500);
+            damageItem(player, usedHand);
+        }
+        afterUse(player, usedHand);
+        if(isSuccess) {
+            player.playSound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE,0.6F,2.0F);
         }
         return super.use(level, player, usedHand);
     }
@@ -82,9 +85,9 @@ public class StartCage extends Item {
         ItemStack itemStack = player.getItemInHand(usedHand);
         if(!itemStack.isEmpty()) {
             if (usedHand == InteractionHand.MAIN_HAND) {
-                itemStack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
+                itemStack.hurtAndBreak(10, player, EquipmentSlot.MAINHAND);
             } else {
-                itemStack.hurtAndBreak(1, player, EquipmentSlot.OFFHAND);
+                itemStack.hurtAndBreak(10, player, EquipmentSlot.OFFHAND);
             }
         }
     }

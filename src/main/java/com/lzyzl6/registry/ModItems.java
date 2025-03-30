@@ -27,7 +27,7 @@ public class ModItems {
             StartCage::new, // The factory that the properties will be passed into.
             new Item.Properties()
                     .rarity(Rarity.UNCOMMON)
-                    .durability(3)
+                    .durability(31)
     );
     public static final Supplier<Item> CAGE = ITEMS.registerItem(
             "cage",
