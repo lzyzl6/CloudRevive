@@ -29,9 +29,11 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
-import static com.lzyzl6.data.storage.FileWork.makeMatch;
+import static com.lzyzl6.data.storage.FileWork.*;
+import static com.lzyzl6.data.storage.FileWork.deleteChunkRecord;
 
 public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
@@ -101,6 +103,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
             ServerLevel serverLevel = (ServerLevel) this.level();
             if(!serverLevel.getForcedChunks().contains(chunkPos.toLong())) {
                 serverLevel.setChunkForced(chunkPos.x, chunkPos.z, this.isAlive());
+                recordChunk(this);
             }
         }
         this.noPhysics = true;
@@ -118,6 +121,17 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
                 serverLevel.setChunkForced(chunkPos.x, chunkPos.z, true);
             }
         } else if (!this.level().isClientSide) {
+            List<Long> chunkRecord = getChunkRecord(this);
+            if (chunkRecord != null) {
+                ServerLevel serverLevel = (ServerLevel) this.level();
+                for (long chunk : chunkRecord) {
+                    ChunkPos chunkPos = new ChunkPos(chunk);
+                    if (serverLevel.getForcedChunks().contains(chunk)) {
+                        serverLevel.setChunkForced(chunkPos.x, chunkPos.z, false);
+                    }
+                }
+            }
+            deleteChunkRecord(this);
             ChunkPos chunkPos = this.chunkPosition();
             ServerLevel serverLevel = (ServerLevel) this.level();
             if (serverLevel.getForcedChunks().contains(chunkPos.toLong())) {
