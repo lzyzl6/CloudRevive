@@ -11,9 +11,7 @@ import net.minecraftforge.fml.ModList;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class FileWork {
@@ -194,6 +192,78 @@ public class FileWork {
                 }
             }
         });
+    }
+
+    //记录所过区块
+    //生成ChunkPos记录文件
+    //文件路径；/rootDir/Ghost_Data/ChunkRecord/ghostUUID/chunk_long(s)(file)
+    public static void recordChunk(WanderingSpirit wanderingSpirit) {
+        File rootDir = rootDir();
+        String levelName = getLevelName(wanderingSpirit) + "GD";
+        File levelDir = new File(rootDir, levelName);
+        File chunkRecordDir = new File(levelDir, "ChunkRecord");
+        File ghostUUIDDir = new File(chunkRecordDir, wanderingSpirit.getStringUUID());
+        try {
+            if (!levelDir.exists()) {
+                levelDir.mkdirs();
+            }
+            if (!chunkRecordDir.exists()) {
+                chunkRecordDir.mkdirs();
+            }
+            if (!ghostUUIDDir.exists()) {
+                ghostUUIDDir.mkdirs();
+            }
+            File chunkRecordFile = new File(ghostUUIDDir, String.valueOf(wanderingSpirit.chunkPosition().toLong()));
+            if (!chunkRecordFile.createNewFile()) {
+                chunkRecordFile.mkdirs();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static List<Long> getChunkRecord(WanderingSpirit wanderingSpirit) {
+        List<Long> chunkRecordList = new ArrayList<>();
+        File rootDir = rootDir();
+        String levelName = getLevelName(wanderingSpirit) + "GD";
+        File levelDir = new File(rootDir, levelName);
+        File chunkRecordDir = new File(levelDir, "ChunkRecord");
+        File ghostUUIDDir = new File(chunkRecordDir, wanderingSpirit.getStringUUID());
+        if (!levelDir.exists()) {
+            levelDir.mkdirs();
+        }
+        if (!chunkRecordDir.exists()) {
+            chunkRecordDir.mkdirs();
+        }
+        if (!ghostUUIDDir.exists()) {
+            ghostUUIDDir.mkdirs();
+        }
+        File[] chunkRecordFiles = ghostUUIDDir.listFiles();
+        if (chunkRecordFiles != null) {
+            Arrays.stream(chunkRecordFiles).toList().forEach(chunkRecordFile -> {
+                String chunkRecordStr = chunkRecordFile.getName();
+                chunkRecordList.add(Long.parseLong(chunkRecordStr));
+            });
+            return chunkRecordList;
+        }
+        else {
+            return null;
+        }
+    }
+
+    public static void deleteChunkRecord(WanderingSpirit wanderingSpirit) {
+        File rootDir = rootDir();
+        String levelName = getLevelName(wanderingSpirit) + "GD";
+        File levelDir = new File(rootDir, levelName);
+        File chunkRecordDir = new File(levelDir, "ChunkRecord");
+        File ghostUUIDDir = new File(chunkRecordDir, wanderingSpirit.getStringUUID());
+        if (ghostUUIDDir.exists()) {
+            File[] chunkRecordFiles = ghostUUIDDir.listFiles();
+            if (chunkRecordFiles != null) {
+                Arrays.stream(chunkRecordFiles).toList().forEach(File::delete);
+            }
+            ghostUUIDDir.delete();
+        }
     }
 
     //确认相遇状态
