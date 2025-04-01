@@ -96,6 +96,16 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
                 serverLevel.setChunkForced(chunkPos.x, chunkPos.z, this.isAlive());
                 recordChunk(this);
             }
+            List<Long> chunkRecord = getChunkRecord(this);
+            if (chunkRecord != null) {
+                for (long chunk : chunkRecord) {
+                    ChunkPos chunkPos1 = new ChunkPos(chunk);
+                    if (!this.chunkPosition().equals(chunkPos1) && serverLevel.getForcedChunks().contains(chunk)) {
+                        serverLevel.setChunkForced(chunkPos1.x, chunkPos1.z, false);
+                        deleteSingleRecord(this, chunk);
+                    }
+                }
+            }
         }
         this.noPhysics = true;
         setViewScale(0.6d);
