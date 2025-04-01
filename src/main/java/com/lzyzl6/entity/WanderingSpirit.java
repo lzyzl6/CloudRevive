@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static com.lzyzl6.data.storage.FileWork.*;
-import static com.lzyzl6.data.storage.FileWork.deleteChunkRecord;
 
 public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
 
@@ -105,6 +104,16 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
             if(!serverLevel.getForcedChunks().contains(chunkPos.toLong())) {
                 serverLevel.setChunkForced(chunkPos.x, chunkPos.z, this.isAlive());
                 recordChunk(this);
+            }
+            List<Long> chunkRecord = getChunkRecord(this);
+            if (chunkRecord != null) {
+                for (long chunk : chunkRecord) {
+                    ChunkPos chunkPos1 = new ChunkPos(chunk);
+                    if (!this.chunkPosition().equals(chunkPos1) && serverLevel.getForcedChunks().contains(chunk)) {
+                        serverLevel.setChunkForced(chunkPos1.x, chunkPos1.z, false);
+                        deleteSingleRecord(this, chunk);
+                    }
+                }
             }
         }
         this.noPhysics = true;

@@ -251,6 +251,27 @@ public class FileWork {
         }
     }
 
+    public static void deleteSingleRecord(WanderingSpirit wanderingSpirit, Long chunkPos) {
+        File rootDir = rootDir();
+        String levelName = getLevelName(wanderingSpirit) + "GD";
+        File levelDir = new File(rootDir, levelName);
+        File chunkRecordDir = new File(levelDir, "ChunkRecord");
+        File ghostUUIDDir = new File(chunkRecordDir, wanderingSpirit.getStringUUID());
+        if (ghostUUIDDir.exists()) {
+            File[] chunkRecordFiles = ghostUUIDDir.listFiles();
+            if (chunkRecordFiles != null) {
+                Arrays.stream(chunkRecordFiles).toList().forEach(
+                        chunkRecordFile -> {
+                            String chunkRecordStr = chunkRecordFile.getName();
+                            if (Long.parseLong(chunkRecordStr) == chunkPos) {
+                                chunkRecordFile.delete();
+                            }
+                        }
+                );
+            }
+        }
+    }
+
     public static void deleteChunkRecord(WanderingSpirit wanderingSpirit) {
         File rootDir = rootDir();
         String levelName = getLevelName(wanderingSpirit) + "GD";
