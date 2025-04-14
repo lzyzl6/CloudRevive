@@ -24,6 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Vector;
 
+import static com.lzyzl6.data.storage.FileWork.queueFile;
 import static net.minecraft.world.level.block.ChestBlock.getContainer;
 
 @Mixin(PlayerList.class)
@@ -88,10 +89,12 @@ public class PlayerListMixin {
 
     @Inject(method = "placeNewPlayer",at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;initInventoryMenu()V", shift = At.Shift.AFTER))
     public void infoNew(final CallbackInfo info ,@Local ServerPlayer serverPlayer) {
-        serverPlayer.sendSystemMessage(Component.literal(""));
-        serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect1"));
-        serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect2"));
-        serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect3"));
-        serverPlayer.sendSystemMessage(Component.literal(""));
+        if(queueFile()) {
+            serverPlayer.sendSystemMessage(Component.literal(""));
+            serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect1"));
+            serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect2"));
+            serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect3"));
+            serverPlayer.sendSystemMessage(Component.literal(""));
+        }
     }
 }

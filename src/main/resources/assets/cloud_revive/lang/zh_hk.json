@@ -91,7 +91,7 @@
   "tip.pearl.14" : "§9元氣果§r：不抵餓，食用後會飄浮，小概率觸發強大增益效果。",
   "tip.pearl.15" : "§9一始寶珠§r：給予玩家最初的知識，可用到做出§9混元納魂籠§r，\n並可以用來合成§9混沌寶珠§r和§9一始寶燈籠§r。",
   "tip.pearl.16" : "進階：做出§9混元納魂籠§r後，請用§9一始寶珠§r合成§9混沌寶珠§r，\n使用它來獲取進階知識!",
-  "tip.pearl.17" : "指令：使用§2/killghost§r清理方圓20000格內所有遊魂實體§4（慎用）§r，\n使用§2/givepearl§r來獲得一個§9一始寶珠§r。",
+  "tip.pearl.17" : "指令：使用§2/killghost§r清理當前維度所有遊魂實體§4（慎用）§r，\n使用§2/queueghost§r查詢當前維度你的所有往世遊魂位置，使用§2/givepearl§r來獲得一個§9一始寶珠§r。",
 
   "tip.chaos_pearl.1" : "物品複製：可使用一定數量的『混沌寶氣』複製珍貴物品，\n如下界之星、下界合金錠、附魔金蘋果等等。",
   "tip.chaos_pearl.2" : "§5輕都§r：原是玩家死後魂氣所去之處，大事後後，玩家魂氣沒有歸處，\n只能流竄在人世，一點記憶也保留下來。",
@@ -217,5 +217,6 @@
   "chat.goal.move_to_player.start" : "§l§o你的往世遊魂在附近感應到你了!\n正在向你靠近中...",
 
   "command.killghost.success" : "已清理本維度所有遊魂實體",
-  "command.givepearl.success" : "已給予"
+  "command.givepearl.success" : "已給予",
+  "command.queueghost.failure": "此維度未找到你的遊魂"
 }
