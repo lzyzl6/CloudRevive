@@ -57,7 +57,7 @@ public class BirthBeaconEntity extends BlockEntity {
             UUID uuid = birthBeaconEntity.playerUUID;
             if (uuid != null) {
                 AtomicBoolean shouldTell = new AtomicBoolean(false);
-                level.getEntitiesOfClass(WanderingSpirit.class,AABB.ofSize(Vec3.atCenterOf(birthBeaconEntity.getBlockPos()), 59999968, 59999968, 59999968))
+                level.getEntitiesOfClass(WanderingSpirit.class,AABB.ofSize(Vec3.ZERO, 59999968, 59999968, 59999968))
                 .forEach(spirit -> {
                     if(spirit.locateTargetUUID() != null && spirit.locateTargetUUID().equals(uuid)) {
                         shouldTell.set(true);

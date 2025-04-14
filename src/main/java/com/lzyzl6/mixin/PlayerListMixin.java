@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import com.lzyzl6.registry.ModEnchantments;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
@@ -25,6 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Vector;
 
+import static com.lzyzl6.data.storage.FileWork.queueFile;
 import static net.minecraft.world.level.block.ChestBlock.getContainer;
 
 @Mixin(PlayerList.class)
@@ -35,7 +37,7 @@ public class PlayerListMixin {
 
 
     @Inject(method = "respawn",at = @At(value = "HEAD"))
-    public void getItems(final CallbackInfoReturnable<ServerPlayer> info , @Local(argsOnly = true) ServerPlayer serverPlayer) {
+    public void getItems(ServerPlayer serverPlayer, boolean p_11238_,final CallbackInfoReturnable<ServerPlayer> info) {
         cloud_revive_forge_1_20_1$itemStacks.clear();
         for(int i = 0; i < serverPlayer.getInventory().getContainerSize(); i++) {
             ItemStack itemStack = serverPlayer.getInventory().getItem(i);
@@ -47,7 +49,7 @@ public class PlayerListMixin {
     }
 
     @Inject(method = "respawn",at = @At(value = "RETURN"))
-    public void giveItems(final CallbackInfoReturnable<ServerPlayer> info , @Local(ordinal = 1) ServerPlayer serverPlayer2) {
+    public void giveItems(@Local(ordinal = 1) ServerPlayer serverPlayer2, boolean p_11238_, CallbackInfoReturnable<ServerPlayer> cir) {
         boolean shouldMove = false;
         BlockPos blockPos =  BlockPos.ZERO.above(81);
         BlockState blockState = serverPlayer2.level().getBlockState(blockPos);
@@ -90,11 +92,13 @@ public class PlayerListMixin {
     }
 
     @Inject(method = "placeNewPlayer",at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;initInventoryMenu()V", shift = At.Shift.AFTER))
-    public void infoNew(final CallbackInfo info ,@Local(argsOnly = true) ServerPlayer serverPlayer) {
-        serverPlayer.sendSystemMessage(Component.literal(""));
-        serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect1"));
-        serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect2"));
-        serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect3"));
-        serverPlayer.sendSystemMessage(Component.literal(""));
+    public void infoNew(Connection p_11262_, ServerPlayer serverPlayer,final CallbackInfo info) {
+        if(queueFile()) {
+            serverPlayer.sendSystemMessage(Component.literal(""));
+            serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect1"));
+            serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect2"));
+            serverPlayer.sendSystemMessage(Component.translatable("chat.cloud_revive.player_connect3"));
+            serverPlayer.sendSystemMessage(Component.literal(""));
+        }
     }
 }
