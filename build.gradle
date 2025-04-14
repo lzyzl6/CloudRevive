@@ -129,8 +129,6 @@ dependencies {
     // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
     // The group id is ignored when searching -- in this case, it is "blank"
     // implementation "blank:coolmod-${mc_version}:${coolmod_version}"
-    implementation "org.sinytra.forgified-fabric-api:forgified-fabric-api:0.107.0+2.0.25+1.21.1"
-
     implementation "io.wispforest:accessories-neoforge:${project.accessories_version}"
 
     runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"

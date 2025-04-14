@@ -53,7 +53,7 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
     }
 
     //属性
-    public static AttributeSupplier.Builder createAttributes() {
+    public static AttributeSupplier createAttributes() {
         return PathfinderMob.createMobAttributes()
                 .add(Attributes.FLYING_SPEED, 0.2d)
                 .add(Attributes.FOLLOW_RANGE, 64.0d)
@@ -61,7 +61,8 @@ public class WanderingSpirit extends PathfinderMob implements InventoryCarrier {
                 .add(Attributes.BURNING_TIME, 0.0d)
                 .add(Attributes.SCALE, 0.6d)
                 .add(Attributes.GRAVITY, 0.0d)
-                .add(Attributes.MOVEMENT_SPEED, 0.2d);
+                .add(Attributes.MOVEMENT_SPEED, 0.2d)
+                .build();
     }
 
     public void setUpAnimation() {

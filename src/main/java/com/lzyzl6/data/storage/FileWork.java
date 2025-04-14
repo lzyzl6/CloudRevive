@@ -3,15 +3,13 @@ package com.lzyzl6.data.storage;
 import com.lzyzl6.block.blockentity.BirthBeaconEntity;
 import com.lzyzl6.entity.WanderingSpirit;
 import com.lzyzl6.registry.ModBlocks;
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.fml.ModList;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -26,10 +24,56 @@ public class FileWork {
         return rootDir;
     }
 
+    public static void configFile() {
+        File rootDir = rootDir();
+        File configFile = new File(rootDir, "config.txt");
+        try {
+            if (!configFile.exists()) {
+                BufferedWriter out = new BufferedWriter(new FileWriter(configFile));
+                BufferedReader in = new BufferedReader(new FileReader(configFile));
+                if (in.readLine() == null) {
+                    out.write("//Cloud Revive Config\n");
+                    out.write("//You can modify the following options to customize the behavior of Cloud Revive.\n");
+                    out.write("\n\n");
+                    out.write("//Enable the on-screen prompt\n");
+                    out.write("on_screen_prompt=true\n\n");
+                    out.close();
+                    in.close();
+                }
+            }
+        }catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static boolean queueFile() {
+        File rootDir = rootDir();
+        File configFile = new File(rootDir, "config.txt");
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(configFile));
+            String line;
+            while ((line = in.readLine()) != null)  {
+                if(line.contains("on_screen_prompt")) {
+                    int borderIndex;
+                    for (borderIndex = 0; borderIndex < line.length(); borderIndex++) {
+                        if (line.charAt(borderIndex) == '=') {
+                            break;
+                        }
+                    }
+                    String value = line.substring(borderIndex + 1);
+                    return !value.equals("false");
+                }
+            }
+            in.close();
+        } catch (IOException ignored) {
+        }
+        return true;
+    }
+
     public static void warnFile() {
         File rootDir = rootDir();
-        File warningFileZH = new File(rootDir, "请勿修改此文件夹下的文件！！！会导致进入世界崩溃！！！");
-        File warningFileEN = new File(rootDir, "Don't modify the files under this folder!!! Worlds will crash on launch!!!");
+        File warningFileZH = new File(rootDir, "请勿随意修改此文件夹下的文件！！！会导致进入世界崩溃！！！");
+        File warningFileEN = new File(rootDir, "Only modify files if you know what you are doing!!! Worlds can crash on startup!");
         try {
             if (!warningFileZH.createNewFile()) {
                 warningFileZH.mkdirs();
@@ -306,32 +350,33 @@ public class FileWork {
 
     //安装模组检查
     public static boolean isAccessoriesInstalled() {
-        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
-        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("accessories"));
+        ModList modList = ModList.get();
+        return modList.getModFiles().stream().anyMatch(mod -> mod.moduleName().equals("accessories"));
     }
 
     public static boolean isCuriosInstalled() {
-        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
-        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("curios"));
+        ModList modList = ModList.get();
+        return modList.getModFiles().stream().anyMatch(mod -> mod.moduleName().equals("curios"));
     }
 
     public static boolean isBackpackedInstalled() {
-        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
-        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("backpacked"));
+        ModList modList = ModList.get();
+        return modList.getModFiles().stream().anyMatch(mod -> mod.moduleName().equals("backpacked"));
     }
 
     public static boolean isSophisticatedBackpacksInstalled() {
-        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
-        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("sophisticatedbackpacks"));
+        ModList modList = ModList.get();
+        return modList.getModFiles().stream().anyMatch(mod -> mod.moduleName().equals("sophisticatedbackpacks"));
     }
 
     public static boolean isTravelersBackpackInstalled() {
-        Collection<ModContainer> modList = FabricLoader.getInstance().getAllMods();
-        return modList.stream().anyMatch(mod -> mod.getMetadata().getId().equals("travelersbackpack"));
+        ModList modList = ModList.get();
+        return modList.getModFiles().stream().anyMatch(mod -> mod.moduleName().equals("travelersbackpack"));
     }
 
     public static void initialize() {
         rootDir();
+        configFile();
         warnFile();
     }
 }
