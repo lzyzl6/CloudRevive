@@ -91,7 +91,7 @@
   "tip.pearl.14" : "§9Chi Apple§r: Non-nourishing. Grants levitation and rare buffs.",
   "tip.pearl.15" : "§9Primordial Pearl§r: Grants basic knowledge until §9Chaos Soul Cage§r is made.\nAlso crafts §9Chaos Orb§r and §9Primordial Cage§r.",
   "tip.pearl.16" : "Progression: After §9Chaos Soul Cage§r,\nuse §9Primordial Pearl§r to make §9Chaos Orb§r for advanced knowledge.",
-  "tip.pearl.17" : "Commands: §2/killghost§r clears spirits in 20000 blocks §4(use carefully)§r.\n§2/givepearl§r grants a §9Primordial Pearl§r.",
+  "tip.pearl.17" : "Commands: §2/killghost§r clears spirits in the current dimension §4(use carefully)§r.\n§2/queueghost§r to check the location of all your past-live spirits in the current dimension.\n§2/givepearl§r grants a §9Primordial Pearl§r.",
 
   "tip.chaos_pearl.1" : "Item Duplication: Use 『Chaos Core Chi』 to duplicate rare items\n(e.g., Nether Stars, Netherite Ingots, Enchanted Golden Apples).",
   "tip.chaos_pearl.2" : "§5§lQingdu§r: Once souls' destination. After the disaster,\nsouls wander with fragmented memories.",
@@ -99,7 +99,7 @@
   "tip.chaos_pearl.4" : "§9Afterlife Beacon§r: Summons all past-life spirits. Requires §9Chaos Orb§r to charge.",
   "tip.chaos_pearl.5" : "§9Afterlife Beacon§r: Only affects the activator's current dimension.",
   "tip.chaos_pearl.6" : "§9Soulbrand Gem§r: Contains soul data from §iWandering Spirits§r.\nEssential for §9Afterlife Beacon§r.",
-  "tip.chaos_pearl.7" : "§9Soulbrand Gem§r: Bound to your soul essence, manifests as \"§dSoul Bind§r\" enchantment.",
+  "tip.chaos_pearl.7" : "§9Soulbrand Gem§r: Bound to your soul essence, manifests as §d\"Soul Bind\"§r enchantment.",
   "tip.chaos_pearl.8" : "§9Chaos Orb§r: Holds advanced knowledge. Powers §9Afterlife Beacon§r.",
   "tip.chaos_pearl.9" : "§eSoulshift§r: Become invulnerable like a ghost temporarily.",
   "tip.chaos_pearl.10" : "Repair: Use 『Primordial Chi』 for §9Roaming Chi Cage§r,\n『Chaos Core Chi』 for §9Chaos Soul Cage§r.",
@@ -217,5 +217,6 @@
   "chat.goal.move_to_player.start" : "§l§oYour past-life spirit senses you nearby!\nApproaching...",
 
   "command.killghost.success" : "Killed all wandering spirits in this dimension",
-  "command.givepearl.success" : "Granted"
+  "command.givepearl.success" : "Granted",
+  "command.queueghost.failure": "No your spirits found"
 }
